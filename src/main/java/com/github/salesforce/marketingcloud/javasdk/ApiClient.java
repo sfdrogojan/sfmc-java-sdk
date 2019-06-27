@@ -13,6 +13,8 @@
 
 package com.github.salesforce.marketingcloud.javasdk;
 
+import com.github.salesforce.marketingcloud.javasdk.auth.*;
+import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
 import com.squareup.okhttp.*;
 import com.squareup.okhttp.internal.http.HttpMethod;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
@@ -45,11 +47,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.github.salesforce.marketingcloud.javasdk.auth.Authentication;
-import com.github.salesforce.marketingcloud.javasdk.auth.HttpBasicAuth;
-import com.github.salesforce.marketingcloud.javasdk.auth.ApiKeyAuth;
-import com.github.salesforce.marketingcloud.javasdk.auth.OAuth;
-
 public class ApiClient {
 
     private String basePath = "https://www.exacttargetapis.com";
@@ -73,6 +70,8 @@ public class ApiClient {
 
     private HttpLoggingInterceptor loggingInterceptor;
 
+    private OAuth2Authenticator oAuth2Authenticator;
+
     /*
      * Constructor for ApiClient
      */
@@ -89,8 +88,15 @@ public class ApiClient {
 
         // Setup authentications (key: authentication name, value: authentication).
         authentications = new HashMap<String, Authentication>();
+        authentications.put("oauth2", new OAuth());
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
+    }
+
+    public ApiClient(OAuth2Authenticator oAuth2Authenticator)
+    {
+        this();
+        this.oAuth2Authenticator = oAuth2Authenticator;
     }
 
     /**
@@ -963,6 +969,10 @@ public class ApiClient {
      * @throws ApiException If fail to serialize the request body object
      */
     public Request buildRequest(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+        AccessTokenResponse response = this.oAuth2Authenticator.getTokenResponse();
+        this.setBasePath(response.getRestInstanceUrl());
+        this.setAccessToken(response.getAccessToken());
+
         updateParamsForAuth(authNames, queryParams, headerParams);
 
         final String url = buildUrl(path, queryParams, collectionQueryParams);

@@ -34,10 +34,10 @@ import java.util.List;
  */
 
 public class Asset {
-  @SerializedName("Id")
+  @SerializedName(value = "Id", alternate = "id")
   private BigDecimal id = null;
 
-  @SerializedName("CustomerKey")
+  @SerializedName(value = "CustomerKey", alternate = "customerKey")
   private String customerKey = null;
 
   @SerializedName("ContentType")

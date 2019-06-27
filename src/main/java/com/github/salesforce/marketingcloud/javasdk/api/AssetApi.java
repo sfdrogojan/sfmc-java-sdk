@@ -17,17 +17,16 @@ import com.github.salesforce.marketingcloud.javasdk.ApiCallback;
 import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.ApiResponse;
-import com.github.salesforce.marketingcloud.javasdk.Configuration;
 import com.github.salesforce.marketingcloud.javasdk.Pair;
 import com.github.salesforce.marketingcloud.javasdk.ProgressRequestBody;
 import com.github.salesforce.marketingcloud.javasdk.ProgressResponseBody;
 
+import com.github.salesforce.marketingcloud.javasdk.auth.OAuth2Authenticator;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
 
-import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Asset;
 import java.math.BigDecimal;
 
@@ -39,9 +38,11 @@ import java.util.Map;
 
 public class AssetApi {
     private ApiClient apiClient;
+    private OAuth2Authenticator oAuth2Authenticator;
 
-    public AssetApi() {
-        this(Configuration.getDefaultApiClient());
+    public AssetApi(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
+        this.oAuth2Authenticator = new OAuth2Authenticator(authBasePath, clientId, clientSecret, accountId, scope);
+        this.apiClient = new ApiClient(this.oAuth2Authenticator);
     }
 
     public AssetApi(ApiClient apiClient) {
@@ -101,7 +102,7 @@ public class AssetApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "oauth2" };
         return apiClient.buildCall(localVarPath, "POST", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -338,7 +339,7 @@ public class AssetApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "oauth2" };
         return apiClient.buildCall(localVarPath, "GET", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 

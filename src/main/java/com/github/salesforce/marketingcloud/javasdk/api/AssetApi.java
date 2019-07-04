@@ -21,6 +21,7 @@ import com.github.salesforce.marketingcloud.javasdk.Pair;
 import com.github.salesforce.marketingcloud.javasdk.ProgressRequestBody;
 import com.github.salesforce.marketingcloud.javasdk.ProgressResponseBody;
 
+import com.github.salesforce.marketingcloud.javasdk.auth.ClientCredentials;
 import com.github.salesforce.marketingcloud.javasdk.auth.OAuth2Authenticator;
 import com.google.gson.reflect.TypeToken;
 
@@ -41,7 +42,7 @@ public class AssetApi {
     private OAuth2Authenticator oAuth2Authenticator;
 
     public AssetApi(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
-        this.oAuth2Authenticator = new OAuth2Authenticator(authBasePath, clientId, clientSecret, accountId, scope);
+        this.oAuth2Authenticator = new OAuth2Authenticator(new ClientCredentials(authBasePath, clientId, clientSecret, accountId, scope));
         this.apiClient = new ApiClient(this.oAuth2Authenticator);
     }
 
@@ -220,7 +221,7 @@ public class AssetApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "oauth2" };
         return apiClient.buildCall(localVarPath, "DELETE", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 
@@ -463,7 +464,7 @@ public class AssetApi {
             });
         }
 
-        String[] localVarAuthNames = new String[] {  };
+        String[] localVarAuthNames = new String[] { "oauth2" };
         return apiClient.buildCall(localVarPath, "PATCH", localVarQueryParams, localVarCollectionQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarAuthNames, progressRequestListener);
     }
 

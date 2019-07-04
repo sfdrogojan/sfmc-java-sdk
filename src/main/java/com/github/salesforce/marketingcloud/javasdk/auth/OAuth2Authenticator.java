@@ -1,13 +1,11 @@
 package com.github.salesforce.marketingcloud.javasdk.auth;
 
+import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
+import com.github.salesforce.marketingcloud.javasdk.ApiResponse;
 import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.squareup.okhttp.*;
-
-import java.io.IOException;
 
 public class OAuth2Authenticator {
     private String authBasePath;
@@ -15,26 +13,33 @@ public class OAuth2Authenticator {
     private String clientSecret;
     private String accountId;
     private String scope;
-    private AccessTokenResponse accessTokenResponse;
-    private long tokenExpirationTime = 0;
+    private static AccessTokenResponse accessTokenResponse;
+    private static long tokenExpirationTime = 0;
 
-    public OAuth2Authenticator(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
-        // TODO - set user agent
-        this.authBasePath = authBasePath;
-        this.clientId = clientId;
-        this.clientSecret = clientSecret;
-        this.accountId = accountId;
-        this.scope = scope;
+    public OAuth2Authenticator(ClientCredentials clientCredentials) {
+        this.authBasePath = clientCredentials.getAuthBasePath();
+        this.clientId = clientCredentials.getClientId();
+        this.clientSecret = clientCredentials.getClientSecret();
+        this.accountId = clientCredentials.getAccountId();
+        this.scope = clientCredentials.getScope();
+    }
+
+    static void reset()
+    {
+        tokenExpirationTime = 0;
+        accessTokenResponse = null;
     }
 
     public AccessTokenResponse getTokenResponse() throws ApiException {
+
+        ApiClient apiClient = new ApiClient();
+        apiClient.setBasePath(authBasePath);
+
         if (tokenExpirationTime > 0) {
             if (tokenExpirationTime - System.currentTimeMillis() > 5*60*1000) {
                 return accessTokenResponse;
             }
         }
-
-        OkHttpClient httpClient = new OkHttpClient();
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("client_id", clientId);
@@ -49,9 +54,7 @@ public class OAuth2Authenticator {
             jsonObject.addProperty("scope", scope);
         }
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
-        String requestPayload = gson.toJson(jsonObject);
+        String requestPayload = apiClient.getJSON().getGson().toJson(jsonObject);
 
         RequestBody body = RequestBody.create(
                 MediaType.parse("application/json"), requestPayload
@@ -62,14 +65,11 @@ public class OAuth2Authenticator {
                 .post(body)
                 .build();
 
-        try {
-            Response response = httpClient.newCall(request).execute();
-            accessTokenResponse = gson.fromJson(response.body().string(), AccessTokenResponse.class);
-            tokenExpirationTime = System.currentTimeMillis() + (accessTokenResponse.getExpiresIn() * 1000);
-        } catch (IOException e) {
-            throw new ApiException(e);
-        }
+        Call tokenCall = apiClient.getHttpClient().newCall(request);
+        ApiResponse<AccessTokenResponse> response = apiClient.execute(tokenCall, AccessTokenResponse.class);
+        accessTokenResponse = response.getData();
+        tokenExpirationTime = System.currentTimeMillis() + (accessTokenResponse.getExpiresIn() * 1000);
 
-        return accessTokenResponse;
+        return this.accessTokenResponse;
     }
 }

@@ -99,6 +99,15 @@ public class ApiClient {
         this.oAuth2Authenticator = oAuth2Authenticator;
     }
 
+//    public ApiClient(boolean useOAuth2)
+//    {
+//        this();
+//        if(useOAuth2)
+//        {
+//            authentications.put("oauth2", new OAuth());
+//        }
+//    }
+
     /**
      * Get base path
      *

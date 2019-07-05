@@ -1,13 +1,13 @@
 package com.github.salesforce.marketingcloud.javasdk.auth;
 
-public class ClientCredentials {
+public class ClientConfig {
     private final String authBasePath;
     private final String clientId;
     private final String clientSecret;
     private final String accountId;
     private final String scope;
 
-    public ClientCredentials(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
+    public ClientConfig(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
         this.authBasePath = authBasePath;
         this.clientId = clientId;
         this.clientSecret = clientSecret;

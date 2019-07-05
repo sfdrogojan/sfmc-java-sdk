@@ -21,8 +21,7 @@ import com.github.salesforce.marketingcloud.javasdk.Pair;
 import com.github.salesforce.marketingcloud.javasdk.ProgressRequestBody;
 import com.github.salesforce.marketingcloud.javasdk.ProgressResponseBody;
 
-import com.github.salesforce.marketingcloud.javasdk.auth.ClientCredentials;
-import com.github.salesforce.marketingcloud.javasdk.auth.OAuth2Authenticator;
+import com.github.salesforce.marketingcloud.javasdk.auth.*;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -39,11 +38,14 @@ import java.util.Map;
 
 public class AssetApi {
     private ApiClient apiClient;
-    private OAuth2Authenticator oAuth2Authenticator;
+    private IAuthService authService;
 
     public AssetApi(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
-        this.oAuth2Authenticator = new OAuth2Authenticator(new ClientCredentials(authBasePath, clientId, clientSecret, accountId, scope));
-        this.apiClient = new ApiClient(this.oAuth2Authenticator);
+        ClientConfig clientConfig = new ClientConfig(authBasePath, clientId, clientSecret, accountId, scope);
+        DateTimeProvider dateTimeProvider = new DefaultDateTimeProvider();
+        ICacheService cacheService = new CacheService(dateTimeProvider);
+        authService = new AuthService(clientConfig, new ApiClient(), cacheService);
+        this.apiClient = new ApiClient(authService);
     }
 
     public AssetApi(ApiClient apiClient) {

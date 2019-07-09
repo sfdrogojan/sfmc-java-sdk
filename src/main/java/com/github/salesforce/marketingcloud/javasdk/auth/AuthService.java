@@ -1,18 +1,18 @@
 package com.github.salesforce.marketingcloud.javasdk.auth;
 
+import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.ApiResponse;
-import com.github.salesforce.marketingcloud.javasdk.IApiClient;
 import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
 import com.google.gson.JsonObject;
 import com.squareup.okhttp.*;
 
 public class AuthService implements IAuthService {
     private final ClientConfig clientConfig;
-    private final IApiClient apiClient;
+    private final ApiClient apiClient;
     private final ICacheService cacheService;
 
-    public AuthService(ClientConfig clientConfig, IApiClient apiClient, ICacheService cacheService) {
+    public AuthService(ClientConfig clientConfig, ApiClient apiClient, ICacheService cacheService) {
         this.clientConfig = clientConfig;
         this.apiClient = apiClient;
         this.cacheService = cacheService;

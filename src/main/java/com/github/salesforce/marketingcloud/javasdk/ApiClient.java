@@ -47,7 +47,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ApiClient implements IApiClient {
+public class ApiClient {
 
     private String basePath = "https://www.exacttargetapis.com";
     private boolean debugging = false;
@@ -104,7 +104,6 @@ public class ApiClient implements IApiClient {
      *
      * @return Baes path
      */
-    @Override
     public String getBasePath() {
         return basePath;
     }
@@ -115,7 +114,6 @@ public class ApiClient implements IApiClient {
      * @param basePath Base path of the URL (e.g https://www.exacttargetapis.com
      * @return An instance of OkHttpClient
      */
-    @Override
     public ApiClient setBasePath(String basePath) {
         this.basePath = basePath;
         return this;
@@ -126,7 +124,6 @@ public class ApiClient implements IApiClient {
      *
      * @return An instance of OkHttpClient
      */
-    @Override
     public OkHttpClient getHttpClient() {
         return httpClient;
     }
@@ -137,7 +134,6 @@ public class ApiClient implements IApiClient {
      * @param httpClient An instance of OkHttpClient
      * @return Api Client
      */
-    @Override
     public ApiClient setHttpClient(OkHttpClient httpClient) {
         this.httpClient = httpClient;
         return this;
@@ -148,7 +144,6 @@ public class ApiClient implements IApiClient {
      *
      * @return JSON object
      */
-    @Override
     public JSON getJSON() {
         return json;
     }
@@ -159,7 +154,6 @@ public class ApiClient implements IApiClient {
      * @param json JSON object
      * @return Api client
      */
-    @Override
     public ApiClient setJSON(JSON json) {
         this.json = json;
         return this;
@@ -170,7 +164,6 @@ public class ApiClient implements IApiClient {
      *
      * @return True if isVerifySsl flag is on
      */
-    @Override
     public boolean isVerifyingSsl() {
         return verifyingSsl;
     }
@@ -183,7 +176,6 @@ public class ApiClient implements IApiClient {
      * @param verifyingSsl True to verify TLS/SSL connection
      * @return ApiClient
      */
-    @Override
     public ApiClient setVerifyingSsl(boolean verifyingSsl) {
         this.verifyingSsl = verifyingSsl;
         applySslSettings();
@@ -195,7 +187,6 @@ public class ApiClient implements IApiClient {
      *
      * @return Input stream to the SSL CA cert
      */
-    @Override
     public InputStream getSslCaCert() {
         return sslCaCert;
     }
@@ -207,14 +198,12 @@ public class ApiClient implements IApiClient {
      * @param sslCaCert input stream for SSL CA cert
      * @return ApiClient
      */
-    @Override
     public ApiClient setSslCaCert(InputStream sslCaCert) {
         this.sslCaCert = sslCaCert;
         applySslSettings();
         return this;
     }
 
-    @Override
     public KeyManager[] getKeyManagers() {
         return keyManagers;
     }
@@ -226,43 +215,36 @@ public class ApiClient implements IApiClient {
      * @param managers The KeyManagers to use
      * @return ApiClient
      */
-    @Override
     public ApiClient setKeyManagers(KeyManager[] managers) {
         this.keyManagers = managers;
         applySslSettings();
         return this;
     }
 
-    @Override
     public DateFormat getDateFormat() {
         return dateFormat;
     }
 
-    @Override
     public ApiClient setDateFormat(DateFormat dateFormat) {
         this.json.setDateFormat(dateFormat);
         return this;
     }
 
-    @Override
     public ApiClient setSqlDateFormat(DateFormat dateFormat) {
         this.json.setSqlDateFormat(dateFormat);
         return this;
     }
 
-    @Override
     public ApiClient setOffsetDateTimeFormat(DateTimeFormatter dateFormat) {
         this.json.setOffsetDateTimeFormat(dateFormat);
         return this;
     }
 
-    @Override
     public ApiClient setLocalDateFormat(DateTimeFormatter dateFormat) {
         this.json.setLocalDateFormat(dateFormat);
         return this;
     }
 
-    @Override
     public ApiClient setLenientOnJson(boolean lenientOnJson) {
         this.json.setLenientOnJson(lenientOnJson);
         return this;
@@ -273,7 +255,6 @@ public class ApiClient implements IApiClient {
      *
      * @return Map of authentication objects
      */
-    @Override
     public Map<String, Authentication> getAuthentications() {
         return authentications;
     }
@@ -284,7 +265,6 @@ public class ApiClient implements IApiClient {
      * @param authName The authentication name
      * @return The authentication, null if not found
      */
-    @Override
     public Authentication getAuthentication(String authName) {
         return authentications.get(authName);
     }
@@ -294,7 +274,6 @@ public class ApiClient implements IApiClient {
      *
      * @param username Username
      */
-    @Override
     public void setUsername(String username) {
         for (Authentication auth : authentications.values()) {
             if (auth instanceof HttpBasicAuth) {
@@ -310,7 +289,6 @@ public class ApiClient implements IApiClient {
      *
      * @param password Password
      */
-    @Override
     public void setPassword(String password) {
         for (Authentication auth : authentications.values()) {
             if (auth instanceof HttpBasicAuth) {
@@ -326,7 +304,6 @@ public class ApiClient implements IApiClient {
      *
      * @param apiKey API key
      */
-    @Override
     public void setApiKey(String apiKey) {
         for (Authentication auth : authentications.values()) {
             if (auth instanceof ApiKeyAuth) {
@@ -342,7 +319,6 @@ public class ApiClient implements IApiClient {
      *
      * @param apiKeyPrefix API key prefix
      */
-    @Override
     public void setApiKeyPrefix(String apiKeyPrefix) {
         for (Authentication auth : authentications.values()) {
             if (auth instanceof ApiKeyAuth) {
@@ -358,7 +334,6 @@ public class ApiClient implements IApiClient {
      *
      * @param accessToken Access token
      */
-    @Override
     public void setAccessToken(String accessToken) {
         for (Authentication auth : authentications.values()) {
             if (auth instanceof OAuth) {
@@ -375,7 +350,6 @@ public class ApiClient implements IApiClient {
      * @param userAgent HTTP request's user agent
      * @return ApiClient
      */
-    @Override
     public ApiClient setUserAgent(String userAgent) {
         addDefaultHeader("User-Agent", userAgent);
         return this;
@@ -388,7 +362,6 @@ public class ApiClient implements IApiClient {
      * @param value The header's value
      * @return ApiClient
      */
-    @Override
     public ApiClient addDefaultHeader(String key, String value) {
         defaultHeaderMap.put(key, value);
         return this;
@@ -399,7 +372,6 @@ public class ApiClient implements IApiClient {
      *
      * @return True if debugging is enabled, false otherwise.
      */
-    @Override
     public boolean isDebugging() {
         return debugging;
     }
@@ -410,7 +382,6 @@ public class ApiClient implements IApiClient {
      * @param debugging To enable (true) or disable (false) debugging
      * @return ApiClient
      */
-    @Override
     public ApiClient setDebugging(boolean debugging) {
         if (debugging != this.debugging) {
             if (debugging) {
@@ -434,7 +405,6 @@ public class ApiClient implements IApiClient {
      * @see <a href="https://docs.oracle.com/javase/7/docs/api/java/io/File.html#createTempFile">createTempFile</a>
      * @return Temporary folder path
      */
-    @Override
     public String getTempFolderPath() {
         return tempFolderPath;
     }
@@ -445,7 +415,6 @@ public class ApiClient implements IApiClient {
      * @param tempFolderPath Temporary folder path
      * @return ApiClient
      */
-    @Override
     public ApiClient setTempFolderPath(String tempFolderPath) {
         this.tempFolderPath = tempFolderPath;
         return this;
@@ -456,7 +425,6 @@ public class ApiClient implements IApiClient {
      *
      * @return Timeout in milliseconds
      */
-    @Override
     public int getConnectTimeout() {
         return httpClient.getConnectTimeout();
     }
@@ -469,7 +437,6 @@ public class ApiClient implements IApiClient {
      * @param connectionTimeout connection timeout in milliseconds
      * @return Api client
      */
-    @Override
     public ApiClient setConnectTimeout(int connectionTimeout) {
         httpClient.setConnectTimeout(connectionTimeout, TimeUnit.MILLISECONDS);
         return this;
@@ -480,7 +447,6 @@ public class ApiClient implements IApiClient {
      *
      * @return Timeout in milliseconds
      */
-    @Override
     public int getReadTimeout() {
         return httpClient.getReadTimeout();
     }
@@ -493,7 +459,6 @@ public class ApiClient implements IApiClient {
      * @param readTimeout read timeout in milliseconds
      * @return Api client
      */
-    @Override
     public ApiClient setReadTimeout(int readTimeout) {
         httpClient.setReadTimeout(readTimeout, TimeUnit.MILLISECONDS);
         return this;
@@ -504,7 +469,6 @@ public class ApiClient implements IApiClient {
      *
      * @return Timeout in milliseconds
      */
-    @Override
     public int getWriteTimeout() {
         return httpClient.getWriteTimeout();
     }
@@ -517,7 +481,6 @@ public class ApiClient implements IApiClient {
      * @param writeTimeout connection timeout in milliseconds
      * @return Api client
      */
-    @Override
     public ApiClient setWriteTimeout(int writeTimeout) {
         httpClient.setWriteTimeout(writeTimeout, TimeUnit.MILLISECONDS);
         return this;
@@ -529,7 +492,6 @@ public class ApiClient implements IApiClient {
      * @param param Parameter
      * @return String representation of the parameter
      */
-    @Override
     public String parameterToString(Object param) {
         if (param == null) {
             return "";
@@ -560,7 +522,6 @@ public class ApiClient implements IApiClient {
      * @param value The value of the parameter.
      * @return A list containing a single {@code Pair} object.
      */
-    @Override
     public List<Pair> parameterToPair(String name, Object value) {
         List<Pair> params = new ArrayList<Pair>();
 
@@ -581,7 +542,6 @@ public class ApiClient implements IApiClient {
      * @param value The value of the parameter.
      * @return A list of {@code Pair} objects.
      */
-    @Override
     public List<Pair> parameterToPairs(String collectionFormat, String name, Collection value) {
         List<Pair> params = new ArrayList<Pair>();
 
@@ -629,7 +589,6 @@ public class ApiClient implements IApiClient {
      * @param filename The filename to be sanitized
      * @return The sanitized filename
      */
-    @Override
     public String sanitizeFilename(String filename) {
         return filename.replaceAll(".*[/\\\\]", "");
     }
@@ -645,7 +604,6 @@ public class ApiClient implements IApiClient {
      * @param mime MIME (Multipurpose Internet Mail Extensions)
      * @return True if the given MIME is JSON, false otherwise.
      */
-    @Override
     public boolean isJsonMime(String mime) {
       String jsonMime = "(?i)^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$";
       return mime != null && (mime.matches(jsonMime) || mime.equals("*/*"));
@@ -660,7 +618,6 @@ public class ApiClient implements IApiClient {
      * @return The Accept header to use. If the given array is empty,
      *   null will be returned (not to set the Accept header explicitly).
      */
-    @Override
     public String selectHeaderAccept(String[] accepts) {
         if (accepts.length == 0) {
             return null;
@@ -682,7 +639,6 @@ public class ApiClient implements IApiClient {
      * @return The Content-Type header to use. If the given array is empty,
      *   or matches "any", JSON will be used.
      */
-    @Override
     public String selectHeaderContentType(String[] contentTypes) {
         if (contentTypes.length == 0 || contentTypes[0].equals("*/*")) {
              return "application/json";
@@ -701,7 +657,6 @@ public class ApiClient implements IApiClient {
      * @param str String to be escaped
      * @return Escaped string
      */
-    @Override
     public String escapeString(String str) {
         try {
             return URLEncoder.encode(str, "utf8").replaceAll("\\+", "%20");
@@ -721,7 +676,6 @@ public class ApiClient implements IApiClient {
      * @throws ApiException If fail to deserialize response body, i.e. cannot read response body
      *   or the Content-Type of the response is not supported.
      */
-    @Override
     @SuppressWarnings("unchecked")
     public <T> T deserialize(Response response, Type returnType) throws ApiException {
         if (response == null || returnType == null) {
@@ -782,7 +736,6 @@ public class ApiClient implements IApiClient {
      * @return The serialized request body
      * @throws ApiException If fail to serialize the given object
      */
-    @Override
     public RequestBody serialize(Object obj, String contentType) throws ApiException {
         if (obj instanceof byte[]) {
             // Binary (byte array) body parameter support.
@@ -810,7 +763,6 @@ public class ApiClient implements IApiClient {
      * @throws ApiException If fail to read file content from response and write to disk
      * @return Downloaded file
      */
-    @Override
     public File downloadFileFromResponse(Response response) throws ApiException {
         try {
             File file = prepareDownloadFile(response);
@@ -830,7 +782,6 @@ public class ApiClient implements IApiClient {
      * @throws IOException If fail to prepare file for download
      * @return Prepared file for the download
      */
-    @Override
     public File prepareDownloadFile(Response response) throws IOException {
         String filename = null;
         String contentDisposition = response.header("Content-Disposition");
@@ -875,7 +826,6 @@ public class ApiClient implements IApiClient {
      * @throws ApiException If fail to execute the call
      * @return ApiResponse&lt;T&gt;
      */
-    @Override
     public <T> ApiResponse<T> execute(Call call) throws ApiException {
         return execute(call, null);
     }
@@ -891,7 +841,6 @@ public class ApiClient implements IApiClient {
      *   when returnType is null.
      * @throws ApiException If fail to execute the call
      */
-    @Override
     public <T> ApiResponse<T> execute(Call call, Type returnType) throws ApiException {
         try {
             Response response = call.execute();
@@ -909,7 +858,6 @@ public class ApiClient implements IApiClient {
      * @param call An instance of the Call object
      * @param callback ApiCallback&lt;T&gt;
      */
-    @Override
     public <T> void executeAsync(Call call, ApiCallback<T> callback) {
         executeAsync(call, null, callback);
     }
@@ -923,7 +871,6 @@ public class ApiClient implements IApiClient {
      * @param returnType Return type
      * @param callback ApiCallback
      */
-    @Override
     @SuppressWarnings("unchecked")
     public <T> void executeAsync(Call call, final Type returnType, final ApiCallback<T> callback) {
         call.enqueue(new Callback() {
@@ -956,7 +903,6 @@ public class ApiClient implements IApiClient {
      *   fail to deserialize the response body
      * @return Type
      */
-    @Override
     public <T> T handleResponse(Response response, Type returnType) throws ApiException {
         if (response.isSuccessful()) {
             if (returnType == null || response.code() == 204) {
@@ -1001,7 +947,6 @@ public class ApiClient implements IApiClient {
      * @return The HTTP call
      * @throws ApiException If fail to serialize the request body object
      */
-    @Override
     public Call buildCall(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Request request = buildRequest(path, method, queryParams, collectionQueryParams, body, headerParams, formParams, authNames, progressRequestListener);
 
@@ -1020,10 +965,9 @@ public class ApiClient implements IApiClient {
      * @param formParams The form parameters
      * @param authNames The authentications to apply
      * @param progressRequestListener Progress request listener
-     * @return The HTTP request 
+     * @return The HTTP request
      * @throws ApiException If fail to serialize the request body object
      */
-    @Override
     public Request buildRequest(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         AccessTokenResponse response = this.authService.getTokenResponse();
         this.setBasePath(response.getRestInstanceUrl());
@@ -1080,7 +1024,6 @@ public class ApiClient implements IApiClient {
      * @param collectionQueryParams The collection query parameters
      * @return The full URL
      */
-    @Override
     public String buildUrl(String path, List<Pair> queryParams, List<Pair> collectionQueryParams) {
         final StringBuilder url = new StringBuilder();
         url.append(basePath).append(path);
@@ -1128,7 +1071,6 @@ public class ApiClient implements IApiClient {
      * @param headerParams Header parameters in the ofrm of Map
      * @param reqBuilder Reqeust.Builder
      */
-    @Override
     public void processHeaderParams(Map<String, String> headerParams, Request.Builder reqBuilder) {
         for (Entry<String, String> param : headerParams.entrySet()) {
             reqBuilder.header(param.getKey(), parameterToString(param.getValue()));
@@ -1147,7 +1089,6 @@ public class ApiClient implements IApiClient {
      * @param queryParams  List of query parameters
      * @param headerParams  Map of header parameters
      */
-    @Override
     public void updateParamsForAuth(String[] authNames, List<Pair> queryParams, Map<String, String> headerParams) {
         for (String authName : authNames) {
             Authentication auth = authentications.get(authName);
@@ -1162,7 +1103,6 @@ public class ApiClient implements IApiClient {
      * @param formParams Form parameters in the form of Map
      * @return RequestBody
      */
-    @Override
     public RequestBody buildRequestBodyFormEncoding(Map<String, Object> formParams) {
         FormEncodingBuilder formBuilder  = new FormEncodingBuilder();
         for (Entry<String, Object> param : formParams.entrySet()) {
@@ -1178,7 +1118,6 @@ public class ApiClient implements IApiClient {
      * @param formParams Form parameters in the form of Map
      * @return RequestBody
      */
-    @Override
     public RequestBody buildRequestBodyMultipart(Map<String, Object> formParams) {
         MultipartBuilder mpBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
         for (Entry<String, Object> param : formParams.entrySet()) {
@@ -1201,7 +1140,6 @@ public class ApiClient implements IApiClient {
      * @param file The given file
      * @return The guessed Content-Type
      */
-    @Override
     public String guessContentTypeFromFile(File file) {
         String contentType = URLConnection.guessContentTypeFromName(file.getName());
         if (contentType == null) {

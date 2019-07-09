@@ -2,7 +2,6 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 
 import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
-import com.github.salesforce.marketingcloud.javasdk.IApiClient;
 import com.github.salesforce.marketingcloud.javasdk.api.ApiTest;
 import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
 import org.junit.After;
@@ -16,7 +15,7 @@ import static org.junit.Assert.*;
 public class AuthServiceIntegrationTests extends ApiTest {
     private AuthService authService;
     private ClientConfig clientConfig;
-    private IApiClient apiClient;
+    private ApiClient apiClient;
     private CacheService cacheService;
 
     @Before
@@ -72,5 +71,27 @@ public class AuthServiceIntegrationTests extends ApiTest {
         this.authService = new AuthService(this.clientConfig, this.apiClient, this.cacheService);
 
         this.authService.getTokenResponse();
+    }
+
+    @Test
+    public void shouldReturnTheSameAccessTokenResponseInstanceWhenCalledMultipleTimes() throws ApiException {
+        this.authService = new AuthService(clientConfig, apiClient, cacheService);
+
+        AccessTokenResponse tokenResponse1 = this.authService.getTokenResponse();
+        AccessTokenResponse tokenResponse2 = this.authService.getTokenResponse();
+
+        assertSame(tokenResponse1, tokenResponse2);
+    }
+
+    @Test
+    public void shouldCallOnlyOneTimeTheApiClientExecuteMethodWhenMultipleInstancesAreUsed() throws ApiException {
+        TestableApiClient testableApiClient = new TestableApiClient();
+        AuthService authServiceInstance1 = new AuthService(clientConfig, testableApiClient, cacheService);
+        AuthService authServiceInstance2 = new AuthService(clientConfig, testableApiClient, cacheService);
+
+        authServiceInstance1.getTokenResponse();
+        authServiceInstance2.getTokenResponse();
+
+        assertEquals(1, testableApiClient.getTimesExecuteWasCalled());
     }
 }

@@ -1,7 +1,7 @@
 package com.github.salesforce.marketingcloud.javasdk.auth;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public interface DateTimeProvider {
-    Date getCurrentDate();
+    LocalDateTime getCurrentDate();
 }

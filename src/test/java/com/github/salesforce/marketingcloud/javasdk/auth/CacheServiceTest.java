@@ -4,6 +4,8 @@ import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
 import org.junit.After;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+
 import static org.junit.Assert.*;
 
 public class CacheServiceTest {
@@ -11,21 +13,21 @@ public class CacheServiceTest {
     private String cacheKey = "cacheKey";
 
     @After
-    public void TearDown()
+    public void tearDown()
     {
         CacheService.cache.clear();
     }
 
     @Test
     public void get_WhenKeyNotPresent_ReturnsNull() {
-        CacheService cacheService = new CacheService(new DefaultDateTimeProvider());
+        CacheService cacheService = new CacheService(TestHelper.createSettableDateTimeProvider());
         assertNull(cacheService.get(cacheKey));
     }
 
     @Test
     public void get_WhenCacheIsNotExpired_ReturnsCachedValue() {
-        CacheService cacheService = new CacheService(new DefaultDateTimeProvider());
-        AccessTokenResponse accessTokenResponse = CreateAccessTokenResponse();
+        CacheService cacheService = new CacheService(TestHelper.createSettableDateTimeProvider());
+        AccessTokenResponse accessTokenResponse = TestHelper.createAccessTokenResponse();
         cacheService.addOrUpdate(cacheKey, accessTokenResponse);
 
         AccessTokenResponse cachedAccessTokenResponse = cacheService.get(cacheKey);
@@ -41,14 +43,14 @@ public class CacheServiceTest {
 
     @Test
     public void get_WhenCacheIsExpired_ReturnsNull() {
-        DefaultDateTimeProvider dateTimeProvider = new DefaultDateTimeProvider();
+        SettableDateTimeProvider dateTimeProvider = TestHelper.createSettableDateTimeProvider();
         CacheService cacheService = new CacheService(dateTimeProvider);
-        AccessTokenResponse accessTokenResponse = CreateAccessTokenResponse();
+        AccessTokenResponse accessTokenResponse = TestHelper.createAccessTokenResponse();
         cacheService.addOrUpdate(cacheKey, accessTokenResponse);
 
-        long currentTime = dateTimeProvider.getCurrentDate().getTime();
-        currentTime += 20 * 60 * 1000;
-        dateTimeProvider.getCurrentDate().setTime(currentTime);
+        LocalDateTime currentDateTime = dateTimeProvider.getCurrentDate();
+        LocalDateTime expiredCacheDateTime = currentDateTime.plusMinutes(20);
+        dateTimeProvider.setCurrentDate(expiredCacheDateTime);
 
         AccessTokenResponse cachedAccessTokenResponse = cacheService.get(cacheKey);
 
@@ -57,32 +59,17 @@ public class CacheServiceTest {
 
     @Test
     public void addOrUpdate_WhenCalledTwoTimesForTheSameKey_OverwritesCachedValue() {
-        DefaultDateTimeProvider dateTimeProvider = new DefaultDateTimeProvider();
+        SettableDateTimeProvider dateTimeProvider = TestHelper.createSettableDateTimeProvider();
         CacheService cacheService = new CacheService(dateTimeProvider);
-        AccessTokenResponse accessTokenResponse = CreateAccessTokenResponse();
+        AccessTokenResponse accessTokenResponse = TestHelper.createAccessTokenResponse();
 
         cacheService.addOrUpdate(cacheKey, accessTokenResponse);
 
-        AccessTokenResponse newAccessTokenResponse = CreateAccessTokenResponse();
+        AccessTokenResponse newAccessTokenResponse = TestHelper.createAccessTokenResponse();
         cacheService.addOrUpdate(cacheKey, newAccessTokenResponse);
 
         AccessTokenResponse cachedAccessTokenResponse = cacheService.get(cacheKey);
 
         assertEquals(cachedAccessTokenResponse, newAccessTokenResponse);
-    }
-
-    //TODO - add parameterized tests for invalid cache window
-
-    private AccessTokenResponse CreateAccessTokenResponse()
-    {
-        AccessTokenResponse accessTokenResponse = new AccessTokenResponse();
-        accessTokenResponse.setAccessToken("access_token");
-        accessTokenResponse.setTokenType("token_type");
-        accessTokenResponse.setExpiresIn(1000);
-        accessTokenResponse.setRestInstanceUrl("https://rest.com");
-        accessTokenResponse.setSoapInstanceUrl("https://soap.com");
-        accessTokenResponse.setScope("scope");
-
-        return accessTokenResponse;
     }
 }

@@ -12,7 +12,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
 
-public class AuthServiceIntegrationTests extends ApiTest {
+public class AuthServiceIntegrationTest extends ApiTest {
     private AuthService authService;
     private ClientConfig clientConfig;
     private ApiClient apiClient;

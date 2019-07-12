@@ -31,13 +31,13 @@ import java.math.BigDecimal;
 @ApiModel(description = "The asset type")
 
 public class AssetType {
-  @SerializedName("Id")
+  @SerializedName("id")
   private BigDecimal id = null;
 
-  @SerializedName("Name")
+  @SerializedName("name")
   private String name = null;
 
-  @SerializedName("DisplayName")
+  @SerializedName("displayName")
   private String displayName = null;
 
   public AssetType id(BigDecimal id) {

@@ -16,6 +16,8 @@ package com.github.salesforce.marketingcloud.javasdk.api;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Asset;
+
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 
 import com.github.salesforce.marketingcloud.javasdk.model.AssetType;
@@ -33,15 +35,13 @@ import static org.junit.Assert.*;
 /**
  * API tests for AssetApi
  */
-@Ignore
 public class AssetApiTest extends ApiTest {
 
-    private final AssetApi api = new AssetApi(
-            authBasePath,
-            clientId,
-            clientSecret,
-            accountId,
-            scope);
+    private final AssetApi api;
+
+    public AssetApiTest() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        this.api = new ApiSutFactory<>(AssetApi.class).create();
+    }
 
     /**
      * createAsset
@@ -52,16 +52,15 @@ public class AssetApiTest extends ApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createAssetTest() throws ApiException {
+    public void createAssetTest() throws ApiException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Asset asset = createAsset();
-
-        Asset createdAsset = api.createAsset(asset);
+        Asset createdAsset = this.api.createAsset(asset);
         assertEquals(asset.getCustomerKey(), createdAsset.getCustomerKey());
-//        assertEquals(asset.getName(), createdAsset.getName());
-//        assertEquals(asset.getDescription(), createdAsset.getDescription());
-//        assertEquals(asset.getAssetType().getId(), createdAsset.getAssetType().getId());
-//        assertEquals(asset.getAssetType().getName(), createdAsset.getAssetType().getName());
-//        assertEquals(asset.getAssetType().getDisplayName(), createdAsset.getAssetType().getDisplayName());
+        assertEquals(asset.getName(), createdAsset.getName());
+        assertEquals(asset.getDescription(), createdAsset.getDescription());
+        assertEquals(asset.getAssetType().getId(), createdAsset.getAssetType().getId());
+        assertEquals(asset.getAssetType().getName(), createdAsset.getAssetType().getName());
+        assertEquals(asset.getAssetType().getDisplayName(), createdAsset.getAssetType().getDisplayName());
 
         // TODO: test validations
     }

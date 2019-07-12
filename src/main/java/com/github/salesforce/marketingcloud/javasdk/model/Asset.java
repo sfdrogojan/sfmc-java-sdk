@@ -34,88 +34,88 @@ import java.util.List;
  */
 
 public class Asset {
-  @SerializedName(value = "Id", alternate = "id")
+  @SerializedName("id")
   private BigDecimal id = null;
 
-  @SerializedName(value = "CustomerKey", alternate = "customerKey")
+  @SerializedName("customerKey")
   private String customerKey = null;
 
-  @SerializedName("ContentType")
+  @SerializedName("contentType")
   private String contentType = null;
 
-  @SerializedName("Data")
+  @SerializedName("data")
   private Object data = null;
 
-  @SerializedName("AssetType")
+  @SerializedName("assetType")
   private AssetType assetType = null;
 
-  @SerializedName("Version")
+  @SerializedName("version")
   private BigDecimal version = null;
 
-  @SerializedName("Locked")
+  @SerializedName("locked")
   private Boolean locked = null;
 
-  @SerializedName("FileProperties")
+  @SerializedName("fileProperties")
   private Object fileProperties = null;
 
-  @SerializedName("Name")
+  @SerializedName("name")
   private String name = null;
 
-  @SerializedName("Description")
+  @SerializedName("description")
   private String description = null;
 
-  @SerializedName("Category")
+  @SerializedName("category")
   private Object category = null;
 
-  @SerializedName("Tags")
+  @SerializedName("tags")
   private List<String> tags = null;
 
-  @SerializedName("Content")
+  @SerializedName("content")
   private String content = null;
 
-  @SerializedName("Design")
+  @SerializedName("design")
   private String design = null;
 
-  @SerializedName("SuperContent")
+  @SerializedName("superContent")
   private String superContent = null;
 
-  @SerializedName("CustomFields")
+  @SerializedName("customFields")
   private Object customFields = null;
 
-  @SerializedName("Views")
+  @SerializedName("views")
   private Object views = null;
 
-  @SerializedName("Blocks")
+  @SerializedName("blocks")
   private Object blocks = null;
 
-  @SerializedName("MinBlocks")
+  @SerializedName("minBlocks")
   private BigDecimal minBlocks = null;
 
-  @SerializedName("MaxBlocks")
+  @SerializedName("maxBlocks")
   private BigDecimal maxBlocks = null;
 
-  @SerializedName("Channels")
+  @SerializedName("channels")
   private Object channels = null;
 
-  @SerializedName("AllowedBlocks")
+  @SerializedName("allowedBlocks")
   private List<String> allowedBlocks = null;
 
-  @SerializedName("Slots")
+  @SerializedName("slots")
   private Object slots = null;
 
-  @SerializedName("BusinessUnitAvailability")
+  @SerializedName("businessUnitAvailability")
   private Object businessUnitAvailability = null;
 
   @SerializedName("sharingProperties")
   private SharingProperties sharingProperties = null;
 
-  @SerializedName("Template")
+  @SerializedName("template")
   private Object template = null;
 
-  @SerializedName("File")
+  @SerializedName("file")
   private String file = null;
 
-  @SerializedName("GenerateFrom")
+  @SerializedName("generateFrom")
   private String generateFrom = null;
 
   public Asset id(BigDecimal id) {

@@ -13,14 +13,8 @@
 
 package com.github.salesforce.marketingcloud.javasdk.api;
 
-import com.github.salesforce.marketingcloud.javasdk.ApiCallback;
-import com.github.salesforce.marketingcloud.javasdk.ApiClient;
-import com.github.salesforce.marketingcloud.javasdk.ApiException;
-import com.github.salesforce.marketingcloud.javasdk.ApiResponse;
-import com.github.salesforce.marketingcloud.javasdk.Configuration;
-import com.github.salesforce.marketingcloud.javasdk.Pair;
-import com.github.salesforce.marketingcloud.javasdk.ProgressRequestBody;
-import com.github.salesforce.marketingcloud.javasdk.ProgressResponseBody;
+import com.github.salesforce.marketingcloud.javasdk.*;
+import com.github.salesforce.marketingcloud.javasdk.auth.*;
 
 import com.google.gson.reflect.TypeToken;
 
@@ -42,21 +36,15 @@ import java.util.Map;
 
 public class EmailDefinitionApi {
     private ApiClient apiClient;
+    private AuthService authService;
 
-    public EmailDefinitionApi() {
-        this(Configuration.getDefaultApiClient());
-    }
+    public EmailDefinitionApi(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
+        ClientConfig clientConfig = new ClientConfig(authBasePath, clientId, clientSecret, accountId, scope);
+        DateTimeProvider dateTimeProvider = new DateTimeProvider();
+        CacheService cacheService = new CacheService(dateTimeProvider);
 
-    public EmailDefinitionApi(ApiClient apiClient) {
-        this.apiClient = apiClient;
-    }
-
-    public ApiClient getApiClient() {
-        return apiClient;
-    }
-
-    public void setApiClient(ApiClient apiClient) {
-        this.apiClient = apiClient;
+        this.authService = new AuthService(clientConfig, new ApiClient(), cacheService);
+        this.apiClient = new ApiClient(authService);
     }
 
     /**

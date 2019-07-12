@@ -14,13 +14,14 @@
 package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.*;
-
 import com.github.salesforce.marketingcloud.javasdk.auth.*;
+
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
 
+import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Asset;
 import java.math.BigDecimal;
 

@@ -29,11 +29,15 @@ import java.util.Map;
  * API tests for CampaignApi
  */
 @Ignore
-public class CampaignApiTest {
+public class CampaignApiTest extends ApiTest {
 
-    private final CampaignApi api = new CampaignApi();
+    private final CampaignApi api = new CampaignApi(
+            authBasePath,
+            clientId,
+            clientSecret,
+            accountId,
+            scope);
 
-    
     /**
      * createCampaign
      *

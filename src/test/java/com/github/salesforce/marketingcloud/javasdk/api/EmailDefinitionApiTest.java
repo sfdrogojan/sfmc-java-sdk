@@ -32,10 +32,14 @@ import java.util.Map;
  * API tests for EmailDefinitionApi
  */
 @Ignore
-public class EmailDefinitionApiTest {
+public class EmailDefinitionApiTest extends ApiTest {
 
-    private final EmailDefinitionApi api = new EmailDefinitionApi();
-
+    private final EmailDefinitionApi api = new EmailDefinitionApi(
+            authBasePath,
+            clientId,
+            clientSecret,
+            accountId,
+            scope);
     
     /**
      * createEmailDefinition

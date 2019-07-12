@@ -31,22 +31,22 @@ import org.threeten.bp.OffsetDateTime;
  */
 
 public class Campaign {
-  @SerializedName("Name")
+  @SerializedName("name")
   private String name = null;
 
-  @SerializedName("Description")
+  @SerializedName("description")
   private String description = null;
 
-  @SerializedName("CampaignCode")
+  @SerializedName("campaignCode")
   private String campaignCode = null;
 
-  @SerializedName("Color")
+  @SerializedName("color")
   private String color = null;
 
-  @SerializedName("Favorite")
+  @SerializedName("favorite")
   private Boolean favorite = null;
 
-  @SerializedName("Id")
+  @SerializedName("id")
   private BigDecimal id = null;
 
   @SerializedName("createdDate")

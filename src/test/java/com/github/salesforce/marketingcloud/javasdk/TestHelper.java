@@ -1,4 +1,4 @@
-package com.github.salesforce.marketingcloud.javasdk.auth;
+package com.github.salesforce.marketingcloud.javasdk;
 
 import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
 

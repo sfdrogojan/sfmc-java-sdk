@@ -1,8 +1,8 @@
-package com.github.salesforce.marketingcloud.javasdk.auth;
+package com.github.salesforce.marketingcloud.javasdk;
 
 import java.time.LocalDateTime;
 
-public class SettableDateTimeProvider implements DateTimeProvider {
+public class SettableDateTimeProvider extends DateTimeProvider {
     LocalDateTime localDateTime;
 
     public SettableDateTimeProvider(LocalDateTime localDateTime)

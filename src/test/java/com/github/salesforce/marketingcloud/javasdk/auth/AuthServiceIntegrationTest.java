@@ -2,6 +2,8 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 
 import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
+import com.github.salesforce.marketingcloud.javasdk.DateTimeProvider;
+import com.github.salesforce.marketingcloud.javasdk.TestableApiClient;
 import com.github.salesforce.marketingcloud.javasdk.api.ApiTest;
 import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
 import org.junit.After;
@@ -24,7 +26,7 @@ public class AuthServiceIntegrationTest extends ApiTest {
         this.clientConfig = new ClientConfig(
                 this.authBasePath, this.clientId, this.clientSecret, this.accountId, this.scope);
         this.apiClient = new ApiClient();
-        this.cacheService = new CacheService(new DefaultDateTimeProvider());
+        this.cacheService = new CacheService(new DateTimeProvider());
     }
 
     @After()

@@ -70,7 +70,7 @@ public class ApiClient {
 
     private HttpLoggingInterceptor loggingInterceptor;
 
-    private IAuthService authService;
+    private AuthService authService;
 
     /*
      * Constructor for ApiClient
@@ -93,7 +93,7 @@ public class ApiClient {
         authentications = Collections.unmodifiableMap(authentications);
     }
 
-    public ApiClient(IAuthService authService)
+    public ApiClient(AuthService authService)
     {
         this();
         this.authService = authService;

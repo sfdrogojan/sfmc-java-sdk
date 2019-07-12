@@ -1,16 +1,15 @@
-package com.github.salesforce.marketingcloud.javasdk.auth;
+package com.github.salesforce.marketingcloud.javasdk;
 
 import java.time.LocalDateTime;
 
-public class DefaultDateTimeProvider implements DateTimeProvider {
+public class DateTimeProvider {
     LocalDateTime date;
 
-    public DefaultDateTimeProvider()
+    public DateTimeProvider()
     {
         this.date = LocalDateTime.now();
     }
 
-    @Override
     public LocalDateTime getCurrentDate() {
         return this.date;
     }

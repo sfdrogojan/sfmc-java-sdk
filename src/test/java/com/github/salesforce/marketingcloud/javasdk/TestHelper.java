@@ -1,5 +1,6 @@
 package com.github.salesforce.marketingcloud.javasdk;
 
+import com.github.salesforce.marketingcloud.javasdk.auth.ClientConfig;
 import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
 
 import java.time.LocalDateTime;
@@ -24,6 +25,17 @@ public class TestHelper {
     {
         return new SettableDateTimeProvider(LocalDateTime.of(
                 2000, Month.JANUARY, 1, 0, 0)
+        );
+    }
+
+    public static ClientConfig createClientConfig()
+    {
+        return new ClientConfig(
+                "https://auth.com",
+                "clientId",
+                "clientSecret",
+                "123456",
+                null
         );
     }
 }

@@ -3,7 +3,6 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.DateTimeProvider;
-import com.github.salesforce.marketingcloud.javasdk.TestableApiClient;
 import com.github.salesforce.marketingcloud.javasdk.api.ApiTest;
 import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
 import org.junit.After;
@@ -13,6 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 public class AuthServiceIntegrationTest extends ApiTest {
     private AuthService authService;
@@ -87,13 +87,14 @@ public class AuthServiceIntegrationTest extends ApiTest {
 
     @Test
     public void shouldCallOnlyOneTimeTheApiClientExecuteMethodWhenMultipleInstancesAreUsed() throws ApiException {
-        TestableApiClient testableApiClient = new TestableApiClient();
-        AuthService authServiceInstance1 = new AuthService(clientConfig, testableApiClient, cacheService);
-        AuthService authServiceInstance2 = new AuthService(clientConfig, testableApiClient, cacheService);
+        ApiClient apiClientSpy = spy(new ApiClient());
+
+        AuthService authServiceInstance1 = new AuthService(clientConfig, apiClientSpy, cacheService);
+        AuthService authServiceInstance2 = new AuthService(clientConfig, apiClientSpy, cacheService);
 
         authServiceInstance1.getTokenResponse();
         authServiceInstance2.getTokenResponse();
 
-        assertEquals(1, testableApiClient.getTimesExecuteWasCalled());
+        verify(apiClientSpy, times(1)).execute(any(), eq(AccessTokenResponse.class));
     }
 }

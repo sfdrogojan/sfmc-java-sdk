@@ -4,6 +4,7 @@ import com.github.salesforce.marketingcloud.javasdk.SettableDateTimeProvider;
 import com.github.salesforce.marketingcloud.javasdk.TestHelper;
 import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -14,11 +15,11 @@ public class CacheServiceTest {
 
     private String cacheKey = "cacheKey";
 
+    @Before
+    public void setup() { CacheService.cache.clear(); }
+
     @After
-    public void tearDown()
-    {
-        CacheService.cache.clear();
-    }
+    public void tearDown() { CacheService.cache.clear(); }
 
     @Test
     public void get_WhenKeyNotPresent_ReturnsNull() {

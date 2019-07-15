@@ -43,7 +43,12 @@ public class CacheServiceParameterizedTest {
         AccessTokenResponse accessTokenResponse = TestHelper.createAccessTokenResponse();
         cacheService.addOrUpdate(cacheKey, accessTokenResponse);
 
-        dateTimeProvider.setCurrentDate(dateTimeProvider.getCurrentDate().plusSeconds(accessTokenResponse.getExpiresIn()).minusSeconds(this.windowInSeconds));
+        dateTimeProvider.setCurrentDate(
+                dateTimeProvider
+                        .getCurrentDate()
+                        .plusSeconds(accessTokenResponse.getExpiresIn())
+                        .minusSeconds(this.windowInSeconds)
+        );
 
         boolean cachedValueNotNull = cacheService.get(cacheKey) != null;
 

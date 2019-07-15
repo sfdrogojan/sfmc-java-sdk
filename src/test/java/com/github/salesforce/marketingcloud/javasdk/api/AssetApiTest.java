@@ -14,23 +14,15 @@
 package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
-import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Asset;
+import com.github.salesforce.marketingcloud.javasdk.model.AssetType;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 
-import com.github.salesforce.marketingcloud.javasdk.model.AssetType;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Ignore;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * API tests for AssetApi
@@ -52,31 +44,24 @@ public class AssetApiTest extends ApiTest {
      *          if the Api call fails
      */
     @Test
-    public void createAssetTest() throws ApiException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void createAssetTest() throws ApiException {
         Asset asset = createAsset();
         Asset createdAsset = this.api.createAsset(asset);
-        assertEquals(asset.getCustomerKey(), createdAsset.getCustomerKey());
-        assertEquals(asset.getName(), createdAsset.getName());
-        assertEquals(asset.getDescription(), createdAsset.getDescription());
-        assertEquals(asset.getAssetType().getId(), createdAsset.getAssetType().getId());
-        assertEquals(asset.getAssetType().getName(), createdAsset.getAssetType().getName());
-        assertEquals(asset.getAssetType().getDisplayName(), createdAsset.getAssetType().getDisplayName());
+
+        try
+        {
+            assertEquals(asset.getCustomerKey(), createdAsset.getCustomerKey());
+            assertEquals(asset.getName(), createdAsset.getName());
+            assertEquals(asset.getDescription(), createdAsset.getDescription());
+            assertEquals(asset.getAssetType().getId(), createdAsset.getAssetType().getId());
+            assertEquals(asset.getAssetType().getName(), createdAsset.getAssetType().getName());
+            assertEquals(asset.getAssetType().getDisplayName(), createdAsset.getAssetType().getDisplayName());
+        }
+        finally {
+            this.api.deleteAssetById(createdAsset.getId());
+        }
 
         // TODO: test validations
-    }
-
-    private Asset createAsset() {
-        AssetType assetType = new AssetType();
-        assetType.setId(BigDecimal.valueOf(196));
-        assetType.setName("textblock");
-        assetType.setDisplayName("Text Block");
-
-        Asset asset = new Asset();
-        asset.setCustomerKey(java.util.UUID.randomUUID().toString());
-        asset.setName("Asset " + java.util.UUID.randomUUID().toString());
-        asset.setDescription("Asset from Automated Java SDK");
-        asset.setAssetType(assetType);
-        return asset;
     }
 
     /**
@@ -88,10 +73,19 @@ public class AssetApiTest extends ApiTest {
      *          if the Api call fails
      */
     @Test
-    @Ignore
     public void deleteAssetByIdTest() throws ApiException {
-        BigDecimal id = null;
-        api.deleteAssetById(id);
+        Asset asset = createAsset();
+        Asset createdAsset = this.api.createAsset(asset);
+        this.api.deleteAssetById(createdAsset.getId());
+
+        try
+        {
+            this.api.getAssetById(createdAsset.getId());
+            Assert.fail("No exception thrown");
+        }
+        catch (ApiException e){
+            assertEquals(404, e.getCode());
+        }
 
         // TODO: test validations
     }
@@ -107,9 +101,21 @@ public class AssetApiTest extends ApiTest {
     @Test
     public void getAssetByIdTest() throws ApiException {
         Asset asset = createAsset();
-        BigDecimal id = api.createAsset(asset).getId();
-        Asset response = api.getAssetById(id);
-        assertEquals(asset.getCustomerKey(), response.getCustomerKey());
+        Asset createdAsset = this.api.createAsset(asset);
+        Asset getAssetByIdResult = this.api.getAssetById(createdAsset.getId());
+
+        try
+        {
+            assertEquals(asset.getCustomerKey(), getAssetByIdResult.getCustomerKey());
+            assertEquals(asset.getName(), getAssetByIdResult.getName());
+            assertEquals(asset.getDescription(), getAssetByIdResult.getDescription());
+            assertEquals(asset.getAssetType().getId(), getAssetByIdResult.getAssetType().getId());
+            assertEquals(asset.getAssetType().getName(), getAssetByIdResult.getAssetType().getName());
+            assertEquals(asset.getAssetType().getDisplayName(), getAssetByIdResult.getAssetType().getDisplayName());
+        }
+        finally {
+            this.api.deleteAssetById(createdAsset.getId());
+        }
         // TODO: test validations
     }
     
@@ -122,13 +128,53 @@ public class AssetApiTest extends ApiTest {
      *          if the Api call fails
      */
     @Test
-    @Ignore
     public void partiallyUpdateAssetTest() throws ApiException {
-        BigDecimal id = null;
-        Asset asset = null;
-        Asset response = api.partiallyUpdateAsset(id, asset);
+        Asset asset = createAsset();
+        Asset createdAsset = this.api.createAsset(asset);
+        createdAsset.setDescription(java.util.UUID.randomUUID().toString());
+        Asset partiallyUpdateAssetResult = api.partiallyUpdateAsset(createdAsset.getId(), createdAsset);
+
+        try
+        {
+            assertEquals(createdAsset.getDescription(), partiallyUpdateAssetResult.getDescription());
+            assertEquals(asset.getCustomerKey(), partiallyUpdateAssetResult.getCustomerKey());
+            assertEquals(asset.getName(), partiallyUpdateAssetResult.getName());
+            assertEquals(asset.getAssetType().getId(), partiallyUpdateAssetResult.getAssetType().getId());
+            assertEquals(asset.getAssetType().getName(), partiallyUpdateAssetResult.getAssetType().getName());
+            assertEquals(asset.getAssetType().getDisplayName(), partiallyUpdateAssetResult.getAssetType().getDisplayName());
+        }
+        finally {
+            this.api.deleteAssetById(createdAsset.getId());
+        }
 
         // TODO: test validations
     }
-    
+
+    @Test
+    public void deleteNonExistingAssetDoesNotThrowException() throws ApiException {
+        Asset asset = createAsset();
+        Asset createdAsset = this.api.createAsset(asset);
+        this.api.deleteAssetById(createdAsset.getId());
+
+        try {
+            this.api.deleteAssetById(createdAsset.getId());
+        }
+        catch (ApiException e){
+            Assert.fail("Should not throw exception");
+        }
+    }
+
+    private Asset createAsset() {
+        AssetType assetType = new AssetType();
+        assetType.setId(BigDecimal.valueOf(196));
+        assetType.setName("textblock");
+        assetType.setDisplayName("Text Block");
+
+        Asset asset = new Asset();
+        asset.setCustomerKey(java.util.UUID.randomUUID().toString());
+        asset.setName("Asset " + java.util.UUID.randomUUID().toString());
+        asset.setDescription("Asset from Automated Java SDK");
+        asset.setAssetType(assetType);
+        return asset;
+    }
 }

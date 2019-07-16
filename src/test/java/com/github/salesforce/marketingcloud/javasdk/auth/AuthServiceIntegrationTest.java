@@ -4,7 +4,7 @@ import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.DateTimeProvider;
 import com.github.salesforce.marketingcloud.javasdk.api.ApiTest;
-import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
+import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -39,7 +39,7 @@ public class AuthServiceIntegrationTest extends ApiTest {
     public void shouldReturnTokenResponseOnValidCredentials() throws ApiException {
         this.authService = new AuthService(clientConfig, apiClient, cacheService);
 
-        AccessTokenResponse tokenResponse = this.authService.getTokenResponse();
+        TokenResponse tokenResponse = this.authService.getTokenResponse();
 
         assertNotNull(tokenResponse.getAccessToken());
         assertNotNull(tokenResponse.getTokenType());
@@ -79,8 +79,8 @@ public class AuthServiceIntegrationTest extends ApiTest {
     public void shouldReturnTheSameAccessTokenResponseInstanceWhenCalledMultipleTimes() throws ApiException {
         this.authService = new AuthService(clientConfig, apiClient, cacheService);
 
-        AccessTokenResponse tokenResponse1 = this.authService.getTokenResponse();
-        AccessTokenResponse tokenResponse2 = this.authService.getTokenResponse();
+        TokenResponse tokenResponse1 = this.authService.getTokenResponse();
+        TokenResponse tokenResponse2 = this.authService.getTokenResponse();
 
         assertSame(tokenResponse1, tokenResponse2);
     }
@@ -95,6 +95,6 @@ public class AuthServiceIntegrationTest extends ApiTest {
         authServiceInstance1.getTokenResponse();
         authServiceInstance2.getTokenResponse();
 
-        verify(apiClientSpy, times(1)).execute(any(), eq(AccessTokenResponse.class));
+        verify(apiClientSpy, times(1)).execute(any(), eq(TokenResponse.class));
     }
 }

@@ -2,7 +2,7 @@ package com.github.salesforce.marketingcloud.javasdk.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AccessTokenResponse {
+public class TokenResponse {
     @SerializedName("access_token")
     private String accessToken;
 

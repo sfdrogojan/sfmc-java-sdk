@@ -2,7 +2,7 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 
 import com.github.salesforce.marketingcloud.javasdk.SettableDateTimeProvider;
 import com.github.salesforce.marketingcloud.javasdk.TestHelper;
-import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
+import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -40,13 +40,13 @@ public class CacheServiceParameterizedTest {
         CacheService cacheService = new CacheService(dateTimeProvider);
 
         String cacheKey = "cacheKey";
-        AccessTokenResponse accessTokenResponse = TestHelper.createAccessTokenResponse();
-        cacheService.addOrUpdate(cacheKey, accessTokenResponse);
+        TokenResponse tokenResponse = TestHelper.createTokenResponse();
+        cacheService.addOrUpdate(cacheKey, tokenResponse);
 
         dateTimeProvider.setCurrentDate(
                 dateTimeProvider
                         .getCurrentDate()
-                        .plusSeconds(accessTokenResponse.getExpiresIn())
+                        .plusSeconds(tokenResponse.getExpiresIn())
                         .minusSeconds(this.windowInSeconds)
         );
 

@@ -3,7 +3,7 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.ApiResponse;
-import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
+import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import com.google.gson.JsonObject;
 import com.squareup.okhttp.*;
 
@@ -18,11 +18,11 @@ public class AuthService {
         this.cacheService = cacheService;
     }
 
-    public AccessTokenResponse getTokenResponse() throws ApiException {
+    public TokenResponse getTokenResponse() throws ApiException {
         String cacheKey = this.getCacheKey();
-        AccessTokenResponse cachedAccessTokenResponse = this.cacheService.get(cacheKey);
+        TokenResponse cachedTokenResponse = this.cacheService.get(cacheKey);
 
-        if(cachedAccessTokenResponse == null) {
+        if(cachedTokenResponse == null) {
             String authBasePath = this.clientConfig.getAuthBasePath();
             this.apiClient.setBasePath(authBasePath);
 
@@ -38,16 +38,16 @@ public class AuthService {
                     .build();
 
             Call tokenCall = this.apiClient.getHttpClient().newCall(request);
-            ApiResponse<AccessTokenResponse> response = this.apiClient.execute(tokenCall, AccessTokenResponse.class);
-            AccessTokenResponse accessTokenResponse = response.getData();
+            ApiResponse<TokenResponse> response = this.apiClient.execute(tokenCall, TokenResponse.class);
+            TokenResponse tokenResponse = response.getData();
 
-            this.cacheService.addOrUpdate(cacheKey, accessTokenResponse);
+            this.cacheService.addOrUpdate(cacheKey, tokenResponse);
 
-            return accessTokenResponse;
+            return tokenResponse;
         }
         else
         {
-            return cachedAccessTokenResponse;
+            return cachedTokenResponse;
         }
     }
 

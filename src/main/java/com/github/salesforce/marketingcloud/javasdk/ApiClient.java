@@ -14,7 +14,7 @@
 package com.github.salesforce.marketingcloud.javasdk;
 
 import com.github.salesforce.marketingcloud.javasdk.auth.*;
-import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
+import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import com.squareup.okhttp.*;
 import com.squareup.okhttp.internal.http.HttpMethod;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
@@ -969,7 +969,7 @@ public class ApiClient {
      * @throws ApiException If fail to serialize the request body object
      */
     public Request buildRequest(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        AccessTokenResponse response = this.authService.getTokenResponse();
+        TokenResponse response = this.authService.getTokenResponse();
         this.setBasePath(response.getRestInstanceUrl());
         this.setAccessToken(response.getAccessToken());
 

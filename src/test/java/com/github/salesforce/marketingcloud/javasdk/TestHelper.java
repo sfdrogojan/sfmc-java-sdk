@@ -1,24 +1,24 @@
 package com.github.salesforce.marketingcloud.javasdk;
 
 import com.github.salesforce.marketingcloud.javasdk.auth.ClientConfig;
-import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
+import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 
 import java.time.LocalDateTime;
 import java.time.Month;
 
 public class TestHelper {
 
-    public static AccessTokenResponse createAccessTokenResponse()
+    public static TokenResponse createTokenResponse()
     {
-        AccessTokenResponse accessTokenResponse = new AccessTokenResponse();
-        accessTokenResponse.setAccessToken("access_token");
-        accessTokenResponse.setTokenType("token_type");
-        accessTokenResponse.setExpiresIn(1000);
-        accessTokenResponse.setRestInstanceUrl("https://rest.com");
-        accessTokenResponse.setSoapInstanceUrl("https://soap.com");
-        accessTokenResponse.setScope("scope");
+        TokenResponse tokenResponse = new TokenResponse();
+        tokenResponse.setAccessToken("access_token");
+        tokenResponse.setTokenType("token_type");
+        tokenResponse.setExpiresIn(1000);
+        tokenResponse.setRestInstanceUrl("https://rest.com");
+        tokenResponse.setSoapInstanceUrl("https://soap.com");
+        tokenResponse.setScope("scope");
 
-        return accessTokenResponse;
+        return tokenResponse;
     }
 
     public static SettableDateTimeProvider createSettableDateTimeProvider()

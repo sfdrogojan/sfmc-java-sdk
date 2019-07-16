@@ -1,7 +1,7 @@
 package com.github.salesforce.marketingcloud.javasdk.auth;
 
 import com.github.salesforce.marketingcloud.javasdk.*;
-import com.github.salesforce.marketingcloud.javasdk.model.AccessTokenResponse;
+import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.OkHttpClient;
 import org.junit.After;
@@ -25,20 +25,20 @@ public class AuthServiceUnitTest {
     @Test
     public void tokenApiIsCalledOnEmptyCache() throws ApiException {
         ClientConfig clientConfig = TestHelper.createClientConfig();
-        AccessTokenResponse accessTokenResponse = TestHelper.createAccessTokenResponse();
-        ApiClient apiClientMock = createApiClientMock(accessTokenResponse);
+        TokenResponse tokenResponse = TestHelper.createTokenResponse();
+        ApiClient apiClientMock = createApiClientMock(tokenResponse);
         AuthService authService = new AuthService(clientConfig, apiClientMock, new CacheService(new DateTimeProvider()));
 
         authService.getTokenResponse();
 
-        verify(apiClientMock, times(1)).execute(any(), eq(AccessTokenResponse.class));
+        verify(apiClientMock, times(1)).execute(any(), eq(TokenResponse.class));
     }
 
     @Test
     public void tokenApiIsCalledOnExpiredCache() throws ApiException {
         ClientConfig clientConfig = TestHelper.createClientConfig();
-        AccessTokenResponse accessTokenResponse = TestHelper.createAccessTokenResponse();
-        ApiClient apiClientMock = createApiClientMock(accessTokenResponse);
+        TokenResponse tokenResponse = TestHelper.createTokenResponse();
+        ApiClient apiClientMock = createApiClientMock(tokenResponse);
         SettableDateTimeProvider settableDateTimeProvider = TestHelper.createSettableDateTimeProvider();
         AuthService authService = new AuthService(clientConfig, apiClientMock, new CacheService(settableDateTimeProvider));
 
@@ -46,30 +46,30 @@ public class AuthServiceUnitTest {
         settableDateTimeProvider.setCurrentDate(settableDateTimeProvider.getCurrentDate().plusMinutes(20));
         authService.getTokenResponse();
 
-        verify(apiClientMock, times(2)).execute(any(), eq(AccessTokenResponse.class));
+        verify(apiClientMock, times(2)).execute(any(), eq(TokenResponse.class));
     }
 
     @Test
     public void tokenApiIsCalledOnlyOnceForMultipleInstances() throws ApiException {
         ClientConfig clientConfig = TestHelper.createClientConfig();
-        AccessTokenResponse accessTokenResponse = TestHelper.createAccessTokenResponse();
-        ApiClient apiClientMock = createApiClientMock(accessTokenResponse);
+        TokenResponse tokenResponse = TestHelper.createTokenResponse();
+        ApiClient apiClientMock = createApiClientMock(tokenResponse);
 
         AuthService authServiceInstance1 = new AuthService(clientConfig, apiClientMock, new CacheService(new DateTimeProvider()));
         authServiceInstance1.getTokenResponse();
         AuthService authServiceInstance2 = new AuthService(clientConfig, apiClientMock, new CacheService(new DateTimeProvider()));
         authServiceInstance2.getTokenResponse();
 
-        verify(apiClientMock, times(1)).execute(any(), eq(AccessTokenResponse.class));
+        verify(apiClientMock, times(1)).execute(any(), eq(TokenResponse.class));
     }
 
-    private ApiClient createApiClientMock(AccessTokenResponse accessTokenResponse) throws ApiException {
+    private ApiClient createApiClientMock(TokenResponse tokenResponse) throws ApiException {
         ApiClient apiClientMock = mock(ApiClient.class);
         when(apiClientMock.getJSON()).thenReturn(new JSON());
         when(apiClientMock.getHttpClient()).thenReturn(new OkHttpClient());
-        when(apiClientMock.execute(any(Call.class), eq(AccessTokenResponse.class)))
+        when(apiClientMock.execute(any(Call.class), eq(TokenResponse.class)))
                 .thenReturn(new ApiResponse<>(
-                        200, new HashMap<>(), accessTokenResponse
+                        200, new HashMap<>(), tokenResponse
                         )
                 );
         return apiClientMock;

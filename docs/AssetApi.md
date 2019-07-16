@@ -5,9 +5,9 @@ All URIs are relative to *https://www.exacttargetapis.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createAsset**](AssetApi.md#createAsset) | **POST** /asset/v1/content/assets | createAsset
-[**deleteAssetById**](AssetApi.md#deleteAssetById) | **DELETE** /asset/v1/content/assets/{id} | deleteAsset
+[**deleteAssetById**](AssetApi.md#deleteAssetById) | **DELETE** /asset/v1/content/assets/{id} | deleteAssetById
 [**getAssetById**](AssetApi.md#getAssetById) | **GET** /asset/v1/content/assets/{id} | getAssetById
-[**partiallyUpdateAsset**](AssetApi.md#partiallyUpdateAsset) | **PATCH** /asset/v1/content/assets/{id} | patchAsset
+[**partiallyUpdateAssetById**](AssetApi.md#partiallyUpdateAssetById) | **PATCH** /asset/v1/content/assets/{id} | partiallyUpdateAssetById
 
 
 <a name="createAsset"></a>
@@ -59,7 +59,7 @@ No authorization required
 # **deleteAssetById**
 > deleteAssetById(id)
 
-deleteAsset
+deleteAssetById
 
 Deletes an asset.
 
@@ -144,11 +144,11 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="partiallyUpdateAsset"></a>
-# **partiallyUpdateAsset**
-> Asset partiallyUpdateAsset(id, body)
+<a name="partiallyUpdateAssetById"></a>
+# **partiallyUpdateAssetById**
+> Asset partiallyUpdateAssetById(id, body)
 
-patchAsset
+partiallyUpdateAssetById
 
 Updates part of an asset.
 
@@ -163,10 +163,10 @@ AssetApi apiInstance = new AssetApi();
 BigDecimal id = new BigDecimal(); // BigDecimal | The ID of the asset to update
 Asset body = new Asset(); // Asset | JSON Parameters
 try {
-    Asset result = apiInstance.partiallyUpdateAsset(id, body);
+    Asset result = apiInstance.partiallyUpdateAssetById(id, body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling AssetApi#partiallyUpdateAsset");
+    System.err.println("Exception when calling AssetApi#partiallyUpdateAssetById");
     e.printStackTrace();
 }
 ```

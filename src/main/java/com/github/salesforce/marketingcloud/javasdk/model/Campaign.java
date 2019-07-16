@@ -23,7 +23,6 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.math.BigDecimal;
 import org.threeten.bp.OffsetDateTime;
 
 /**
@@ -47,7 +46,7 @@ public class Campaign {
   private Boolean favorite = null;
 
   @SerializedName("id")
-  private BigDecimal id = null;
+  private String id = null;
 
   @SerializedName("createdDate")
   private OffsetDateTime createdDate = null;
@@ -145,22 +144,13 @@ public class Campaign {
     this.favorite = favorite;
   }
 
-  public Campaign id(BigDecimal id) {
-    this.id = id;
-    return this;
-  }
-
    /**
    * The id of the campaign
    * @return id
   **/
   @ApiModelProperty(value = "The id of the campaign")
-  public BigDecimal getId() {
+  public String getId() {
     return id;
-  }
-
-  public void setId(BigDecimal id) {
-    this.id = id;
   }
 
    /**

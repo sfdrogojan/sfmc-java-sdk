@@ -22,7 +22,6 @@ import java.io.IOException;
 
 
 import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
-import java.math.BigDecimal;
 import com.github.salesforce.marketingcloud.javasdk.model.Campaign;
 
 import java.lang.reflect.Type;
@@ -169,7 +168,7 @@ public class CampaignApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call deleteCampaignByIdCall(BigDecimal id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call deleteCampaignByIdCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -212,7 +211,7 @@ public class CampaignApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call deleteCampaignByIdValidateBeforeCall(BigDecimal id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call deleteCampaignByIdValidateBeforeCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -226,36 +225,36 @@ public class CampaignApi {
     }
 
     /**
-     * deleteCampaign
+     * deleteCampaignById
      * Deletes a campaign.
      * @param id The ID of the campaign to delete (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public void deleteCampaignById(BigDecimal id) throws ApiException {
+    public void deleteCampaignById(String id) throws ApiException {
         deleteCampaignByIdWithHttpInfo(id);
     }
 
     /**
-     * deleteCampaign
+     * deleteCampaignById
      * Deletes a campaign.
      * @param id The ID of the campaign to delete (required)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Void> deleteCampaignByIdWithHttpInfo(BigDecimal id) throws ApiException {
+    public ApiResponse<Void> deleteCampaignByIdWithHttpInfo(String id) throws ApiException {
         com.squareup.okhttp.Call call = deleteCampaignByIdValidateBeforeCall(id, null, null);
         return apiClient.execute(call);
     }
 
     /**
-     * deleteCampaign (asynchronously)
+     * deleteCampaignById (asynchronously)
      * Deletes a campaign.
      * @param id The ID of the campaign to delete (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call deleteCampaignByIdAsync(BigDecimal id, final ApiCallback<Void> callback) throws ApiException {
+    public com.squareup.okhttp.Call deleteCampaignByIdAsync(String id, final ApiCallback<Void> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -288,7 +287,7 @@ public class CampaignApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call getCampaignByIdCall(BigDecimal id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call getCampaignByIdCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -331,7 +330,7 @@ public class CampaignApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call getCampaignByIdValidateBeforeCall(BigDecimal id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call getCampaignByIdValidateBeforeCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
@@ -345,39 +344,39 @@ public class CampaignApi {
     }
 
     /**
-     * getCampaign
+     * getCampaignById
      * Retrieves a campaign.
      * @param id Campaign ID (required)
      * @return Campaign
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Campaign getCampaignById(BigDecimal id) throws ApiException {
+    public Campaign getCampaignById(String id) throws ApiException {
         ApiResponse<Campaign> resp = getCampaignByIdWithHttpInfo(id);
         return resp.getData();
     }
 
     /**
-     * getCampaign
+     * getCampaignById
      * Retrieves a campaign.
      * @param id Campaign ID (required)
      * @return ApiResponse&lt;Campaign&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Campaign> getCampaignByIdWithHttpInfo(BigDecimal id) throws ApiException {
+    public ApiResponse<Campaign> getCampaignByIdWithHttpInfo(String id) throws ApiException {
         com.squareup.okhttp.Call call = getCampaignByIdValidateBeforeCall(id, null, null);
         Type localVarReturnType = new TypeToken<Campaign>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * getCampaign (asynchronously)
+     * getCampaignById (asynchronously)
      * Retrieves a campaign.
      * @param id Campaign ID (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call getCampaignByIdAsync(BigDecimal id, final ApiCallback<Campaign> callback) throws ApiException {
+    public com.squareup.okhttp.Call getCampaignByIdAsync(String id, final ApiCallback<Campaign> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;

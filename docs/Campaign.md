@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **campaignCode** | **String** | Unique identifier for the campaign with a maximum length of 36 characters | 
 **color** | **String** | Hex color value | 
 **favorite** | **Boolean** | Determines if the campaign will be flagged as a favorite | 
-**id** | [**BigDecimal**](BigDecimal.md) | The id of the campaign |  [optional]
+**id** | **String** | The id of the campaign |  [optional]
 **createdDate** | [**OffsetDateTime**](OffsetDateTime.md) | The date the object was created. |  [optional]
 **modifiedDate** | [**OffsetDateTime**](OffsetDateTime.md) | The date the object was modified. |  [optional]
 

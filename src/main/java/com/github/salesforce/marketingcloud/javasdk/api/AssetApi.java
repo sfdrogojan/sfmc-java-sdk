@@ -226,7 +226,7 @@ public class AssetApi {
     }
 
     /**
-     * deleteAsset
+     * deleteAssetById
      * Deletes an asset.
      * @param id The ID of the asset to delete (required)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
@@ -236,7 +236,7 @@ public class AssetApi {
     }
 
     /**
-     * deleteAsset
+     * deleteAssetById
      * Deletes an asset.
      * @param id The ID of the asset to delete (required)
      * @return ApiResponse&lt;Void&gt;
@@ -248,7 +248,7 @@ public class AssetApi {
     }
 
     /**
-     * deleteAsset (asynchronously)
+     * deleteAssetById (asynchronously)
      * Deletes an asset.
      * @param id The ID of the asset to delete (required)
      * @param callback The callback to be executed when the API call finishes
@@ -404,7 +404,7 @@ public class AssetApi {
         return call;
     }
     /**
-     * Build call for partiallyUpdateAsset
+     * Build call for partiallyUpdateAssetById
      * @param id The ID of the asset to update (required)
      * @param body JSON Parameters (optional)
      * @param progressListener Progress listener
@@ -412,7 +412,7 @@ public class AssetApi {
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
      */
-    public com.squareup.okhttp.Call partiallyUpdateAssetCall(BigDecimal id, Asset body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    public com.squareup.okhttp.Call partiallyUpdateAssetByIdCall(BigDecimal id, Asset body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         Object localVarPostBody = body;
 
         // create path and map variables
@@ -455,48 +455,48 @@ public class AssetApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private com.squareup.okhttp.Call partiallyUpdateAssetValidateBeforeCall(BigDecimal id, Asset body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
+    private com.squareup.okhttp.Call partiallyUpdateAssetByIdValidateBeforeCall(BigDecimal id, Asset body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
         
         // verify the required parameter 'id' is set
         if (id == null) {
-            throw new ApiException("Missing the required parameter 'id' when calling partiallyUpdateAsset(Async)");
+            throw new ApiException("Missing the required parameter 'id' when calling partiallyUpdateAssetById(Async)");
         }
         
 
-        com.squareup.okhttp.Call call = partiallyUpdateAssetCall(id, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = partiallyUpdateAssetByIdCall(id, body, progressListener, progressRequestListener);
         return call;
 
     }
 
     /**
-     * patchAsset
+     * partiallyUpdateAssetById
      * Updates part of an asset.
      * @param id The ID of the asset to update (required)
      * @param body JSON Parameters (optional)
      * @return Asset
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public Asset partiallyUpdateAsset(BigDecimal id, Asset body) throws ApiException {
-        ApiResponse<Asset> resp = partiallyUpdateAssetWithHttpInfo(id, body);
+    public Asset partiallyUpdateAssetById(BigDecimal id, Asset body) throws ApiException {
+        ApiResponse<Asset> resp = partiallyUpdateAssetByIdWithHttpInfo(id, body);
         return resp.getData();
     }
 
     /**
-     * patchAsset
+     * partiallyUpdateAssetById
      * Updates part of an asset.
      * @param id The ID of the asset to update (required)
      * @param body JSON Parameters (optional)
      * @return ApiResponse&lt;Asset&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Asset> partiallyUpdateAssetWithHttpInfo(BigDecimal id, Asset body) throws ApiException {
-        com.squareup.okhttp.Call call = partiallyUpdateAssetValidateBeforeCall(id, body, null, null);
+    public ApiResponse<Asset> partiallyUpdateAssetByIdWithHttpInfo(BigDecimal id, Asset body) throws ApiException {
+        com.squareup.okhttp.Call call = partiallyUpdateAssetByIdValidateBeforeCall(id, body, null, null);
         Type localVarReturnType = new TypeToken<Asset>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
     }
 
     /**
-     * patchAsset (asynchronously)
+     * partiallyUpdateAssetById (asynchronously)
      * Updates part of an asset.
      * @param id The ID of the asset to update (required)
      * @param body JSON Parameters (optional)
@@ -504,7 +504,7 @@ public class AssetApi {
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
      */
-    public com.squareup.okhttp.Call partiallyUpdateAssetAsync(BigDecimal id, Asset body, final ApiCallback<Asset> callback) throws ApiException {
+    public com.squareup.okhttp.Call partiallyUpdateAssetByIdAsync(BigDecimal id, Asset body, final ApiCallback<Asset> callback) throws ApiException {
 
         ProgressResponseBody.ProgressListener progressListener = null;
         ProgressRequestBody.ProgressRequestListener progressRequestListener = null;
@@ -525,7 +525,7 @@ public class AssetApi {
             };
         }
 
-        com.squareup.okhttp.Call call = partiallyUpdateAssetValidateBeforeCall(id, body, progressListener, progressRequestListener);
+        com.squareup.okhttp.Call call = partiallyUpdateAssetByIdValidateBeforeCall(id, body, progressListener, progressRequestListener);
         Type localVarReturnType = new TypeToken<Asset>(){}.getType();
         apiClient.executeAsync(call, localVarReturnType, callback);
         return call;

@@ -64,7 +64,7 @@ public class CampaignApiTest extends ApiTest {
      */
     @Test
     public void deleteCampaignByIdTest() throws ApiException {
-        BigDecimal id = null;
+        String id = null;
         api.deleteCampaignById(id);
 
         // TODO: test validations
@@ -80,7 +80,7 @@ public class CampaignApiTest extends ApiTest {
      */
     @Test
     public void getCampaignByIdTest() throws ApiException {
-        BigDecimal id = null;
+        String id = null;
         Campaign response = api.getCampaignById(id);
 
         // TODO: test validations

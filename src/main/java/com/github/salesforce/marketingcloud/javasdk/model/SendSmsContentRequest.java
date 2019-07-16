@@ -23,74 +23,31 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 /**
- * ApiError
+ * SendSmsContentRequest
  */
 
-public class ApiError {
+public class SendSmsContentRequest {
   @SerializedName("message")
   private String message = null;
 
-  @SerializedName("errorCode")
-  private BigDecimal errorCode = null;
-
-  @SerializedName("documentation")
-  private String documentation = null;
-
-  public ApiError message(String message) {
+  public SendSmsContentRequest message(String message) {
     this.message = message;
     return this;
   }
 
    /**
-   * The error message
+   * Override for message content in the definition that you want sent with each message. Use substitution strings to personalize the content.
    * @return message
   **/
-  @ApiModelProperty(value = "The error message")
+  @ApiModelProperty(value = "Override for message content in the definition that you want sent with each message. Use substitution strings to personalize the content.")
   public String getMessage() {
     return message;
   }
 
   public void setMessage(String message) {
     this.message = message;
-  }
-
-  public ApiError errorCode(BigDecimal errorCode) {
-    this.errorCode = errorCode;
-    return this;
-  }
-
-   /**
-   * The specific error code
-   * @return errorCode
-  **/
-  @ApiModelProperty(value = "The specific error code")
-  public BigDecimal getErrorCode() {
-    return errorCode;
-  }
-
-  public void setErrorCode(BigDecimal errorCode) {
-    this.errorCode = errorCode;
-  }
-
-  public ApiError documentation(String documentation) {
-    this.documentation = documentation;
-    return this;
-  }
-
-   /**
-   * Any specific documentation for the error
-   * @return documentation
-  **/
-  @ApiModelProperty(value = "Any specific documentation for the error")
-  public String getDocumentation() {
-    return documentation;
-  }
-
-  public void setDocumentation(String documentation) {
-    this.documentation = documentation;
   }
 
 
@@ -102,26 +59,22 @@ public class ApiError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ApiError apiError = (ApiError) o;
-    return Objects.equals(this.message, apiError.message) &&
-        Objects.equals(this.errorCode, apiError.errorCode) &&
-        Objects.equals(this.documentation, apiError.documentation);
+    SendSmsContentRequest sendSmsContentRequest = (SendSmsContentRequest) o;
+    return Objects.equals(this.message, sendSmsContentRequest.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message, errorCode, documentation);
+    return Objects.hash(message);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ApiError {\n");
+    sb.append("class SendSmsContentRequest {\n");
     
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    errorCode: ").append(toIndentedString(errorCode)).append("\n");
-    sb.append("    documentation: ").append(toIndentedString(documentation)).append("\n");
     sb.append("}");
     return sb.toString();
   }

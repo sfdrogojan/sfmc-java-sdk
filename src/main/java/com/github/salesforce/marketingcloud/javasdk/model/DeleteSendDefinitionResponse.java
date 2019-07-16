@@ -23,32 +23,31 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 /**
- * ApiError
+ * DeleteSendDefinitionResponse
  */
 
-public class ApiError {
+public class DeleteSendDefinitionResponse {
   @SerializedName("message")
   private String message = null;
 
-  @SerializedName("errorCode")
-  private BigDecimal errorCode = null;
+  @SerializedName("requestId")
+  private String requestId = null;
 
-  @SerializedName("documentation")
-  private String documentation = null;
+  @SerializedName("deletedDefinitionKey")
+  private String deletedDefinitionKey = null;
 
-  public ApiError message(String message) {
+  public DeleteSendDefinitionResponse message(String message) {
     this.message = message;
     return this;
   }
 
    /**
-   * The error message
+   * The response message
    * @return message
   **/
-  @ApiModelProperty(value = "The error message")
+  @ApiModelProperty(value = "The response message")
   public String getMessage() {
     return message;
   }
@@ -57,40 +56,40 @@ public class ApiError {
     this.message = message;
   }
 
-  public ApiError errorCode(BigDecimal errorCode) {
-    this.errorCode = errorCode;
+  public DeleteSendDefinitionResponse requestId(String requestId) {
+    this.requestId = requestId;
     return this;
   }
 
    /**
-   * The specific error code
-   * @return errorCode
+   * The ID of the request
+   * @return requestId
   **/
-  @ApiModelProperty(value = "The specific error code")
-  public BigDecimal getErrorCode() {
-    return errorCode;
+  @ApiModelProperty(value = "The ID of the request")
+  public String getRequestId() {
+    return requestId;
   }
 
-  public void setErrorCode(BigDecimal errorCode) {
-    this.errorCode = errorCode;
+  public void setRequestId(String requestId) {
+    this.requestId = requestId;
   }
 
-  public ApiError documentation(String documentation) {
-    this.documentation = documentation;
+  public DeleteSendDefinitionResponse deletedDefinitionKey(String deletedDefinitionKey) {
+    this.deletedDefinitionKey = deletedDefinitionKey;
     return this;
   }
 
    /**
-   * Any specific documentation for the error
-   * @return documentation
+   * The key of the deleted definition
+   * @return deletedDefinitionKey
   **/
-  @ApiModelProperty(value = "Any specific documentation for the error")
-  public String getDocumentation() {
-    return documentation;
+  @ApiModelProperty(value = "The key of the deleted definition")
+  public String getDeletedDefinitionKey() {
+    return deletedDefinitionKey;
   }
 
-  public void setDocumentation(String documentation) {
-    this.documentation = documentation;
+  public void setDeletedDefinitionKey(String deletedDefinitionKey) {
+    this.deletedDefinitionKey = deletedDefinitionKey;
   }
 
 
@@ -102,26 +101,26 @@ public class ApiError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ApiError apiError = (ApiError) o;
-    return Objects.equals(this.message, apiError.message) &&
-        Objects.equals(this.errorCode, apiError.errorCode) &&
-        Objects.equals(this.documentation, apiError.documentation);
+    DeleteSendDefinitionResponse deleteSendDefinitionResponse = (DeleteSendDefinitionResponse) o;
+    return Objects.equals(this.message, deleteSendDefinitionResponse.message) &&
+        Objects.equals(this.requestId, deleteSendDefinitionResponse.requestId) &&
+        Objects.equals(this.deletedDefinitionKey, deleteSendDefinitionResponse.deletedDefinitionKey);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message, errorCode, documentation);
+    return Objects.hash(message, requestId, deletedDefinitionKey);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ApiError {\n");
+    sb.append("class DeleteSendDefinitionResponse {\n");
     
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    errorCode: ").append(toIndentedString(errorCode)).append("\n");
-    sb.append("    documentation: ").append(toIndentedString(documentation)).append("\n");
+    sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
+    sb.append("    deletedDefinitionKey: ").append(toIndentedString(deletedDefinitionKey)).append("\n");
     sb.append("}");
     return sb.toString();
   }

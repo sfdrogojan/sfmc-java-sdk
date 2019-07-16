@@ -26,38 +26,38 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 /**
- * ApiError
+ * SendDefinitionResponseItem
  */
 
-public class ApiError {
-  @SerializedName("message")
-  private String message = null;
+public class SendDefinitionResponseItem {
+  @SerializedName("messageKey")
+  private String messageKey = null;
 
   @SerializedName("errorCode")
   private BigDecimal errorCode = null;
 
-  @SerializedName("documentation")
-  private String documentation = null;
+  @SerializedName("message")
+  private String message = null;
 
-  public ApiError message(String message) {
-    this.message = message;
+  public SendDefinitionResponseItem messageKey(String messageKey) {
+    this.messageKey = messageKey;
     return this;
   }
 
    /**
-   * The error message
-   * @return message
+   * Unique identifier used to track message status.
+   * @return messageKey
   **/
-  @ApiModelProperty(value = "The error message")
-  public String getMessage() {
-    return message;
+  @ApiModelProperty(value = "Unique identifier used to track message status.")
+  public String getMessageKey() {
+    return messageKey;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
+  public void setMessageKey(String messageKey) {
+    this.messageKey = messageKey;
   }
 
-  public ApiError errorCode(BigDecimal errorCode) {
+  public SendDefinitionResponseItem errorCode(BigDecimal errorCode) {
     this.errorCode = errorCode;
     return this;
   }
@@ -75,22 +75,22 @@ public class ApiError {
     this.errorCode = errorCode;
   }
 
-  public ApiError documentation(String documentation) {
-    this.documentation = documentation;
+  public SendDefinitionResponseItem message(String message) {
+    this.message = message;
     return this;
   }
 
    /**
-   * Any specific documentation for the error
-   * @return documentation
+   * The error message
+   * @return message
   **/
-  @ApiModelProperty(value = "Any specific documentation for the error")
-  public String getDocumentation() {
-    return documentation;
+  @ApiModelProperty(value = "The error message")
+  public String getMessage() {
+    return message;
   }
 
-  public void setDocumentation(String documentation) {
-    this.documentation = documentation;
+  public void setMessage(String message) {
+    this.message = message;
   }
 
 
@@ -102,26 +102,26 @@ public class ApiError {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ApiError apiError = (ApiError) o;
-    return Objects.equals(this.message, apiError.message) &&
-        Objects.equals(this.errorCode, apiError.errorCode) &&
-        Objects.equals(this.documentation, apiError.documentation);
+    SendDefinitionResponseItem sendDefinitionResponseItem = (SendDefinitionResponseItem) o;
+    return Objects.equals(this.messageKey, sendDefinitionResponseItem.messageKey) &&
+        Objects.equals(this.errorCode, sendDefinitionResponseItem.errorCode) &&
+        Objects.equals(this.message, sendDefinitionResponseItem.message);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message, errorCode, documentation);
+    return Objects.hash(messageKey, errorCode, message);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ApiError {\n");
+    sb.append("class SendDefinitionResponseItem {\n");
     
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
+    sb.append("    messageKey: ").append(toIndentedString(messageKey)).append("\n");
     sb.append("    errorCode: ").append(toIndentedString(errorCode)).append("\n");
-    sb.append("    documentation: ").append(toIndentedString(documentation)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -132,7 +132,7 @@ public class AssetApiTest extends ApiTest {
         Asset asset = createAsset();
         Asset createdAsset = this.api.createAsset(asset);
         createdAsset.setDescription(java.util.UUID.randomUUID().toString());
-        Asset partiallyUpdateAssetResult = api.partiallyUpdateAsset(createdAsset.getId(), createdAsset);
+        Asset partiallyUpdateAssetResult = api.partiallyUpdateAssetById(createdAsset.getId(), createdAsset);
 
         try
         {

@@ -5,8 +5,8 @@ All URIs are relative to *https://www.exacttargetapis.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createCampaign**](CampaignApi.md#createCampaign) | **POST** /hub/v1/campaigns | createCampaign
-[**deleteCampaignById**](CampaignApi.md#deleteCampaignById) | **DELETE** /hub/v1/campaigns/{id} | deleteCampaign
-[**getCampaignById**](CampaignApi.md#getCampaignById) | **GET** /hub/v1/campaigns/{id} | getCampaign
+[**deleteCampaignById**](CampaignApi.md#deleteCampaignById) | **DELETE** /hub/v1/campaigns/{id} | deleteCampaignById
+[**getCampaignById**](CampaignApi.md#getCampaignById) | **GET** /hub/v1/campaigns/{id} | getCampaignById
 
 
 <a name="createCampaign"></a>
@@ -58,7 +58,7 @@ No authorization required
 # **deleteCampaignById**
 > deleteCampaignById(id)
 
-deleteCampaign
+deleteCampaignById
 
 Deletes a campaign.
 
@@ -70,7 +70,7 @@ Deletes a campaign.
 
 
 CampaignApi apiInstance = new CampaignApi();
-BigDecimal id = new BigDecimal(); // BigDecimal | The ID of the campaign to delete
+String id = "id_example"; // String | The ID of the campaign to delete
 try {
     apiInstance.deleteCampaignById(id);
 } catch (ApiException e) {
@@ -83,7 +83,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **BigDecimal**| The ID of the campaign to delete |
+ **id** | **String**| The ID of the campaign to delete |
 
 ### Return type
 
@@ -102,7 +102,7 @@ No authorization required
 # **getCampaignById**
 > Campaign getCampaignById(id)
 
-getCampaign
+getCampaignById
 
 Retrieves a campaign.
 
@@ -114,7 +114,7 @@ Retrieves a campaign.
 
 
 CampaignApi apiInstance = new CampaignApi();
-BigDecimal id = new BigDecimal(); // BigDecimal | Campaign ID
+String id = "id_example"; // String | Campaign ID
 try {
     Campaign result = apiInstance.getCampaignById(id);
     System.out.println(result);
@@ -128,7 +128,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **BigDecimal**| Campaign ID |
+ **id** | **String**| Campaign ID |
 
 ### Return type
 

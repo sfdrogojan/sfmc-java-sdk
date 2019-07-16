@@ -1,0 +1,9 @@
+package com.github.salesforce.marketingcloud.javasdk.api;
+
+class ApiTest {
+    public String authBasePath = "";
+    public String clientId = "";
+    public String clientSecret = "";
+    public String accountId = "";
+    public String scope = "";
+}

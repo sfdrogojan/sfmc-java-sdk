@@ -2,7 +2,8 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 
 import com.github.salesforce.marketingcloud.javasdk.DateTimeProvider;
 import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
-import javafx.util.Pair;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,6 +36,6 @@ public class CacheService {
     public void addOrUpdate(String key, TokenResponse value) {
         LocalDateTime expirationDate =
                 this.dateTimeProvider.getCurrentDate().plusSeconds(value.getExpiresIn() - invalidCacheWindowInSeconds);
-        cache.put(key, new Pair<>(value, expirationDate));
+        cache.put(key, new ImmutablePair<>(value, expirationDate));
     }
 }

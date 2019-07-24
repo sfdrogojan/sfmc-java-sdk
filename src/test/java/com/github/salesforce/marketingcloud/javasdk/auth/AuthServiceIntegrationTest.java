@@ -3,7 +3,6 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.DateTimeProvider;
-import com.github.salesforce.marketingcloud.javasdk.api.ApiTest;
 import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import org.junit.After;
 import org.junit.Before;

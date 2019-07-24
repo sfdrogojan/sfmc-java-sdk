@@ -15,6 +15,8 @@ package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
+
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import com.github.salesforce.marketingcloud.javasdk.model.Campaign;
 import org.junit.Test;
@@ -29,14 +31,13 @@ import java.util.Map;
  * API tests for CampaignApi
  */
 @Ignore
-public class CampaignApiTest extends ApiTest {
+public class CampaignApiTest //extends ApiTest
+{
+    private final CampaignApi api;
 
-    private final CampaignApi api = new CampaignApi(
-            authBasePath,
-            clientId,
-            clientSecret,
-            accountId,
-            scope);
+    public CampaignApiTest() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        this.api = new ApiSutFactory<>(CampaignApi.class).create();
+    }
 
     /**
      * createCampaign

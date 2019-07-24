@@ -14,15 +14,29 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class AuthServiceIntegrationTest extends ApiTest {
+public class AuthServiceIntegrationTest //extends ApiTest
+{
     private AuthService authService;
     private ClientConfig clientConfig;
     private ApiClient apiClient;
     private CacheService cacheService;
 
+    private String authBasePath;
+    private String clientId;
+    private String clientSecret;
+    private String accountId;
+    private String scope;
+
     @Before
     public void setup()
     {
+        // TODO - refactor to remove reading from env variables duplication
+        this.authBasePath = System.getenv("SFMC_AUTH_BASE_PATH");
+        this.clientId = System.getenv("SFMC_CLIENT_ID");
+        this.clientSecret = System.getenv("SFMC_CLIENT_SECRET");
+        this.accountId = System.getenv("SFMC_ACCOUNT_ID");
+        this.scope = System.getenv("SFMC_SCOPE");
+
         this.clientConfig = new ClientConfig(
                 this.authBasePath, this.clientId, this.clientSecret, this.accountId, this.scope);
         this.apiClient = new ApiClient();

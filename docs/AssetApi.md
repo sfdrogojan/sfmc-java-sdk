@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createAsset**](AssetApi.md#createAsset) | **POST** /asset/v1/content/assets | createAsset
 [**deleteAssetById**](AssetApi.md#deleteAssetById) | **DELETE** /asset/v1/content/assets/{id} | deleteAssetById
-[**getAssetById**](AssetApi.md#getAssetById) | **GET** /asset/v1/content/assets/{id} | getAssetById2
+[**getAssetById**](AssetApi.md#getAssetById) | **GET** /asset/v1/content/assets/{id} | getAssetById pipeline test
 [**partiallyUpdateAssetById**](AssetApi.md#partiallyUpdateAssetById) | **PATCH** /asset/v1/content/assets/{id} | partiallyUpdateAssetById
 
 
@@ -103,7 +103,7 @@ No authorization required
 # **getAssetById**
 > Asset getAssetById(id)
 
-getAssetById2
+getAssetById pipeline test
 
 Gets an asset by ID.
 

@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * API tests for AssetApi
  */
-public class AssetApiTest extends ApiTest {
+public class AssetApiTest {
 
     private final AssetApi api;
 

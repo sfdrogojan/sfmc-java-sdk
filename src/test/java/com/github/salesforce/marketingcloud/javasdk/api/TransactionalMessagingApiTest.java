@@ -15,6 +15,8 @@ package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
+
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import com.github.salesforce.marketingcloud.javasdk.model.CreateEmailDefinitionRequest;
 import com.github.salesforce.marketingcloud.javasdk.model.CreateSmsDefinitionRequest;
@@ -45,14 +47,13 @@ import java.util.Map;
  * API tests for TransactionalMessagingApi
  */
 @Ignore
-public class TransactionalMessagingApiTest extends ApiTest {
+public class TransactionalMessagingApiTest //extends ApiTest
+{
+    private final TransactionalMessagingApi api;
 
-    private final TransactionalMessagingApi api = new TransactionalMessagingApi(
-            authBasePath,
-            clientId,
-            clientSecret,
-            accountId,
-            scope);
+    public TransactionalMessagingApiTest() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        this.api = new ApiSutFactory<>(TransactionalMessagingApi.class).create();
+    }
 
     /**
      * createEmailDefinition

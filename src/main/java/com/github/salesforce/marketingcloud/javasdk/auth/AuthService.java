@@ -23,7 +23,7 @@ public class AuthService {
         TokenResponse cachedTokenResponse = this.cacheService.get(cacheKey);
 
         if(cachedTokenResponse == null) {
-            String authBasePath = this.clientConfig.getAuthBasePath();
+            String authBasePath = removeUrlTrailingSlash(this.clientConfig.getAuthBasePath());
             this.apiClient.setBasePath(authBasePath);
 
             String requestPayload = getTokenRequestPayload();
@@ -41,6 +41,7 @@ public class AuthService {
             ApiResponse<TokenResponse> response = this.apiClient.execute(tokenCall, TokenResponse.class);
             TokenResponse tokenResponse = response.getData();
 
+            this.sanitizeUrls(tokenResponse);
             this.cacheService.addOrUpdate(cacheKey, tokenResponse);
 
             return tokenResponse;
@@ -71,5 +72,19 @@ public class AuthService {
     private String getCacheKey()
     {
         return this.clientConfig.getClientId() + "-" + this.clientConfig.getAccountId();
+    }
+
+    private String removeUrlTrailingSlash(String url)
+    {
+        if(url.endsWith("/")) {
+            return url.substring(0, url.length() - 1);
+        }
+        return url;
+    }
+
+    private void sanitizeUrls(TokenResponse tokenResponse)
+    {
+        tokenResponse.setRestInstanceUrl(removeUrlTrailingSlash(tokenResponse.getRestInstanceUrl()));
+        tokenResponse.setSoapInstanceUrl(removeUrlTrailingSlash(tokenResponse.getSoapInstanceUrl()));
     }
 }

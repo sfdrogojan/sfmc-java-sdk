@@ -218,6 +218,11 @@
                 <artifactId>threetenbp</artifactId>
                 <version>${threetenbp-version}</version>
             </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3-version}</version>
+        </dependency>
         <!-- test dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -243,6 +248,7 @@
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <junit-version>4.12</junit-version>
         <mockito-core-version>2.28.2</mockito-core-version>
+        <commons-lang3-version>3.8.1</commons-lang3-version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>

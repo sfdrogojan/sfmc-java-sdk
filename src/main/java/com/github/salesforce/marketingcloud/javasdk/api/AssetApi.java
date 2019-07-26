@@ -345,7 +345,7 @@ public class AssetApi {
     }
 
     /**
-     * getAssetById pipeline test
+     * getAssetById
      * Gets an asset by ID.
      * @param id The ID of the asset (required)
      * @return Asset
@@ -357,7 +357,7 @@ public class AssetApi {
     }
 
     /**
-     * getAssetById pipeline test
+     * getAssetById
      * Gets an asset by ID.
      * @param id The ID of the asset (required)
      * @return ApiResponse&lt;Asset&gt;
@@ -370,7 +370,7 @@ public class AssetApi {
     }
 
     /**
-     * getAssetById pipeline test (asynchronously)
+     * getAssetById (asynchronously)
      * Gets an asset by ID.
      * @param id The ID of the asset (required)
      * @param callback The callback to be executed when the API call finishes

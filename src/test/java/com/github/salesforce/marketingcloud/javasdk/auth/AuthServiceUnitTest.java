@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import java.util.HashMap;
 
+import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.*;
 
 public class AuthServiceUnitTest {
@@ -61,6 +62,25 @@ public class AuthServiceUnitTest {
         authServiceInstance2.getTokenResponse();
 
         verify(apiClientMock, times(1)).execute(any(), eq(TokenResponse.class));
+    }
+
+    @Test
+    public void shouldCacheTokenResponseWithoutTrailingSlashesForUrls() throws ApiException {
+        ClientConfig clientConfig = TestHelper.createClientConfig();
+
+        TokenResponse tokenResponse = TestHelper.createTokenResponse();
+        tokenResponse.setRestInstanceUrl(tokenResponse.getRestInstanceUrl() + "/");
+        tokenResponse.setSoapInstanceUrl(tokenResponse.getSoapInstanceUrl() + "/");
+
+        ApiClient apiClientMock = createApiClientMock(tokenResponse);
+        SettableDateTimeProvider settableDateTimeProvider = TestHelper.createSettableDateTimeProvider();
+        AuthService authService = new AuthService(clientConfig, apiClientMock, new CacheService(settableDateTimeProvider));
+
+        TokenResponse returnedTokenResponse = authService.getTokenResponse();
+
+        assertFalse(returnedTokenResponse.getRestInstanceUrl().endsWith("/"));
+        assertFalse(returnedTokenResponse.getSoapInstanceUrl().endsWith("/"));
+
     }
 
     private ApiClient createApiClientMock(TokenResponse tokenResponse) throws ApiException {

@@ -23,15 +23,13 @@ public class AuthService {
         TokenResponse cachedTokenResponse = this.cacheService.get(cacheKey);
 
         if(cachedTokenResponse == null) {
-            String authBasePath = removeUrlTrailingSlash(this.clientConfig.getAuthBasePath());
-            this.apiClient.setBasePath(authBasePath);
-
             String requestPayload = getTokenRequestPayload();
 
             RequestBody body = RequestBody.create(
                     MediaType.parse("application/json"), requestPayload
             );
 
+            String authBasePath = removeUrlTrailingSlash(this.clientConfig.getAuthBasePath());
             Request request = new Request.Builder()
                     .url(authBasePath + "/v2/token")
                     .post(body)

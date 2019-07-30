@@ -2,6 +2,7 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 
 import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
+import com.github.salesforce.marketingcloud.javasdk.ConfigProvider;
 import com.github.salesforce.marketingcloud.javasdk.DateTimeProvider;
 import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import org.junit.After;
@@ -29,12 +30,12 @@ public class AuthServiceIntegrationTest //extends ApiTest
     @Before
     public void setup()
     {
-        // TODO - refactor to remove reading from env variables duplication
-        this.authBasePath = System.getenv("SFMC_AUTH_BASE_PATH");
-        this.clientId = System.getenv("SFMC_CLIENT_ID");
-        this.clientSecret = System.getenv("SFMC_CLIENT_SECRET");
-        this.accountId = System.getenv("SFMC_ACCOUNT_ID");
-        this.scope = System.getenv("SFMC_SCOPE");
+        ConfigProvider configProvider = new ConfigProvider();
+        this.authBasePath = configProvider.getAuthBasePath();
+        this.clientId = configProvider.getClientId();
+        this.clientSecret = configProvider.getClientSecret();
+        this.accountId = configProvider.getAccountId();
+        this.scope = configProvider.getScope();
 
         this.clientConfig = new ClientConfig(
                 this.authBasePath, this.clientId, this.clientSecret, this.accountId, this.scope);

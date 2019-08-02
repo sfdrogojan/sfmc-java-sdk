@@ -136,14 +136,14 @@ public class ApiExceptionFactoryTest {
     private Response createResponse(int code) {
         Response.Builder builder = new Response.Builder();
         return builder
-                                .request(new Request.Builder().url("https://rest.com").build())
-                                .protocol(Protocol.HTTP_1_1)
-                                .code(code)
-                                .body(ResponseBody.create(
-                                        MediaType.parse("application/json"),
-                                        responseBody))
-                                .message(message)
-                                .header(headerKey, headerValue)
-                                .build();
+                .request(new Request.Builder().url("https://rest.com").build())
+                .protocol(Protocol.HTTP_1_1)
+                .code(code)
+                .body(ResponseBody.create(
+                        MediaType.parse("application/json"),
+                        responseBody))
+                .message(message)
+                .header(headerKey, headerValue)
+                .build();
     }
 }

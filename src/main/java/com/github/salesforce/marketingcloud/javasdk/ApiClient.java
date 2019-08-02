@@ -14,6 +14,7 @@
 package com.github.salesforce.marketingcloud.javasdk;
 
 import com.github.salesforce.marketingcloud.javasdk.auth.*;
+import com.github.salesforce.marketingcloud.javasdk.exception.ApiExceptionFactory;
 import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import com.squareup.okhttp.*;
 import com.squareup.okhttp.internal.http.HttpMethod;
@@ -920,15 +921,7 @@ public class ApiClient {
                 return deserialize(response, returnType);
             }
         } else {
-            String respBody = null;
-            if (response.body() != null) {
-                try {
-                    respBody = response.body().string();
-                } catch (IOException e) {
-                    throw new ApiException(response.message(), e, response.code(), response.headers().toMultimap());
-                }
-            }
-            throw new ApiException(response.message(), response.code(), response.headers().toMultimap(), respBody);
+            throw ApiExceptionFactory.create(response);
         }
     }
 

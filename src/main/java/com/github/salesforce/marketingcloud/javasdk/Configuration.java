@@ -15,7 +15,7 @@ package com.github.salesforce.marketingcloud.javasdk;
 
 
 public class Configuration {
-    private static ApiClient defaultApiClient = new ApiClient();
+    private static ApiClient defaultApiClient = new ApiClient(new RuntimeInformationProvider());
 
     /**
      * Get the default API client, which would be used when creating API

@@ -2,8 +2,6 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 
 import com.github.salesforce.marketingcloud.javasdk.*;
 import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.OkHttpClient;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -85,13 +83,10 @@ public class AuthServiceUnitTest {
 
     private ApiClient createApiClientMock(TokenResponse tokenResponse) throws ApiException {
         ApiClient apiClientMock = mock(ApiClient.class);
-        when(apiClientMock.getJSON()).thenReturn(new JSON());
-        when(apiClientMock.getHttpClient()).thenReturn(new OkHttpClient());
-        when(apiClientMock.execute(any(Call.class), eq(TokenResponse.class)))
-                .thenReturn(new ApiResponse<>(
-                        200, new HashMap<>(), tokenResponse
-                        )
-                );
+        when(apiClientMock.execute(any(), eq(TokenResponse.class))).thenReturn(new ApiResponse<>(
+                200, new HashMap<>(), tokenResponse
+        ));
+
         return apiClientMock;
     }
 }

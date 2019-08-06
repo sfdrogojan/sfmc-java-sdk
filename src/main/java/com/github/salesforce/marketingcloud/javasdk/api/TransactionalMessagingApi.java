@@ -55,8 +55,10 @@ public class TransactionalMessagingApi {
         ClientConfig clientConfig = new ClientConfig(authBasePath, clientId, clientSecret, accountId, scope);
         DateTimeProvider dateTimeProvider = new DateTimeProvider();
         CacheService cacheService = new CacheService(dateTimeProvider);
+        RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
+        ApiClient apiClient = new ApiClient(runtimeInformationProvider);
 
-        this.authService = new AuthService(clientConfig, new ApiClient(), cacheService);
+        this.authService = new AuthService(clientConfig, apiClient, cacheService);
         this.apiClient = new ApiClient(authService);
     }
 
@@ -788,7 +790,7 @@ public class TransactionalMessagingApi {
     }
     /**
      * Build call for getEmailDefinition
-     * @param definitionKey Unique identifier of the definition to get (required)
+     * @param definitionKey Unique identifier of the definition to getForUserAgentString (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -853,7 +855,7 @@ public class TransactionalMessagingApi {
     /**
      * getEmailDefinition
      * Gets email definition configuration details for a definition key.
-     * @param definitionKey Unique identifier of the definition to get (required)
+     * @param definitionKey Unique identifier of the definition to getForUserAgentString (required)
      * @return CreateEmailDefinitionRequest
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -865,7 +867,7 @@ public class TransactionalMessagingApi {
     /**
      * getEmailDefinition
      * Gets email definition configuration details for a definition key.
-     * @param definitionKey Unique identifier of the definition to get (required)
+     * @param definitionKey Unique identifier of the definition to getForUserAgentString (required)
      * @return ApiResponse&lt;CreateEmailDefinitionRequest&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -878,7 +880,7 @@ public class TransactionalMessagingApi {
     /**
      * getEmailDefinition (asynchronously)
      * Gets email definition configuration details for a definition key.
-     * @param definitionKey Unique identifier of the definition to get (required)
+     * @param definitionKey Unique identifier of the definition to getForUserAgentString (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1689,7 +1691,7 @@ public class TransactionalMessagingApi {
     }
     /**
      * Build call for getSmsDefinition
-     * @param definitionKey Unique identifier of the definition to get (required)
+     * @param definitionKey Unique identifier of the definition to getForUserAgentString (required)
      * @param progressListener Progress listener
      * @param progressRequestListener Progress request listener
      * @return Call to execute
@@ -1754,7 +1756,7 @@ public class TransactionalMessagingApi {
     /**
      * getSmsDefinition
      * Gets SMS definition configuration details for a definition key.
-     * @param definitionKey Unique identifier of the definition to get (required)
+     * @param definitionKey Unique identifier of the definition to getForUserAgentString (required)
      * @return CreateSmsDefinitionRequest
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -1766,7 +1768,7 @@ public class TransactionalMessagingApi {
     /**
      * getSmsDefinition
      * Gets SMS definition configuration details for a definition key.
-     * @param definitionKey Unique identifier of the definition to get (required)
+     * @param definitionKey Unique identifier of the definition to getForUserAgentString (required)
      * @return ApiResponse&lt;CreateSmsDefinitionRequest&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
@@ -1779,7 +1781,7 @@ public class TransactionalMessagingApi {
     /**
      * getSmsDefinition (asynchronously)
      * Gets SMS definition configuration details for a definition key.
-     * @param definitionKey Unique identifier of the definition to get (required)
+     * @param definitionKey Unique identifier of the definition to getForUserAgentString (required)
      * @param callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object

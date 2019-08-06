@@ -38,8 +38,10 @@ public class CampaignApi {
         ClientConfig clientConfig = new ClientConfig(authBasePath, clientId, clientSecret, accountId, scope);
         DateTimeProvider dateTimeProvider = new DateTimeProvider();
         CacheService cacheService = new CacheService(dateTimeProvider);
+        RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
+        ApiClient apiClient = new ApiClient(runtimeInformationProvider);
 
-        this.authService = new AuthService(clientConfig, new ApiClient(), cacheService);
+        this.authService = new AuthService(clientConfig, apiClient, cacheService);
         this.apiClient = new ApiClient(authService);
     }
 

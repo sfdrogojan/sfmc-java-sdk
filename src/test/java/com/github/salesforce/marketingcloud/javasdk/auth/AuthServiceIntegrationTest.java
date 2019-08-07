@@ -4,6 +4,7 @@ import com.github.salesforce.marketingcloud.javasdk.ApiClient;
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.ConfigProvider;
 import com.github.salesforce.marketingcloud.javasdk.DateTimeProvider;
+import com.github.salesforce.marketingcloud.javasdk.exception.AuthenticationFailureException;
 import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import org.junit.After;
 import org.junit.Before;
@@ -66,9 +67,8 @@ public class AuthServiceIntegrationTest //extends ApiTest
     @Rule
     public ExpectedException exceptionRule = ExpectedException.none();
     @Test
-    public void shouldThrowApiExceptionOnInvalidClientId() throws ApiException {
-        exceptionRule.expect(ApiException.class);
-        exceptionRule.expectMessage("Unauthorized");
+    public void shouldThrowAuthenticationFailureExceptionOnInvalidClientId() throws ApiException {
+        exceptionRule.expect(AuthenticationFailureException.class);
 
         this.clientConfig = new ClientConfig(
                 this.authBasePath, "invalid", this.clientSecret, this.accountId, this.scope);
@@ -78,9 +78,8 @@ public class AuthServiceIntegrationTest //extends ApiTest
     }
 
     @Test
-    public void shouldThrowApiExceptionOnInvalidClientSecret() throws ApiException {
-        exceptionRule.expect(ApiException.class);
-        exceptionRule.expectMessage("Unauthorized");
+    public void shouldThrowAuthenticationFailureExceptionOnInvalidClientSecret() throws ApiException {
+        exceptionRule.expect(AuthenticationFailureException.class);
 
         this.clientConfig = new ClientConfig(
                 this.authBasePath, this.clientId, "invalid", this.accountId, this.scope);

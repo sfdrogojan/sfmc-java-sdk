@@ -15,7 +15,6 @@ package com.github.salesforce.marketingcloud.javasdk;
 
 import com.github.salesforce.marketingcloud.javasdk.auth.*;
 import com.github.salesforce.marketingcloud.javasdk.exception.ApiExceptionFactory;
-import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import com.squareup.okhttp.*;
 import com.squareup.okhttp.internal.http.HttpMethod;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;

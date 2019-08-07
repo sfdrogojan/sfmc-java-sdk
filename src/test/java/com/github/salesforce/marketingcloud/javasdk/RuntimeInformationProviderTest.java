@@ -1,15 +1,23 @@
 package com.github.salesforce.marketingcloud.javasdk;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class RuntimeInformationProviderTest {
+    private RuntimeInformationProvider runtimeInformationProvider;
+
+    @Before
+    public void setup()
+    {
+        runtimeInformationProvider = new RuntimeInformationProvider();
+    }
+
     @Test
     public void shouldContainJavaVersion()
     {
-        RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
         String result = runtimeInformationProvider.getForUserAgentString();
 
         assertTrue(result.contains("java.version="));
@@ -18,7 +26,6 @@ public class RuntimeInformationProviderTest {
     @Test
     public void shouldContainOSName()
     {
-        RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
         String result = runtimeInformationProvider.getForUserAgentString();
 
         assertTrue(result.contains("os.name="));
@@ -27,7 +34,6 @@ public class RuntimeInformationProviderTest {
     @Test
     public void shouldContainOSVersion()
     {
-        RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
         String result = runtimeInformationProvider.getForUserAgentString();
 
         assertTrue(result.contains("os.version="));
@@ -44,7 +50,6 @@ public class RuntimeInformationProviderTest {
                 }
             });
 
-            RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
             String result = runtimeInformationProvider.getForUserAgentString();
 
             assertEquals("/NA", result);

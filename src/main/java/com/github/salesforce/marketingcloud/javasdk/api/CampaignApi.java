@@ -42,7 +42,7 @@ public class CampaignApi {
         ApiClient apiClient = new ApiClient(runtimeInformationProvider);
 
         this.authService = new AuthService(clientConfig, apiClient, cacheService);
-        this.apiClient = new ApiClient(authService);
+        this.apiClient = new OAuth2ApiClient(runtimeInformationProvider, authService);
     }
 
     /**

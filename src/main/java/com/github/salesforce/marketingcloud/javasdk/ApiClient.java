@@ -14,7 +14,6 @@
 package com.github.salesforce.marketingcloud.javasdk;
 
 import com.github.salesforce.marketingcloud.javasdk.auth.*;
-import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import com.squareup.okhttp.*;
 import com.squareup.okhttp.internal.http.HttpMethod;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
@@ -70,8 +69,6 @@ public class ApiClient {
 
     private HttpLoggingInterceptor loggingInterceptor;
 
-    private AuthService authService;
-
     private RuntimeInformationProvider runtimeInformationProvider;
 
     /*
@@ -95,12 +92,6 @@ public class ApiClient {
         authentications.put("oauth2", new OAuth());
         // Prevent the authentications from being modified.
         authentications = Collections.unmodifiableMap(authentications);
-    }
-
-    public ApiClient(AuthService authService)
-    {
-        this(new RuntimeInformationProvider());
-        this.authService = authService;
     }
 
     /**
@@ -973,12 +964,6 @@ public class ApiClient {
      * @throws ApiException If fail to serialize the request body object
      */
     public Request buildRequest(String path, String method, List<Pair> queryParams, List<Pair> collectionQueryParams, Object body, Map<String, String> headerParams, Map<String, Object> formParams, String[] authNames, ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        if(this.authService != null) {
-            TokenResponse response = this.authService.getTokenResponse();
-            this.setBasePath(response.getRestInstanceUrl());
-            this.setAccessToken(response.getAccessToken());
-        }
-
         updateParamsForAuth(authNames, queryParams, headerParams);
 
         final String url = buildUrl(path, queryParams, collectionQueryParams);

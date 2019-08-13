@@ -7,6 +7,8 @@ import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
 import com.google.gson.JsonObject;
 import com.squareup.okhttp.*;
 
+import java.util.Collections;
+
 public class AuthService {
     private final ClientConfig clientConfig;
     private final ApiClient apiClient;
@@ -23,19 +25,11 @@ public class AuthService {
         TokenResponse cachedTokenResponse = this.cacheService.get(cacheKey);
 
         if(cachedTokenResponse == null) {
-            String requestPayload = getTokenRequestPayload();
-
-            RequestBody body = RequestBody.create(
-                    MediaType.parse("application/json"), requestPayload
-            );
-
             String authBasePath = removeUrlTrailingSlash(this.clientConfig.getAuthBasePath());
-            Request request = new Request.Builder()
-                    .url(authBasePath + "/v2/token")
-                    .post(body)
-                    .build();
 
-            Call tokenCall = this.apiClient.getHttpClient().newCall(request);
+            this.apiClient.setBasePath(authBasePath);
+            Call tokenCall = buildTokenCall();
+
             ApiResponse<TokenResponse> response = this.apiClient.execute(tokenCall, TokenResponse.class);
             TokenResponse tokenResponse = response.getData();
 
@@ -50,7 +44,21 @@ public class AuthService {
         }
     }
 
-    private String getTokenRequestPayload() {
+    private Call buildTokenCall() throws ApiException {
+        return this.apiClient.buildCall(
+            "/v2/token",
+            "POST",
+            Collections.emptyList(),
+            Collections.emptyList(),
+            getTokenRequestPayload(),
+            Collections.emptyMap(),
+            Collections.emptyMap(),
+            new String[0],
+            null
+        );
+    }
+
+    private JsonObject getTokenRequestPayload() {
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("client_id", this.clientConfig.getClientId());
         jsonObject.addProperty("client_secret", this.clientConfig.getClientSecret());
@@ -64,7 +72,7 @@ public class AuthService {
             jsonObject.addProperty("scope", scope);
         }
 
-        return this.apiClient.getJSON().getGson().toJson(jsonObject);
+        return jsonObject;
     }
 
     private String getCacheKey()

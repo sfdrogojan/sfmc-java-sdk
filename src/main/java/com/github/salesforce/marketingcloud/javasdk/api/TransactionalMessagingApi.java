@@ -15,11 +15,20 @@ package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.*;
 import com.github.salesforce.marketingcloud.javasdk.auth.*;
+import com.github.salesforce.marketingcloud.javasdk.BeanValidationException;
 
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+import javax.validation.constraints.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
+import javax.validation.executable.ExecutableValidator;
+import java.util.Set;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
 import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import java.math.BigDecimal;
@@ -113,10 +122,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call createEmailDefinitionValidateBeforeCall(CreateEmailDefinitionRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = createEmailDefinitionCall(body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { body };
+            Method method = this.getClass().getMethod("createEmailDefinitionWithHttpInfo", CreateEmailDefinitionRequest.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = createEmailDefinitionCall(body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -139,7 +167,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;CreateEmailDefinitionRequest&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CreateEmailDefinitionRequest> createEmailDefinitionWithHttpInfo(CreateEmailDefinitionRequest body) throws ApiException {
+    public ApiResponse<CreateEmailDefinitionRequest> createEmailDefinitionWithHttpInfo( CreateEmailDefinitionRequest body) throws ApiException {
         com.squareup.okhttp.Call call = createEmailDefinitionValidateBeforeCall(body, null, null);
         Type localVarReturnType = new TypeToken<CreateEmailDefinitionRequest>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -230,10 +258,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call createSmsDefinitionValidateBeforeCall(CreateSmsDefinitionRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = createSmsDefinitionCall(body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { body };
+            Method method = this.getClass().getMethod("createSmsDefinitionWithHttpInfo", CreateSmsDefinitionRequest.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = createSmsDefinitionCall(body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -256,7 +303,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;CreateSmsDefinitionRequest&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CreateSmsDefinitionRequest> createSmsDefinitionWithHttpInfo(CreateSmsDefinitionRequest body) throws ApiException {
+    public ApiResponse<CreateSmsDefinitionRequest> createSmsDefinitionWithHttpInfo( CreateSmsDefinitionRequest body) throws ApiException {
         com.squareup.okhttp.Call call = createSmsDefinitionValidateBeforeCall(body, null, null);
         Type localVarReturnType = new TypeToken<CreateSmsDefinitionRequest>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -348,15 +395,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call deleteEmailDefinitionValidateBeforeCall(String definitionKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling deleteEmailDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = deleteEmailDefinitionCall(definitionKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey };
+            Method method = this.getClass().getMethod("deleteEmailDefinitionWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = deleteEmailDefinitionCall(definitionKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -379,7 +440,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;DeleteSendDefinitionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<DeleteSendDefinitionResponse> deleteEmailDefinitionWithHttpInfo(String definitionKey) throws ApiException {
+    public ApiResponse<DeleteSendDefinitionResponse> deleteEmailDefinitionWithHttpInfo( @NotNull String definitionKey) throws ApiException {
         com.squareup.okhttp.Call call = deleteEmailDefinitionValidateBeforeCall(definitionKey, null, null);
         Type localVarReturnType = new TypeToken<DeleteSendDefinitionResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -471,15 +532,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call deleteQueuedMessagesForEmailDefinitionValidateBeforeCall(String definitionKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling deleteQueuedMessagesForEmailDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = deleteQueuedMessagesForEmailDefinitionCall(definitionKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey };
+            Method method = this.getClass().getMethod("deleteQueuedMessagesForEmailDefinitionWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = deleteQueuedMessagesForEmailDefinitionCall(definitionKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -502,7 +577,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;DeleteQueuedMessagesForSendDefinitionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<DeleteQueuedMessagesForSendDefinitionResponse> deleteQueuedMessagesForEmailDefinitionWithHttpInfo(String definitionKey) throws ApiException {
+    public ApiResponse<DeleteQueuedMessagesForSendDefinitionResponse> deleteQueuedMessagesForEmailDefinitionWithHttpInfo( @NotNull String definitionKey) throws ApiException {
         com.squareup.okhttp.Call call = deleteQueuedMessagesForEmailDefinitionValidateBeforeCall(definitionKey, null, null);
         Type localVarReturnType = new TypeToken<DeleteQueuedMessagesForSendDefinitionResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -594,15 +669,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call deleteQueuedMessagesForSmsDefinitionValidateBeforeCall(String definitionKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling deleteQueuedMessagesForSmsDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = deleteQueuedMessagesForSmsDefinitionCall(definitionKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey };
+            Method method = this.getClass().getMethod("deleteQueuedMessagesForSmsDefinitionWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = deleteQueuedMessagesForSmsDefinitionCall(definitionKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -625,7 +714,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;DeleteQueuedMessagesForSendDefinitionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<DeleteQueuedMessagesForSendDefinitionResponse> deleteQueuedMessagesForSmsDefinitionWithHttpInfo(String definitionKey) throws ApiException {
+    public ApiResponse<DeleteQueuedMessagesForSendDefinitionResponse> deleteQueuedMessagesForSmsDefinitionWithHttpInfo( @NotNull String definitionKey) throws ApiException {
         com.squareup.okhttp.Call call = deleteQueuedMessagesForSmsDefinitionValidateBeforeCall(definitionKey, null, null);
         Type localVarReturnType = new TypeToken<DeleteQueuedMessagesForSendDefinitionResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -717,15 +806,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call deleteSmsDefinitionValidateBeforeCall(String definitionKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling deleteSmsDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = deleteSmsDefinitionCall(definitionKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey };
+            Method method = this.getClass().getMethod("deleteSmsDefinitionWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = deleteSmsDefinitionCall(definitionKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -748,7 +851,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;DeleteSendDefinitionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<DeleteSendDefinitionResponse> deleteSmsDefinitionWithHttpInfo(String definitionKey) throws ApiException {
+    public ApiResponse<DeleteSendDefinitionResponse> deleteSmsDefinitionWithHttpInfo( @NotNull String definitionKey) throws ApiException {
         com.squareup.okhttp.Call call = deleteSmsDefinitionValidateBeforeCall(definitionKey, null, null);
         Type localVarReturnType = new TypeToken<DeleteSendDefinitionResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -840,15 +943,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getEmailDefinitionValidateBeforeCall(String definitionKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling getEmailDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getEmailDefinitionCall(definitionKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey };
+            Method method = this.getClass().getMethod("getEmailDefinitionWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getEmailDefinitionCall(definitionKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -871,7 +988,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;CreateEmailDefinitionRequest&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CreateEmailDefinitionRequest> getEmailDefinitionWithHttpInfo(String definitionKey) throws ApiException {
+    public ApiResponse<CreateEmailDefinitionRequest> getEmailDefinitionWithHttpInfo( @NotNull String definitionKey) throws ApiException {
         com.squareup.okhttp.Call call = getEmailDefinitionValidateBeforeCall(definitionKey, null, null);
         Type localVarReturnType = new TypeToken<CreateEmailDefinitionRequest>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -973,10 +1090,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getEmailDefinitionsValidateBeforeCall(String status, BigDecimal pageSize, BigDecimal page, String orderBy, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getEmailDefinitionsCall(status, pageSize, page, orderBy, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { status, pageSize, page, orderBy };
+            Method method = this.getClass().getMethod("getEmailDefinitionsWithHttpInfo", String.class, BigDecimal.class, BigDecimal.class, String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getEmailDefinitionsCall(status, pageSize, page, orderBy, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -1005,7 +1141,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;GetEmailDefinitionsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetEmailDefinitionsResponse> getEmailDefinitionsWithHttpInfo(String status, BigDecimal pageSize, BigDecimal page, String orderBy) throws ApiException {
+    public ApiResponse<GetEmailDefinitionsResponse> getEmailDefinitionsWithHttpInfo( String status,  BigDecimal pageSize,  BigDecimal page,  String orderBy) throws ApiException {
         com.squareup.okhttp.Call call = getEmailDefinitionsValidateBeforeCall(status, pageSize, page, orderBy, null, null);
         Type localVarReturnType = new TypeToken<GetEmailDefinitionsResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -1100,15 +1236,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getEmailSendStatusForRecipientValidateBeforeCall(String messageKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'messageKey' is set
-        if (messageKey == null) {
-            throw new ApiException("Missing the required parameter 'messageKey' when calling getEmailSendStatusForRecipient(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getEmailSendStatusForRecipientCall(messageKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { messageKey };
+            Method method = this.getClass().getMethod("getEmailSendStatusForRecipientWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getEmailSendStatusForRecipientCall(messageKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -1131,7 +1281,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;GetDefinitionSendStatusForRecipientResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetDefinitionSendStatusForRecipientResponse> getEmailSendStatusForRecipientWithHttpInfo(String messageKey) throws ApiException {
+    public ApiResponse<GetDefinitionSendStatusForRecipientResponse> getEmailSendStatusForRecipientWithHttpInfo( @NotNull String messageKey) throws ApiException {
         com.squareup.okhttp.Call call = getEmailSendStatusForRecipientValidateBeforeCall(messageKey, null, null);
         Type localVarReturnType = new TypeToken<GetDefinitionSendStatusForRecipientResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -1230,15 +1380,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getEmailsNotSentToRecipientsValidateBeforeCall(String type, Integer pageSize, Integer lastEventId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'type' is set
-        if (type == null) {
-            throw new ApiException("Missing the required parameter 'type' when calling getEmailsNotSentToRecipients(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getEmailsNotSentToRecipientsCall(type, pageSize, lastEventId, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { type, pageSize, lastEventId };
+            Method method = this.getClass().getMethod("getEmailsNotSentToRecipientsWithHttpInfo", String.class, Integer.class, Integer.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getEmailsNotSentToRecipientsCall(type, pageSize, lastEventId, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -1265,7 +1429,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;GetDefinitionsNotSentToRecipientsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetDefinitionsNotSentToRecipientsResponse> getEmailsNotSentToRecipientsWithHttpInfo(String type, Integer pageSize, Integer lastEventId) throws ApiException {
+    public ApiResponse<GetDefinitionsNotSentToRecipientsResponse> getEmailsNotSentToRecipientsWithHttpInfo( @NotNull String type,  Integer pageSize,  Integer lastEventId) throws ApiException {
         com.squareup.okhttp.Call call = getEmailsNotSentToRecipientsValidateBeforeCall(type, pageSize, lastEventId, null, null);
         Type localVarReturnType = new TypeToken<GetDefinitionsNotSentToRecipientsResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -1359,15 +1523,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getQueueMetricsForEmailDefinitionValidateBeforeCall(String definitionKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling getQueueMetricsForEmailDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getQueueMetricsForEmailDefinitionCall(definitionKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey };
+            Method method = this.getClass().getMethod("getQueueMetricsForEmailDefinitionWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getQueueMetricsForEmailDefinitionCall(definitionKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -1390,7 +1568,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;GetQueueMetricsForSendDefinitionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetQueueMetricsForSendDefinitionResponse> getQueueMetricsForEmailDefinitionWithHttpInfo(String definitionKey) throws ApiException {
+    public ApiResponse<GetQueueMetricsForSendDefinitionResponse> getQueueMetricsForEmailDefinitionWithHttpInfo( @NotNull String definitionKey) throws ApiException {
         com.squareup.okhttp.Call call = getQueueMetricsForEmailDefinitionValidateBeforeCall(definitionKey, null, null);
         Type localVarReturnType = new TypeToken<GetQueueMetricsForSendDefinitionResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -1482,15 +1660,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getQueueMetricsForSmsDefinitionValidateBeforeCall(String definitionKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling getQueueMetricsForSmsDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getQueueMetricsForSmsDefinitionCall(definitionKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey };
+            Method method = this.getClass().getMethod("getQueueMetricsForSmsDefinitionWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getQueueMetricsForSmsDefinitionCall(definitionKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -1513,7 +1705,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;GetQueueMetricsForSendDefinitionResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetQueueMetricsForSendDefinitionResponse> getQueueMetricsForSmsDefinitionWithHttpInfo(String definitionKey) throws ApiException {
+    public ApiResponse<GetQueueMetricsForSendDefinitionResponse> getQueueMetricsForSmsDefinitionWithHttpInfo( @NotNull String definitionKey) throws ApiException {
         com.squareup.okhttp.Call call = getQueueMetricsForSmsDefinitionValidateBeforeCall(definitionKey, null, null);
         Type localVarReturnType = new TypeToken<GetQueueMetricsForSendDefinitionResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -1612,15 +1804,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getSMSsNotSentToRecipientsValidateBeforeCall(String type, Integer pageSize, Integer lastEventId, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'type' is set
-        if (type == null) {
-            throw new ApiException("Missing the required parameter 'type' when calling getSMSsNotSentToRecipients(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getSMSsNotSentToRecipientsCall(type, pageSize, lastEventId, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { type, pageSize, lastEventId };
+            Method method = this.getClass().getMethod("getSMSsNotSentToRecipientsWithHttpInfo", String.class, Integer.class, Integer.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getSMSsNotSentToRecipientsCall(type, pageSize, lastEventId, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -1647,7 +1853,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;GetDefinitionsNotSentToRecipientsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetDefinitionsNotSentToRecipientsResponse> getSMSsNotSentToRecipientsWithHttpInfo(String type, Integer pageSize, Integer lastEventId) throws ApiException {
+    public ApiResponse<GetDefinitionsNotSentToRecipientsResponse> getSMSsNotSentToRecipientsWithHttpInfo( @NotNull String type,  Integer pageSize,  Integer lastEventId) throws ApiException {
         com.squareup.okhttp.Call call = getSMSsNotSentToRecipientsValidateBeforeCall(type, pageSize, lastEventId, null, null);
         Type localVarReturnType = new TypeToken<GetDefinitionsNotSentToRecipientsResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -1741,15 +1947,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getSmsDefinitionValidateBeforeCall(String definitionKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling getSmsDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getSmsDefinitionCall(definitionKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey };
+            Method method = this.getClass().getMethod("getSmsDefinitionWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getSmsDefinitionCall(definitionKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -1772,7 +1992,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;CreateSmsDefinitionRequest&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CreateSmsDefinitionRequest> getSmsDefinitionWithHttpInfo(String definitionKey) throws ApiException {
+    public ApiResponse<CreateSmsDefinitionRequest> getSmsDefinitionWithHttpInfo( @NotNull String definitionKey) throws ApiException {
         com.squareup.okhttp.Call call = getSmsDefinitionValidateBeforeCall(definitionKey, null, null);
         Type localVarReturnType = new TypeToken<CreateSmsDefinitionRequest>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -1874,10 +2094,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getSmsDefinitionsValidateBeforeCall(String status, BigDecimal pageSize, BigDecimal page, String orderBy, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getSmsDefinitionsCall(status, pageSize, page, orderBy, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { status, pageSize, page, orderBy };
+            Method method = this.getClass().getMethod("getSmsDefinitionsWithHttpInfo", String.class, BigDecimal.class, BigDecimal.class, String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getSmsDefinitionsCall(status, pageSize, page, orderBy, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -1906,7 +2145,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;GetSmsDefinitionsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetSmsDefinitionsResponse> getSmsDefinitionsWithHttpInfo(String status, BigDecimal pageSize, BigDecimal page, String orderBy) throws ApiException {
+    public ApiResponse<GetSmsDefinitionsResponse> getSmsDefinitionsWithHttpInfo( String status,  BigDecimal pageSize,  BigDecimal page,  String orderBy) throws ApiException {
         com.squareup.okhttp.Call call = getSmsDefinitionsValidateBeforeCall(status, pageSize, page, orderBy, null, null);
         Type localVarReturnType = new TypeToken<GetSmsDefinitionsResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -2001,15 +2240,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getSmsSendStatusForRecipientValidateBeforeCall(String messageKey, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'messageKey' is set
-        if (messageKey == null) {
-            throw new ApiException("Missing the required parameter 'messageKey' when calling getSmsSendStatusForRecipient(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getSmsSendStatusForRecipientCall(messageKey, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { messageKey };
+            Method method = this.getClass().getMethod("getSmsSendStatusForRecipientWithHttpInfo", String.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getSmsSendStatusForRecipientCall(messageKey, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -2032,7 +2285,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;GetDefinitionSendStatusForRecipientResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<GetDefinitionSendStatusForRecipientResponse> getSmsSendStatusForRecipientWithHttpInfo(String messageKey) throws ApiException {
+    public ApiResponse<GetDefinitionSendStatusForRecipientResponse> getSmsSendStatusForRecipientWithHttpInfo( @NotNull String messageKey) throws ApiException {
         com.squareup.okhttp.Call call = getSmsSendStatusForRecipientValidateBeforeCall(messageKey, null, null);
         Type localVarReturnType = new TypeToken<GetDefinitionSendStatusForRecipientResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -2125,15 +2378,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call partiallyUpdateEmailDefinitionValidateBeforeCall(String definitionKey, UpdateEmailDefinitionRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling partiallyUpdateEmailDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = partiallyUpdateEmailDefinitionCall(definitionKey, body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey, body };
+            Method method = this.getClass().getMethod("partiallyUpdateEmailDefinitionWithHttpInfo", String.class, UpdateEmailDefinitionRequest.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = partiallyUpdateEmailDefinitionCall(definitionKey, body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -2158,7 +2425,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;CreateEmailDefinitionRequest&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CreateEmailDefinitionRequest> partiallyUpdateEmailDefinitionWithHttpInfo(String definitionKey, UpdateEmailDefinitionRequest body) throws ApiException {
+    public ApiResponse<CreateEmailDefinitionRequest> partiallyUpdateEmailDefinitionWithHttpInfo( @NotNull String definitionKey,  UpdateEmailDefinitionRequest body) throws ApiException {
         com.squareup.okhttp.Call call = partiallyUpdateEmailDefinitionValidateBeforeCall(definitionKey, body, null, null);
         Type localVarReturnType = new TypeToken<CreateEmailDefinitionRequest>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -2252,15 +2519,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call partiallyUpdateSmsDefinitionValidateBeforeCall(String definitionKey, UpdateSmsDefinitionRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'definitionKey' is set
-        if (definitionKey == null) {
-            throw new ApiException("Missing the required parameter 'definitionKey' when calling partiallyUpdateSmsDefinition(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = partiallyUpdateSmsDefinitionCall(definitionKey, body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { definitionKey, body };
+            Method method = this.getClass().getMethod("partiallyUpdateSmsDefinitionWithHttpInfo", String.class, UpdateSmsDefinitionRequest.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = partiallyUpdateSmsDefinitionCall(definitionKey, body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -2285,7 +2566,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;CreateSmsDefinitionRequest&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<CreateSmsDefinitionRequest> partiallyUpdateSmsDefinitionWithHttpInfo(String definitionKey, UpdateSmsDefinitionRequest body) throws ApiException {
+    public ApiResponse<CreateSmsDefinitionRequest> partiallyUpdateSmsDefinitionWithHttpInfo( @NotNull String definitionKey,  UpdateSmsDefinitionRequest body) throws ApiException {
         com.squareup.okhttp.Call call = partiallyUpdateSmsDefinitionValidateBeforeCall(definitionKey, body, null, null);
         Type localVarReturnType = new TypeToken<CreateSmsDefinitionRequest>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -2377,10 +2658,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call sendEmailToMultipleRecipientsValidateBeforeCall(SendEmailToMultipleRecipientsRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = sendEmailToMultipleRecipientsCall(body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { body };
+            Method method = this.getClass().getMethod("sendEmailToMultipleRecipientsWithHttpInfo", SendEmailToMultipleRecipientsRequest.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = sendEmailToMultipleRecipientsCall(body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -2403,7 +2703,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;SendDefinitionToMultipleRecipientsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<SendDefinitionToMultipleRecipientsResponse> sendEmailToMultipleRecipientsWithHttpInfo(SendEmailToMultipleRecipientsRequest body) throws ApiException {
+    public ApiResponse<SendDefinitionToMultipleRecipientsResponse> sendEmailToMultipleRecipientsWithHttpInfo( SendEmailToMultipleRecipientsRequest body) throws ApiException {
         com.squareup.okhttp.Call call = sendEmailToMultipleRecipientsValidateBeforeCall(body, null, null);
         Type localVarReturnType = new TypeToken<SendDefinitionToMultipleRecipientsResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -2496,15 +2796,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call sendEmailToSingleRecipientValidateBeforeCall(String messageKey, SendEmailToSingleRecipientRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'messageKey' is set
-        if (messageKey == null) {
-            throw new ApiException("Missing the required parameter 'messageKey' when calling sendEmailToSingleRecipient(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = sendEmailToSingleRecipientCall(messageKey, body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { messageKey, body };
+            Method method = this.getClass().getMethod("sendEmailToSingleRecipientWithHttpInfo", String.class, SendEmailToSingleRecipientRequest.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = sendEmailToSingleRecipientCall(messageKey, body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -2529,7 +2843,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;SendDefinitionToSingleRecipientResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<SendDefinitionToSingleRecipientResponse> sendEmailToSingleRecipientWithHttpInfo(String messageKey, SendEmailToSingleRecipientRequest body) throws ApiException {
+    public ApiResponse<SendDefinitionToSingleRecipientResponse> sendEmailToSingleRecipientWithHttpInfo( @NotNull String messageKey,  SendEmailToSingleRecipientRequest body) throws ApiException {
         com.squareup.okhttp.Call call = sendEmailToSingleRecipientValidateBeforeCall(messageKey, body, null, null);
         Type localVarReturnType = new TypeToken<SendDefinitionToSingleRecipientResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -2621,10 +2935,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call sendSmsToMultipleRecipientsValidateBeforeCall(SendSmsToMultipleRecipientsRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = sendSmsToMultipleRecipientsCall(body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { body };
+            Method method = this.getClass().getMethod("sendSmsToMultipleRecipientsWithHttpInfo", SendSmsToMultipleRecipientsRequest.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = sendSmsToMultipleRecipientsCall(body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -2647,7 +2980,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;SendDefinitionToMultipleRecipientsResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<SendDefinitionToMultipleRecipientsResponse> sendSmsToMultipleRecipientsWithHttpInfo(SendSmsToMultipleRecipientsRequest body) throws ApiException {
+    public ApiResponse<SendDefinitionToMultipleRecipientsResponse> sendSmsToMultipleRecipientsWithHttpInfo( SendSmsToMultipleRecipientsRequest body) throws ApiException {
         com.squareup.okhttp.Call call = sendSmsToMultipleRecipientsValidateBeforeCall(body, null, null);
         Type localVarReturnType = new TypeToken<SendDefinitionToMultipleRecipientsResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -2740,15 +3073,29 @@ public class TransactionalMessagingApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call sendSmsToSingleRecipientValidateBeforeCall(String messageKey, SendSmsToSingleRecipientRequest body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'messageKey' is set
-        if (messageKey == null) {
-            throw new ApiException("Missing the required parameter 'messageKey' when calling sendSmsToSingleRecipient(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = sendSmsToSingleRecipientCall(messageKey, body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { messageKey, body };
+            Method method = this.getClass().getMethod("sendSmsToSingleRecipientWithHttpInfo", String.class, SendSmsToSingleRecipientRequest.class);
+            Set<ConstraintViolation<TransactionalMessagingApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = sendSmsToSingleRecipientCall(messageKey, body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -2773,7 +3120,7 @@ public class TransactionalMessagingApi {
      * @return ApiResponse&lt;SendDefinitionToSingleRecipientResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<SendDefinitionToSingleRecipientResponse> sendSmsToSingleRecipientWithHttpInfo(String messageKey, SendSmsToSingleRecipientRequest body) throws ApiException {
+    public ApiResponse<SendDefinitionToSingleRecipientResponse> sendSmsToSingleRecipientWithHttpInfo( @NotNull String messageKey,  SendSmsToSingleRecipientRequest body) throws ApiException {
         com.squareup.okhttp.Call call = sendSmsToSingleRecipientValidateBeforeCall(messageKey, body, null, null);
         Type localVarReturnType = new TypeToken<SendDefinitionToSingleRecipientResponse>(){}.getType();
         return apiClient.execute(call, localVarReturnType);

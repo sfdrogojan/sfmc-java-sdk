@@ -28,6 +28,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * Asset
@@ -127,6 +129,7 @@ public class Asset {
    * The id of the asset
    * @return id
   **/
+  @Valid
   @ApiModelProperty(value = "The id of the asset")
   public BigDecimal getId() {
     return id;
@@ -145,6 +148,7 @@ public class Asset {
    * Reference to customer&#39;s private ID/name for the asset
    * @return customerKey
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Reference to customer's private ID/name for the asset")
   public String getCustomerKey() {
     return customerKey;
@@ -199,6 +203,8 @@ public class Asset {
    * Get assetType
    * @return assetType
   **/
+  @NotNull
+  @Valid
   @ApiModelProperty(required = true, value = "")
   public AssetType getAssetType() {
     return assetType;
@@ -217,6 +223,7 @@ public class Asset {
    * The version of the asset
    * @return version
   **/
+  @Valid
   @ApiModelProperty(value = "The version of the asset")
   public BigDecimal getVersion() {
     return version;
@@ -271,6 +278,7 @@ public class Asset {
    * Name of the asset, set by the client
    * @return name
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Name of the asset, set by the client")
   public String getName() {
     return name;
@@ -289,6 +297,7 @@ public class Asset {
    * Description of the asset, set by the client
    * @return description
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Description of the asset, set by the client")
   public String getDescription() {
     return description;
@@ -459,6 +468,7 @@ public class Asset {
    * Minimum number of blocks within an asset
    * @return minBlocks
   **/
+  @Valid
   @ApiModelProperty(value = "Minimum number of blocks within an asset")
   public BigDecimal getMinBlocks() {
     return minBlocks;
@@ -477,6 +487,7 @@ public class Asset {
    * Maximum number of blocks within an asset
    * @return maxBlocks
   **/
+  @Valid
   @ApiModelProperty(value = "Maximum number of blocks within an asset")
   public BigDecimal getMaxBlocks() {
     return maxBlocks;
@@ -575,6 +586,7 @@ public class Asset {
    * Get sharingProperties
    * @return sharingProperties
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public SharingProperties getSharingProperties() {
     return sharingProperties;

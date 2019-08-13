@@ -212,6 +212,10 @@ public class JSON {
                     if (date.endsWith("+0000")) {
                         date = date.substring(0, date.length()-5) + "Z";
                     }
+                    else
+                    {
+                        date = date + "Z";
+                    }
                     return OffsetDateTime.parse(date, formatter);
             }
         }

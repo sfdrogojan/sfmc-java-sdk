@@ -27,6 +27,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * SendEmailToMultipleRecipientsRequest
@@ -51,6 +53,7 @@ public class SendEmailToMultipleRecipientsRequest {
    * Unique, user-generated key to access the definition object.
    * @return definitionKey
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Unique, user-generated key to access the definition object.")
   public String getDefinitionKey() {
     return definitionKey;
@@ -74,6 +77,8 @@ public class SendEmailToMultipleRecipientsRequest {
    * Array of recipient objects that contain parameters and metadata for the recipients, such as send tracking and personalization attributes. Use this parameter to send to multiple recipients in one request. Use either the recipient or recipients parameter, but not both.
    * @return recipients
   **/
+  @NotNull
+  @Valid
   @ApiModelProperty(required = true, value = "Array of recipient objects that contain parameters and metadata for the recipients, such as send tracking and personalization attributes. Use this parameter to send to multiple recipients in one request. Use either the recipient or recipients parameter, but not both.")
   public List<Recipient> getRecipients() {
     return recipients;
@@ -92,6 +97,7 @@ public class SendEmailToMultipleRecipientsRequest {
    * Get attributes
    * @return attributes
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public Attributes getAttributes() {
     return attributes;

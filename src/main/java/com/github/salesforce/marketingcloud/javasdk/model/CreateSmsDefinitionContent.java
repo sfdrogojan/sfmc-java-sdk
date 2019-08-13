@@ -23,6 +23,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * CreateSmsDefinitionContent
@@ -41,6 +43,7 @@ public class CreateSmsDefinitionContent {
    * The message content that you want sent with each message. Use substitution strings and AMPscript to personalize the message.
    * @return message
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "The message content that you want sent with each message. Use substitution strings and AMPscript to personalize the message.")
   public String getMessage() {
     return message;

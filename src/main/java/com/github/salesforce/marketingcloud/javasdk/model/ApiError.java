@@ -24,6 +24,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * ApiError
@@ -66,6 +68,7 @@ public class ApiError {
    * The specific error code
    * @return errorCode
   **/
+  @Valid
   @ApiModelProperty(value = "The specific error code")
   public BigDecimal getErrorCode() {
     return errorCode;

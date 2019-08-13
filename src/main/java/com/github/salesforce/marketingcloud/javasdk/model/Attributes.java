@@ -15,6 +15,8 @@ package com.github.salesforce.marketingcloud.javasdk.model;
 
 import java.util.Objects;
 import java.util.Arrays;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * Attributes

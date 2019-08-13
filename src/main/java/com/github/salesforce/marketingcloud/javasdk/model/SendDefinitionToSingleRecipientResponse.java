@@ -27,6 +27,8 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * SendDefinitionToSingleRecipientResponse
@@ -69,6 +71,7 @@ public class SendDefinitionToSingleRecipientResponse {
    * The specific error code
    * @return errorCode
   **/
+  @Valid
   @ApiModelProperty(value = "The specific error code")
   public BigDecimal getErrorCode() {
     return errorCode;
@@ -95,6 +98,7 @@ public class SendDefinitionToSingleRecipientResponse {
    * 
    * @return responses
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public List<SendDefinitionResponseItem> getResponses() {
     return responses;

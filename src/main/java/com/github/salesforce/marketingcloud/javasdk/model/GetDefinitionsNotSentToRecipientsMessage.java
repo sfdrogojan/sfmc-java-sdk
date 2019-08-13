@@ -26,6 +26,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
 import org.threeten.bp.OffsetDateTime;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * GetDefinitionsNotSentToRecipientsMessage
@@ -116,6 +118,7 @@ public class GetDefinitionsNotSentToRecipientsMessage {
    * The date the ...
    * @return timestamp
   **/
+  @Valid
   @ApiModelProperty(value = "The date the ...")
   public OffsetDateTime getTimestamp() {
     return timestamp;
@@ -152,6 +155,7 @@ public class GetDefinitionsNotSentToRecipientsMessage {
    * 
    * @return eventID
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public BigDecimal getEventID() {
     return eventID;
@@ -170,6 +174,7 @@ public class GetDefinitionsNotSentToRecipientsMessage {
    * Get info
    * @return info
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public GetDefinitionsNotSentToRecipientsMessageInfo getInfo() {
     return info;

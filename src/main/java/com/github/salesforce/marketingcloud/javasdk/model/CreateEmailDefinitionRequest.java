@@ -27,6 +27,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import org.threeten.bp.OffsetDateTime;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * CreateEmailDefinitionRequest
@@ -87,6 +89,7 @@ public class CreateEmailDefinitionRequest {
    * Name of the definition. Must be unique.
    * @return name
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Name of the definition. Must be unique.")
   public String getName() {
     return name;
@@ -105,6 +108,7 @@ public class CreateEmailDefinitionRequest {
    * Unique, user-generated key to access the definition object.
    * @return definitionKey
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Unique, user-generated key to access the definition object.")
   public String getDefinitionKey() {
     return definitionKey;
@@ -190,6 +194,7 @@ public class CreateEmailDefinitionRequest {
    * The date the object was created.
    * @return createdDate
   **/
+  @Valid
   @ApiModelProperty(value = "The date the object was created.")
   public OffsetDateTime getCreatedDate() {
     return createdDate;
@@ -199,6 +204,7 @@ public class CreateEmailDefinitionRequest {
    * The date the object was modified.
    * @return modifiedDate
   **/
+  @Valid
   @ApiModelProperty(value = "The date the object was modified.")
   public OffsetDateTime getModifiedDate() {
     return modifiedDate;
@@ -213,6 +219,8 @@ public class CreateEmailDefinitionRequest {
    * Get content
    * @return content
   **/
+  @NotNull
+  @Valid
   @ApiModelProperty(required = true, value = "")
   public CreateEmailDefinitionContent getContent() {
     return content;
@@ -231,6 +239,8 @@ public class CreateEmailDefinitionRequest {
    * Get subscriptions
    * @return subscriptions
   **/
+  @NotNull
+  @Valid
   @ApiModelProperty(required = true, value = "")
   public CreateEmailDefinitionSubscriptions getSubscriptions() {
     return subscriptions;
@@ -249,6 +259,7 @@ public class CreateEmailDefinitionRequest {
    * Get options
    * @return options
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public CreateEmailDefinitionOptionsRequest getOptions() {
     return options;

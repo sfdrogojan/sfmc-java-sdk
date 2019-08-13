@@ -26,6 +26,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * GetEmailDefinitionsResponse
@@ -82,6 +84,7 @@ public class GetEmailDefinitionsResponse {
    * Get definitions
    * @return definitions
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public List<CreateEmailDefinitionRequest> getDefinitions() {
     return definitions;

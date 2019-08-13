@@ -23,6 +23,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * CreateEmailDefinitionSubscriptions
@@ -50,6 +52,7 @@ public class CreateEmailDefinitionSubscriptions {
    * Marketing Cloud external key of the list or all subscribers. Contains the subscriber keys and profile attributes.
    * @return list
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Marketing Cloud external key of the list or all subscribers. Contains the subscriber keys and profile attributes.")
   public String getList() {
     return list;

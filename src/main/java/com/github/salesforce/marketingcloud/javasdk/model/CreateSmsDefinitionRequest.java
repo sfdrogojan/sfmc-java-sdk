@@ -26,6 +26,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import org.threeten.bp.OffsetDateTime;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * CreateSmsDefinitionRequest
@@ -68,6 +70,7 @@ public class CreateSmsDefinitionRequest {
    * Unique, user-generated key to access the definition object.
    * @return definitionKey
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Unique, user-generated key to access the definition object.")
   public String getDefinitionKey() {
     return definitionKey;
@@ -86,6 +89,7 @@ public class CreateSmsDefinitionRequest {
    * Name of the definition. Must be unique.
    * @return name
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Name of the definition. Must be unique.")
   public String getName() {
     return name;
@@ -104,6 +108,8 @@ public class CreateSmsDefinitionRequest {
    * Get content
    * @return content
   **/
+  @NotNull
+  @Valid
   @ApiModelProperty(required = true, value = "")
   public CreateSmsDefinitionContent getContent() {
     return content;
@@ -135,6 +141,7 @@ public class CreateSmsDefinitionRequest {
    * The date the object was created.
    * @return createdDate
   **/
+  @Valid
   @ApiModelProperty(value = "The date the object was created.")
   public OffsetDateTime getCreatedDate() {
     return createdDate;
@@ -144,6 +151,7 @@ public class CreateSmsDefinitionRequest {
    * The date the object was modified.
    * @return modifiedDate
   **/
+  @Valid
   @ApiModelProperty(value = "The date the object was modified.")
   public OffsetDateTime getModifiedDate() {
     return modifiedDate;
@@ -176,6 +184,8 @@ public class CreateSmsDefinitionRequest {
    * Get subscriptions
    * @return subscriptions
   **/
+  @NotNull
+  @Valid
   @ApiModelProperty(required = true, value = "")
   public CreateSmsDefinitionSubscriptions getSubscriptions() {
     return subscriptions;

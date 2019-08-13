@@ -25,6 +25,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * SendSmsToSingleRecipientRequest
@@ -49,6 +51,7 @@ public class SendSmsToSingleRecipientRequest {
    * Unique identifier of the definition.
    * @return definitionKey
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Unique identifier of the definition.")
   public String getDefinitionKey() {
     return definitionKey;
@@ -67,6 +70,8 @@ public class SendSmsToSingleRecipientRequest {
    * Get recipient
    * @return recipient
   **/
+  @NotNull
+  @Valid
   @ApiModelProperty(required = true, value = "")
   public Recipient getRecipient() {
     return recipient;
@@ -85,6 +90,7 @@ public class SendSmsToSingleRecipientRequest {
    * Get content
    * @return content
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public SendSmsContentRequest getContent() {
     return content;

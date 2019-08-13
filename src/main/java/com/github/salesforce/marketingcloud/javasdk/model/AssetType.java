@@ -24,6 +24,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * The asset type
@@ -49,6 +51,8 @@ public class AssetType {
    * The id of the asset type
    * @return id
   **/
+  @NotNull
+  @Valid
   @ApiModelProperty(required = true, value = "The id of the asset type")
   public BigDecimal getId() {
     return id;
@@ -67,6 +71,7 @@ public class AssetType {
    * The name of the asset type
    * @return name
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "The name of the asset type")
   public String getName() {
     return name;

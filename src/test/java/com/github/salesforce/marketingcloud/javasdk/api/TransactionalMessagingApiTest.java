@@ -1,4 +1,4 @@
-package com.github.salesforce.marketingcloud.javasdk.api;/*
+/*
  * Marketing Cloud REST API
  * Marketing Cloud's REST API is our newest API. It supports multi-channel use cases, is much more lightweight and easy to use than our SOAP API, and is getting more comprehensive with every release.
  *
@@ -11,7 +11,7 @@ package com.github.salesforce.marketingcloud.javasdk.api;/*
  */
 
 
-
+package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
 import com.github.salesforce.marketingcloud.javasdk.ConfigProvider;
@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sun.javafx.binding.StringFormatter;
 import org.hamcrest.CoreMatchers;
@@ -42,6 +43,9 @@ import static org.junit.Assert.*;
 @Ignore
 public class TransactionalMessagingApiTest //extends ApiTest
 {
+    public static final String JOHN_DOE_GMAIL_COM = "johnDoe@gmail.com";
+    public static final String JOHANNA_DOE_YAHOO_COM = "johannaDoe@yahoo.com";
+
     private final TransactionalMessagingApi transactionalMessagingApi;
     private final AssetApi assetApi;
     private final ConfigProvider configProvider;
@@ -140,16 +144,14 @@ public class TransactionalMessagingApiTest //extends ApiTest
      *          if the Api call fails
      */
     @Test
-    public void deleteNonExistingEmailDefinitionTest(){
+    public void deletingNonExistingEmailDefinitionShouldReturn404(){
         String emailDefinitionToDeleteKey = "NonExistingEmailDefinitionKey";
 
         try{
             transactionalMessagingApi.deleteEmailDefinition(emailDefinitionToDeleteKey);
         }
         catch (ApiException e){
-            String errorContent = new Gson().fromJson(e.getResponseBody(), ApiError.class).getMessage();
-
-            assertEquals(String.format("FuelRuntime_ObjectNotFound: Unable to find Definition %s", emailDefinitionToDeleteKey), errorContent);
+            assertEquals(404, e.getCode());
         }
     }
 
@@ -213,16 +215,14 @@ public class TransactionalMessagingApiTest //extends ApiTest
      *          if the Api call fails
      */
     @Test
-    public void deleteNonExistingSmsDefinitionTest(){
+    public void deletingNonExistingSmsDefinitionShouldReturn404(){
         String smsDefinitionToDeleteKey = "NonExistingSmsDefinitionKey";
 
         try{
             transactionalMessagingApi.deleteSmsDefinition(smsDefinitionToDeleteKey);
         }
         catch (ApiException e){
-            String errorContent = new Gson().fromJson(e.getResponseBody(), ApiError.class).getMessage();
-
-            assertEquals(String.format("FuelRuntime_ObjectNotFound: Unable to find Definition %s", smsDefinitionToDeleteKey), errorContent);
+            assertEquals(404, e.getCode());
         }
     }
 
@@ -296,7 +296,10 @@ public class TransactionalMessagingApiTest //extends ApiTest
      */
     @Test
     public void getEmailDefinitionsTest() throws ApiException {
-        GetEmailDefinitionsResponse getEmailDefinitionsResult = transactionalMessagingApi.getEmailDefinitions(null, null, null ,null );
+        String status = null, orderBy = null;
+        BigDecimal pageSize = null, page = null;
+
+        GetEmailDefinitionsResponse getEmailDefinitionsResult = transactionalMessagingApi.getEmailDefinitions(status, pageSize, page, orderBy);
 
         Assert.assertNotNull(getEmailDefinitionsResult.getRequestId());
         Assert.assertNotNull(getEmailDefinitionsResult.getDefinitions());
@@ -323,7 +326,7 @@ public class TransactionalMessagingApiTest //extends ApiTest
             emailToSendToRecipientKey = createEmailDefinitionResult.getDefinitionKey();
 
             Recipient recipient = new Recipient();
-            recipient.setContactKey("johnDoe@gmail.com");
+            recipient.setContactKey(JOHN_DOE_GMAIL_COM);
 
             String messageKey = java.util.UUID.randomUUID().toString();
 
@@ -489,7 +492,10 @@ public class TransactionalMessagingApiTest //extends ApiTest
      */
     @Test
     public void getSmsDefinitionsTest() throws ApiException {
-        GetSmsDefinitionsResponse getSmsDefinitionsResult = transactionalMessagingApi.getSmsDefinitions(null, null, null, null);
+        String status = null, orderBy = null;
+        BigDecimal pageSize = null, page = null;
+
+        GetSmsDefinitionsResponse getSmsDefinitionsResult = transactionalMessagingApi.getSmsDefinitions(status, pageSize, page, orderBy);
 
         Assert.assertNotNull(getSmsDefinitionsResult.getRequestId());
         Assert.assertNotNull(getSmsDefinitionsResult.getDefinitions());
@@ -516,7 +522,7 @@ public class TransactionalMessagingApiTest //extends ApiTest
             smsToSendToRecipientKey = createSmsDefinitionResult.getDefinitionKey();
 
             Recipient recipient = new Recipient();
-            recipient.setContactKey("johnDoe@gmail.com");
+            recipient.setContactKey(JOHN_DOE_GMAIL_COM);
 
             String messageKey = java.util.UUID.randomUUID().toString();
 
@@ -630,10 +636,10 @@ public class TransactionalMessagingApiTest //extends ApiTest
             emailToSendToRecipientsKey = createEmailDefinitionResult.getDefinitionKey();
 
             Recipient recipient1 = new Recipient();
-            recipient1.setContactKey("johnDoe@gmail.com");
+            recipient1.setContactKey(JOHN_DOE_GMAIL_COM);
 
             Recipient recipient2 = new Recipient();
-            recipient2.setContactKey("johannaDoe@yahoo.com");
+            recipient2.setContactKey(JOHANNA_DOE_YAHOO_COM);
 
             List<Recipient> recipientsList = Arrays.asList(recipient1, recipient2);
 
@@ -672,7 +678,7 @@ public class TransactionalMessagingApiTest //extends ApiTest
             emailToSendToRecipientKey = createEmailDefinitionResult.getDefinitionKey();
 
             Recipient recipient = new Recipient();
-            recipient.setContactKey("johnDoe@gmail.com");
+            recipient.setContactKey(JOHN_DOE_GMAIL_COM);
 
             String messageKey = java.util.UUID.randomUUID().toString();
 
@@ -711,10 +717,10 @@ public class TransactionalMessagingApiTest //extends ApiTest
             smsToSendToRecipientsKey = createSmsDefinitionResult.getDefinitionKey();
 
             Recipient recipient1 = new Recipient();
-            recipient1.setContactKey("johnDoe@gmail.com");
+            recipient1.setContactKey(JOHN_DOE_GMAIL_COM);
 
             Recipient recipient2 = new Recipient();
-            recipient2.setContactKey("johannaDoe@yahoo.com");
+            recipient2.setContactKey(JOHANNA_DOE_YAHOO_COM);
 
             List<Recipient> recipientsList = Arrays.asList(recipient1, recipient2);
 
@@ -753,7 +759,7 @@ public class TransactionalMessagingApiTest //extends ApiTest
             smsToSendToRecipientKey = createSmsDefinitionResult.getDefinitionKey();
 
             Recipient recipient = new Recipient();
-            recipient.setContactKey("johnDoe@gmail.com");
+            recipient.setContactKey(JOHN_DOE_GMAIL_COM);
 
             String messageKey = java.util.UUID.randomUUID().toString();
 
@@ -792,32 +798,25 @@ public class TransactionalMessagingApiTest //extends ApiTest
         return smsDefinition;
     }
 
-    private CreateEmailDefinitionRequest createEmailDefinitionObject(){
+    private CreateEmailDefinitionRequest createEmailDefinitionObject() throws ApiException {
         Asset emailAsset = createAsset();
 
-        try {
-            Asset createAssetResult = assetApi.createAsset(emailAsset);
-            String customerKey = createAssetResult.getCustomerKey();
+        Asset createAssetResult = assetApi.createAsset(emailAsset);
+        String customerKey = createAssetResult.getCustomerKey();
 
-            CreateEmailDefinitionContent content = new CreateEmailDefinitionContent();
-            content.setCustomerKey(customerKey);
+        CreateEmailDefinitionContent content = new CreateEmailDefinitionContent();
+        content.setCustomerKey(customerKey);
 
-            CreateEmailDefinitionSubscriptions subscriptions = new CreateEmailDefinitionSubscriptions();
-            subscriptions.setList("All Subscribers");
+        CreateEmailDefinitionSubscriptions subscriptions = new CreateEmailDefinitionSubscriptions();
+        subscriptions.setList("All Subscribers");
 
-            CreateEmailDefinitionRequest emailDefinition = new CreateEmailDefinitionRequest();
-            emailDefinition.setName(UUID.randomUUID().toString());
-            emailDefinition.setDefinitionKey(UUID.randomUUID().toString());
-            emailDefinition.setContent(content);
-            emailDefinition.setSubscriptions(subscriptions);
+        CreateEmailDefinitionRequest emailDefinition = new CreateEmailDefinitionRequest();
+        emailDefinition.setName(UUID.randomUUID().toString());
+        emailDefinition.setDefinitionKey(UUID.randomUUID().toString());
+        emailDefinition.setContent(content);
+        emailDefinition.setSubscriptions(subscriptions);
 
-            return emailDefinition;
-
-        }catch (ApiException e){
-            e.printStackTrace();
-        }
-
-        return null;
+        return emailDefinition;
     }
 
     private Asset createAsset() {
@@ -829,12 +828,12 @@ public class TransactionalMessagingApiTest //extends ApiTest
         asset.setDescription("Asset from Automated Java SDK");
         asset.setAssetType(assetType);
 
-        String json = "{\"subjectline\":{" +
-                "\"content\":\"New TS Subject Line\"" +
-                "}" +
-                "}";
+        JsonObject views = new JsonObject();
+        JsonObject subjectLine = new JsonObject();
 
-        Object views = new JsonParser().parse(json);
+        subjectLine.addProperty("content", "New TS Subject Line");
+        views.add("subjectline", subjectLine);
+
         asset.setViews(views);
 
         return asset;
@@ -842,7 +841,10 @@ public class TransactionalMessagingApiTest //extends ApiTest
 
     private AssetType createAssetType(){
         AssetType assetType = new AssetType();
-        assetType.setId(BigDecimal.valueOf(208));
+
+        final BigDecimal assetTypeId = BigDecimal.valueOf(208);
+
+        assetType.setId(assetTypeId);
         assetType.setName("htmlemail");
         assetType.setDisplayName("htmlemail");
 

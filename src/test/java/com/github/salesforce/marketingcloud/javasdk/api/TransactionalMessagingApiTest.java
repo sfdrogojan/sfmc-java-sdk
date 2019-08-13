@@ -45,6 +45,7 @@ public class TransactionalMessagingApiTest //extends ApiTest
 {
     public static final String JOHN_DOE_GMAIL_COM = "johnDoe@gmail.com";
     public static final String JOHANNA_DOE_YAHOO_COM = "johannaDoe@yahoo.com";
+    public static final BigDecimal HTML_EMAIL_ASSET_TYPE_ID = BigDecimal.valueOf(208);
 
     private final TransactionalMessagingApi transactionalMessagingApi;
     private final AssetApi assetApi;
@@ -842,9 +843,7 @@ public class TransactionalMessagingApiTest //extends ApiTest
     private AssetType createAssetType(){
         AssetType assetType = new AssetType();
 
-        final BigDecimal assetTypeId = BigDecimal.valueOf(208);
-
-        assetType.setId(assetTypeId);
+        assetType.setId(HTML_EMAIL_ASSET_TYPE_ID);
         assetType.setName("htmlemail");
         assetType.setDisplayName("htmlemail");
 

@@ -17,6 +17,7 @@ import com.github.salesforce.marketingcloud.javasdk.*;
 import com.github.salesforce.marketingcloud.javasdk.auth.*;
 import com.github.salesforce.marketingcloud.javasdk.BeanValidationException;
 
+import com.github.salesforce.marketingcloud.javasdk.validation.ModelValidator;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -30,10 +31,8 @@ import java.util.Set;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
-import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Campaign;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +47,7 @@ public class CampaignApi {
         DateTimeProvider dateTimeProvider = new DateTimeProvider();
         CacheService cacheService = new CacheService(dateTimeProvider);
         RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
-        ApiClient apiClient = new ApiClient(runtimeInformationProvider);
+        ApiClient apiClient = new ApiClient(runtimeInformationProvider, new ModelValidator());
 
         this.authService = new AuthService(clientConfig, apiClient, cacheService);
         this.apiClient = new OAuth2ApiClient(runtimeInformationProvider, authService);
@@ -114,25 +113,25 @@ public class CampaignApi {
             Set<ConstraintViolation<CampaignApi>> violations = executableValidator.validateParameters(this, method,
                     parameterValues);
 
-//            if (violations.size() == 0) {
-//                com.squareup.okhttp.Call call = createCampaignCall(body, progressListener, progressRequestListener);
-//                return call;
-//
-//            } else {
-//                throw new BeanValidationException((Set) violations);
-//            }
-
-            Set<ConstraintViolation<Campaign>> violationSet = factory.getValidator().validate(body);
-
-            if (violationSet.size() == 0) {
+            if (violations.size() == 0) {
                 com.squareup.okhttp.Call call = createCampaignCall(body, progressListener, progressRequestListener);
                 return call;
 
             } else {
-                throw new BeanValidationException((Set) violationSet);
+                throw new BeanValidationException((Set) violations);
             }
 
-
+//            Set<ConstraintViolation<Campaign>> violationSet = factory.getValidator().validate(body);
+//
+//            if (violationSet.size() == 0) {
+//                com.squareup.okhttp.Call call = createCampaignCall(body, progressListener, progressRequestListener);
+//                return call;
+//
+//            } else {
+//                throw new BeanValidationException((Set) violationSet);
+//            }
+//
+//
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
             throw new ApiException(e.getMessage());

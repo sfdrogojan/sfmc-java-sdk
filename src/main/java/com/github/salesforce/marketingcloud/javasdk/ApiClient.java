@@ -15,6 +15,7 @@ package com.github.salesforce.marketingcloud.javasdk;
 
 import com.github.salesforce.marketingcloud.javasdk.auth.*;
 import com.github.salesforce.marketingcloud.javasdk.exception.ApiExceptionFactory;
+import com.github.salesforce.marketingcloud.javasdk.validation.ModelValidator;
 import com.squareup.okhttp.*;
 import com.squareup.okhttp.internal.http.HttpMethod;
 import com.squareup.okhttp.logging.HttpLoggingInterceptor;
@@ -26,6 +27,9 @@ import org.threeten.bp.OffsetDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import javax.net.ssl.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,11 +75,12 @@ public class ApiClient {
     private HttpLoggingInterceptor loggingInterceptor;
 
     private RuntimeInformationProvider runtimeInformationProvider;
+    private ModelValidator modelValidator;
 
     /*
      * Constructor for ApiClient
      */
-    public ApiClient(RuntimeInformationProvider runtimeInformationProvider) {
+    public ApiClient(RuntimeInformationProvider runtimeInformationProvider, ModelValidator modelValidator) {
         httpClient = new OkHttpClient();
 
 
@@ -84,6 +89,7 @@ public class ApiClient {
         json = new JSON();
 
         this.runtimeInformationProvider = runtimeInformationProvider;
+        this.modelValidator = modelValidator;
 
         // Set default User-Agent.
         setUserAgent("Swagger-Codegen/1.0.0/java" + this.runtimeInformationProvider.getForUserAgentString());
@@ -742,7 +748,13 @@ public class ApiClient {
         } else if (isJsonMime(contentType)) {
             String content;
             if (obj != null) {
-                content = json.serialize(obj);
+                Set<ConstraintViolation<Object>> violationSet = this.modelValidator.validate(obj);
+
+                if (violationSet.size() == 0) {
+                    content = json.serialize(obj);
+                } else {
+                    throw new BeanValidationException((Set) violationSet);
+                }
             } else {
                 content = null;
             }

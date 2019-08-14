@@ -8,6 +8,7 @@ public class ClientConfig {
     private final String scope;
 
     public ClientConfig(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
+        // TODO - validate required parameters
         this.authBasePath = authBasePath;
         this.clientId = clientId;
         this.clientSecret = clientSecret;

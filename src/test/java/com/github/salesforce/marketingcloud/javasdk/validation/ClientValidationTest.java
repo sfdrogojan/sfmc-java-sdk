@@ -5,6 +5,7 @@ import com.github.salesforce.marketingcloud.javasdk.BeanValidationException;
 import com.github.salesforce.marketingcloud.javasdk.api.ApiSutFactory;
 import com.github.salesforce.marketingcloud.javasdk.api.CampaignApi;
 import com.github.salesforce.marketingcloud.javasdk.model.Campaign;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
@@ -19,6 +20,7 @@ public class ClientValidationTest {
             Campaign c = new Campaign();
             CampaignApi campaignApi = new ApiSutFactory<>(CampaignApi.class).create();
             campaignApi.createCampaign(c);
+            Assert.fail("BeanValidationException should be thrown");
         }
         catch(BeanValidationException ex)
         {
@@ -36,6 +38,7 @@ public class ClientValidationTest {
             c.setCampaignCode("This a string that contains more than 36 characters");
             CampaignApi campaignApi = new ApiSutFactory<>(CampaignApi.class).create();
             campaignApi.createCampaign(c);
+            Assert.fail("BeanValidationException should be thrown");
         }
         catch(BeanValidationException ex)
         {
@@ -45,8 +48,15 @@ public class ClientValidationTest {
 
     @Test
     public void shouldValidateMethodParams() throws ApiException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Campaign c = new Campaign();
-        CampaignApi campaignApi = new ApiSutFactory<>(CampaignApi.class).create();
-        campaignApi.getCampaignById(c.getId());
+        try {
+            Campaign c = new Campaign();
+            CampaignApi campaignApi = new ApiSutFactory<>(CampaignApi.class).create();
+            campaignApi.getCampaignById(c.getId());
+            Assert.fail("BeanValidationException should be thrown");
+        }
+        catch (BeanValidationException ex)
+        {
+            assertThat(ex.getMessage(), containsString("arg0 must not be null"));
+        }
     }
 }

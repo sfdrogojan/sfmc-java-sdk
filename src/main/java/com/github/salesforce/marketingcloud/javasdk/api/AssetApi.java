@@ -17,6 +17,7 @@ import com.github.salesforce.marketingcloud.javasdk.*;
 import com.github.salesforce.marketingcloud.javasdk.auth.*;
 import com.github.salesforce.marketingcloud.javasdk.BeanValidationException;
 
+import com.github.salesforce.marketingcloud.javasdk.validation.ModelValidator;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -30,11 +31,9 @@ import java.util.Set;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
-import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Asset;
 import java.math.BigDecimal;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +48,7 @@ public class AssetApi {
         DateTimeProvider dateTimeProvider = new DateTimeProvider();
         CacheService cacheService = new CacheService(dateTimeProvider);
         RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
-        ApiClient apiClient = new ApiClient(runtimeInformationProvider);
+        ApiClient apiClient = new ApiClient(runtimeInformationProvider, new ModelValidator());
 
         this.authService = new AuthService(clientConfig, apiClient, cacheService);
         this.apiClient = new OAuth2ApiClient(runtimeInformationProvider, authService);

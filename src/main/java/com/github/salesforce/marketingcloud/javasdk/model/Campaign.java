@@ -32,7 +32,6 @@ import javax.validation.Valid;
  */
 
 public class Campaign {
-
   @SerializedName("name")
   private String name = null;
 

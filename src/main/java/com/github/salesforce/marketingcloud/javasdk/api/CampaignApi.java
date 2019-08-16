@@ -14,10 +14,8 @@
 package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.*;
-import com.github.salesforce.marketingcloud.javasdk.auth.*;
 import com.github.salesforce.marketingcloud.javasdk.BeanValidationException;
 
-import com.github.salesforce.marketingcloud.javasdk.validation.ModelValidator;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -31,6 +29,7 @@ import java.util.Set;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
+import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Campaign;
 
 import java.util.ArrayList;
@@ -110,18 +109,6 @@ public class CampaignApi extends BaseApi {
             } else {
                 throw new BeanValidationException((Set) violations);
             }
-
-//            Set<ConstraintViolation<Campaign>> violationSet = factory.getValidator().validate(body);
-//
-//            if (violationSet.size() == 0) {
-//                com.squareup.okhttp.Call call = createCampaignCall(body, progressListener, progressRequestListener);
-//                return call;
-//
-//            } else {
-//                throw new BeanValidationException((Set) violationSet);
-//            }
-//
-//
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
             throw new ApiException(e.getMessage());

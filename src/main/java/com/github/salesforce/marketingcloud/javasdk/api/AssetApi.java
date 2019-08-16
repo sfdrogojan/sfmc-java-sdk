@@ -14,10 +14,8 @@
 package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.*;
-import com.github.salesforce.marketingcloud.javasdk.auth.*;
 import com.github.salesforce.marketingcloud.javasdk.BeanValidationException;
 
-import com.github.salesforce.marketingcloud.javasdk.validation.ModelValidator;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
@@ -31,6 +29,7 @@ import java.util.Set;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
+import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Asset;
 import java.math.BigDecimal;
 

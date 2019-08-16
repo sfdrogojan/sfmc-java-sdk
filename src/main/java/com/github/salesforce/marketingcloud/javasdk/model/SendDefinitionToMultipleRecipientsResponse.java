@@ -38,8 +38,8 @@ public class SendDefinitionToMultipleRecipientsResponse {
   @SerializedName("requestId")
   private String requestId = null;
 
-  @SerializedName("errorCode")
-  private BigDecimal errorCode = null;
+  @SerializedName("errorcode")
+  private BigDecimal errorcode = null;
 
   @SerializedName("message")
   private String message = null;
@@ -65,23 +65,23 @@ public class SendDefinitionToMultipleRecipientsResponse {
     this.requestId = requestId;
   }
 
-  public SendDefinitionToMultipleRecipientsResponse errorCode(BigDecimal errorCode) {
-    this.errorCode = errorCode;
+  public SendDefinitionToMultipleRecipientsResponse errorcode(BigDecimal errorcode) {
+    this.errorcode = errorcode;
     return this;
   }
 
    /**
    * The specific error code
-   * @return errorCode
+   * @return errorcode
   **/
   @Valid
   @ApiModelProperty(value = "The specific error code")
-  public BigDecimal getErrorCode() {
-    return errorCode;
+  public BigDecimal getErrorcode() {
+    return errorcode;
   }
 
-  public void setErrorCode(BigDecimal errorCode) {
-    this.errorCode = errorCode;
+  public void setErrorcode(BigDecimal errorcode) {
+    this.errorcode = errorcode;
   }
 
   public SendDefinitionToMultipleRecipientsResponse message(String message) {
@@ -140,14 +140,14 @@ public class SendDefinitionToMultipleRecipientsResponse {
     }
     SendDefinitionToMultipleRecipientsResponse sendDefinitionToMultipleRecipientsResponse = (SendDefinitionToMultipleRecipientsResponse) o;
     return Objects.equals(this.requestId, sendDefinitionToMultipleRecipientsResponse.requestId) &&
-        Objects.equals(this.errorCode, sendDefinitionToMultipleRecipientsResponse.errorCode) &&
+        Objects.equals(this.errorcode, sendDefinitionToMultipleRecipientsResponse.errorcode) &&
         Objects.equals(this.message, sendDefinitionToMultipleRecipientsResponse.message) &&
         Objects.equals(this.responses, sendDefinitionToMultipleRecipientsResponse.responses);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(requestId, errorCode, message, responses);
+    return Objects.hash(requestId, errorcode, message, responses);
   }
 
 
@@ -157,7 +157,7 @@ public class SendDefinitionToMultipleRecipientsResponse {
     sb.append("class SendDefinitionToMultipleRecipientsResponse {\n");
     
     sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
-    sb.append("    errorCode: ").append(toIndentedString(errorCode)).append("\n");
+    sb.append("    errorcode: ").append(toIndentedString(errorcode)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    responses: ").append(toIndentedString(responses)).append("\n");
     sb.append("}");

@@ -38,8 +38,8 @@ public class SendDefinitionToSingleRecipientResponse {
   @SerializedName("requestId")
   private String requestId = null;
 
-  @SerializedName("errorCode")
-  private BigDecimal errorCode = null;
+  @SerializedName("errorcode")
+  private BigDecimal errorcode = null;
 
   @SerializedName("responses")
   private List<SendDefinitionResponseItem> responses = null;
@@ -62,23 +62,23 @@ public class SendDefinitionToSingleRecipientResponse {
     this.requestId = requestId;
   }
 
-  public SendDefinitionToSingleRecipientResponse errorCode(BigDecimal errorCode) {
-    this.errorCode = errorCode;
+  public SendDefinitionToSingleRecipientResponse errorcode(BigDecimal errorcode) {
+    this.errorcode = errorcode;
     return this;
   }
 
    /**
    * The specific error code
-   * @return errorCode
+   * @return errorcode
   **/
   @Valid
   @ApiModelProperty(value = "The specific error code")
-  public BigDecimal getErrorCode() {
-    return errorCode;
+  public BigDecimal getErrorcode() {
+    return errorcode;
   }
 
-  public void setErrorCode(BigDecimal errorCode) {
-    this.errorCode = errorCode;
+  public void setErrorcode(BigDecimal errorcode) {
+    this.errorcode = errorcode;
   }
 
   public SendDefinitionToSingleRecipientResponse responses(List<SendDefinitionResponseItem> responses) {
@@ -119,13 +119,13 @@ public class SendDefinitionToSingleRecipientResponse {
     }
     SendDefinitionToSingleRecipientResponse sendDefinitionToSingleRecipientResponse = (SendDefinitionToSingleRecipientResponse) o;
     return Objects.equals(this.requestId, sendDefinitionToSingleRecipientResponse.requestId) &&
-        Objects.equals(this.errorCode, sendDefinitionToSingleRecipientResponse.errorCode) &&
+        Objects.equals(this.errorcode, sendDefinitionToSingleRecipientResponse.errorcode) &&
         Objects.equals(this.responses, sendDefinitionToSingleRecipientResponse.responses);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(requestId, errorCode, responses);
+    return Objects.hash(requestId, errorcode, responses);
   }
 
 
@@ -135,7 +135,7 @@ public class SendDefinitionToSingleRecipientResponse {
     sb.append("class SendDefinitionToSingleRecipientResponse {\n");
     
     sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
-    sb.append("    errorCode: ").append(toIndentedString(errorCode)).append("\n");
+    sb.append("    errorcode: ").append(toIndentedString(errorcode)).append("\n");
     sb.append("    responses: ").append(toIndentedString(responses)).append("\n");
     sb.append("}");
     return sb.toString();

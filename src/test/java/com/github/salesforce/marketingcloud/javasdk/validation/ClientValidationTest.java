@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 
-import static org.hamcrest.core.StringContains.containsString;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
 public class ClientValidationTest {

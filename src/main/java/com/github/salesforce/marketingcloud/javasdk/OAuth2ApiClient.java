@@ -11,9 +11,11 @@ import java.util.Map;
 public class OAuth2ApiClient extends ApiClient {
     private final AuthService authService;
 
-    public OAuth2ApiClient(RuntimeInformationProvider runtimeInformationProvider, AuthService authService)
+    public OAuth2ApiClient(RuntimeInformationProvider runtimeInformationProvider,
+                           AuthService authService,
+                           ModelValidator modelValidator)
     {
-        super(runtimeInformationProvider, new ModelValidator());
+        super(runtimeInformationProvider, modelValidator);
         this.authService = authService;
     }
 

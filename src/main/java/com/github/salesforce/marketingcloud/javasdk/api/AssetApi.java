@@ -39,19 +39,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AssetApi {
-    private ApiClient apiClient;
-    private AuthService authService;
-
+public class AssetApi extends BaseApi {
     public AssetApi(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
-        ClientConfig clientConfig = new ClientConfig(authBasePath, clientId, clientSecret, accountId, scope);
-        DateTimeProvider dateTimeProvider = new DateTimeProvider();
-        CacheService cacheService = new CacheService(dateTimeProvider);
-        RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
-        ApiClient apiClient = new ApiClient(runtimeInformationProvider, new ModelValidator());
-
-        this.authService = new AuthService(clientConfig, apiClient, cacheService);
-        this.apiClient = new OAuth2ApiClient(runtimeInformationProvider, authService);
+        super(authBasePath, clientId, clientSecret, accountId, scope);
     }
 
     /**

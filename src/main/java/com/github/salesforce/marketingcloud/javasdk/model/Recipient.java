@@ -24,6 +24,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * Recipient
@@ -51,6 +53,7 @@ public class Recipient {
    * Unique identifier for a subscriber in Marketing Cloud. Each request must include a contactKey. You can use an existing subscriber key or create one at send time by using the recipient’s email address.
    * @return contactKey
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Unique identifier for a subscriber in Marketing Cloud. Each request must include a contactKey. You can use an existing subscriber key or create one at send time by using the recipient’s email address.")
   public String getContactKey() {
     return contactKey;
@@ -105,6 +108,7 @@ public class Recipient {
    * Get attributes
    * @return attributes
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public Attributes getAttributes() {
     return attributes;

@@ -25,6 +25,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * SharingProperties
@@ -121,7 +123,7 @@ public class SharingProperties {
    * List of MID IDs the asset is shared with
    * @return sharedWith
   **/
-  @ApiModelProperty(value = "List of MID IDs the asset is shared with")
+ @Size(max=100)  @ApiModelProperty(value = "List of MID IDs the asset is shared with")
   public List<Integer> getSharedWith() {
     return sharedWith;
   }

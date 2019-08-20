@@ -25,6 +25,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * UpdateSmsDefinitionRequest
@@ -73,6 +75,7 @@ public class UpdateSmsDefinitionRequest {
    * Get content
    * @return content
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public CreateSmsDefinitionContent getContent() {
     return content;
@@ -127,6 +130,7 @@ public class UpdateSmsDefinitionRequest {
    * Get subscriptions
    * @return subscriptions
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public CreateSmsDefinitionSubscriptions getSubscriptions() {
     return subscriptions;

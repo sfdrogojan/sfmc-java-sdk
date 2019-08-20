@@ -24,6 +24,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * GetDefinitionSendStatusForRecipientResponseInfo
@@ -108,6 +110,7 @@ public class GetDefinitionSendStatusForRecipientResponseInfo {
    * The specific status code
    * @return statusCode
   **/
+  @Valid
   @ApiModelProperty(value = "The specific status code")
   public BigDecimal getStatusCode() {
     return statusCode;

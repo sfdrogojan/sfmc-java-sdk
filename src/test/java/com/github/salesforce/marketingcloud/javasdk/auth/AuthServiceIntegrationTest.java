@@ -3,6 +3,7 @@ package com.github.salesforce.marketingcloud.javasdk.auth;
 import com.github.salesforce.marketingcloud.javasdk.*;
 import com.github.salesforce.marketingcloud.javasdk.exception.AuthenticationFailureException;
 import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
+import com.github.salesforce.marketingcloud.javasdk.validation.ModelValidator;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -37,7 +38,7 @@ public class AuthServiceIntegrationTest //extends ApiTest
 
         this.clientConfig = new ClientConfig(
                 this.authBasePath, this.clientId, this.clientSecret, this.accountId, this.scope);
-        this.apiClient = new ApiClient(new RuntimeInformationProvider());
+        this.apiClient = new ApiClient(new RuntimeInformationProvider(), new ModelValidator());
         this.cacheService = new CacheService(new DateTimeProvider());
     }
 
@@ -97,7 +98,7 @@ public class AuthServiceIntegrationTest //extends ApiTest
 
     @Test
     public void shouldCallOnlyOneTimeTheApiClientExecuteMethodWhenMultipleInstancesAreUsed() throws ApiException {
-        ApiClient apiClientSpy = spy(new ApiClient(new RuntimeInformationProvider()));
+        ApiClient apiClientSpy = spy(new ApiClient(new RuntimeInformationProvider(), new ModelValidator()));
 
         AuthService authServiceInstance1 = new AuthService(clientConfig, apiClientSpy, cacheService);
         AuthService authServiceInstance2 = new AuthService(clientConfig, apiClientSpy, cacheService);

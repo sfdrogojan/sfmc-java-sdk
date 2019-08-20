@@ -2,6 +2,7 @@ package com.github.salesforce.marketingcloud.javasdk;
 
 import com.github.salesforce.marketingcloud.javasdk.auth.AuthService;
 import com.github.salesforce.marketingcloud.javasdk.model.TokenResponse;
+import com.github.salesforce.marketingcloud.javasdk.validation.ModelValidator;
 import com.squareup.okhttp.Request;
 
 import java.util.List;
@@ -10,9 +11,11 @@ import java.util.Map;
 public class OAuth2ApiClient extends ApiClient {
     private final AuthService authService;
 
-    public OAuth2ApiClient(RuntimeInformationProvider runtimeInformationProvider, AuthService authService)
+    public OAuth2ApiClient(RuntimeInformationProvider runtimeInformationProvider,
+                           AuthService authService,
+                           ModelValidator modelValidator)
     {
-        super(runtimeInformationProvider);
+        super(runtimeInformationProvider, modelValidator);
         this.authService = authService;
     }
 

@@ -14,35 +14,32 @@
 package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.*;
-import com.github.salesforce.marketingcloud.javasdk.auth.*;
+import com.github.salesforce.marketingcloud.javasdk.BeanValidationException;
 
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+import javax.validation.constraints.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
+import javax.validation.executable.ExecutableValidator;
+import java.util.Set;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
 import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Campaign;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CampaignApi {
-    private ApiClient apiClient;
-    private AuthService authService;
-
+public class CampaignApi extends BaseApi {
     public CampaignApi(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
-        ClientConfig clientConfig = new ClientConfig(authBasePath, clientId, clientSecret, accountId, scope);
-        DateTimeProvider dateTimeProvider = new DateTimeProvider();
-        CacheService cacheService = new CacheService(dateTimeProvider);
-        RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
-        ApiClient apiClient = new ApiClient(runtimeInformationProvider);
-
-        this.authService = new AuthService(clientConfig, apiClient, cacheService);
-        this.apiClient = new OAuth2ApiClient(runtimeInformationProvider, authService);
+        super(authBasePath, clientId, clientSecret, accountId, scope);
     }
 
     /**
@@ -96,10 +93,29 @@ public class CampaignApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call createCampaignValidateBeforeCall(Campaign body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = createCampaignCall(body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { body };
+            Method method = this.getClass().getMethod("createCampaignWithHttpInfo", Campaign.class);
+            Set<ConstraintViolation<CampaignApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = createCampaignCall(body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -122,7 +138,7 @@ public class CampaignApi {
      * @return ApiResponse&lt;Campaign&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Campaign> createCampaignWithHttpInfo(Campaign body) throws ApiException {
+    public ApiResponse<Campaign> createCampaignWithHttpInfo( Campaign body) throws ApiException {
         com.squareup.okhttp.Call call = createCampaignValidateBeforeCall(body, null, null);
         Type localVarReturnType = new TypeToken<Campaign>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -214,15 +230,29 @@ public class CampaignApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call deleteCampaignByIdValidateBeforeCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException("Missing the required parameter 'id' when calling deleteCampaignById(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = deleteCampaignByIdCall(id, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { id };
+            Method method = this.getClass().getMethod("deleteCampaignByIdWithHttpInfo", String.class);
+            Set<ConstraintViolation<CampaignApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = deleteCampaignByIdCall(id, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -243,7 +273,7 @@ public class CampaignApi {
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Void> deleteCampaignByIdWithHttpInfo(String id) throws ApiException {
+    public ApiResponse<Void> deleteCampaignByIdWithHttpInfo( @NotNull String id) throws ApiException {
         com.squareup.okhttp.Call call = deleteCampaignByIdValidateBeforeCall(id, null, null);
         return apiClient.execute(call);
     }
@@ -333,15 +363,29 @@ public class CampaignApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getCampaignByIdValidateBeforeCall(String id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException("Missing the required parameter 'id' when calling getCampaignById(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getCampaignByIdCall(id, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { id };
+            Method method = this.getClass().getMethod("getCampaignByIdWithHttpInfo", String.class);
+            Set<ConstraintViolation<CampaignApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getCampaignByIdCall(id, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -364,7 +408,7 @@ public class CampaignApi {
      * @return ApiResponse&lt;Campaign&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Campaign> getCampaignByIdWithHttpInfo(String id) throws ApiException {
+    public ApiResponse<Campaign> getCampaignByIdWithHttpInfo( @NotNull String id) throws ApiException {
         com.squareup.okhttp.Call call = getCampaignByIdValidateBeforeCall(id, null, null);
         Type localVarReturnType = new TypeToken<Campaign>(){}.getType();
         return apiClient.execute(call, localVarReturnType);

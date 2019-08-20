@@ -29,6 +29,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.sun.javafx.binding.StringFormatter;
 import org.hamcrest.CoreMatchers;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Ignore;
@@ -344,7 +345,7 @@ public class TransactionalMessagingApiTest //extends ApiTest
 
             List<String> eventCategoryTypes = Arrays.asList("TransactionalSendEvents.EmailSent", "TransactionalSendEvents.EmailQueued", "TransactionalSendEvents.EmailNotSent");
 
-            assertThat(eventCategoryTypes, CoreMatchers.hasItem(getEmailSendStatusForRecipientResult.getEventCategoryType()));
+            assertThat(eventCategoryTypes, org.hamcrest.Matchers.hasItem(getEmailSendStatusForRecipientResult.getEventCategoryType()));
         }
         finally {
             if(emailToSendToRecipientKey != null){
@@ -540,7 +541,7 @@ public class TransactionalMessagingApiTest //extends ApiTest
 
             List<String> eventCategoryTypes = Arrays.asList("TransactionalSendEvents.SMSSent", "TransactionalSendEvents.SMSQueued", "TransactionalSendEvents.SMSNotSent");
 
-            assertThat(eventCategoryTypes, CoreMatchers.hasItem(getSmsSendStatusForRecipientResult.getEventCategoryType()));
+            assertThat(eventCategoryTypes, Matchers.hasItem(getSmsSendStatusForRecipientResult.getEventCategoryType()));
         }
         finally {
             if(smsToSendToRecipientKey != null){

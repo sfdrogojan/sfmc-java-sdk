@@ -14,36 +14,33 @@
 package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.*;
-import com.github.salesforce.marketingcloud.javasdk.auth.*;
+import com.github.salesforce.marketingcloud.javasdk.BeanValidationException;
 
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+import javax.validation.constraints.*;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
+import javax.validation.executable.ExecutableValidator;
+import java.util.Set;
+import java.lang.reflect.Method;
+import java.lang.reflect.Type;
 
 import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 import com.github.salesforce.marketingcloud.javasdk.model.Asset;
 import java.math.BigDecimal;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AssetApi {
-    private ApiClient apiClient;
-    private AuthService authService;
-
+public class AssetApi extends BaseApi {
     public AssetApi(String authBasePath, String clientId, String clientSecret, String accountId, String scope) {
-        ClientConfig clientConfig = new ClientConfig(authBasePath, clientId, clientSecret, accountId, scope);
-        DateTimeProvider dateTimeProvider = new DateTimeProvider();
-        CacheService cacheService = new CacheService(dateTimeProvider);
-        RuntimeInformationProvider runtimeInformationProvider = new RuntimeInformationProvider();
-        ApiClient apiClient = new ApiClient(runtimeInformationProvider);
-
-        this.authService = new AuthService(clientConfig, apiClient, cacheService);
-        this.apiClient = new OAuth2ApiClient(runtimeInformationProvider, authService);
+        super(authBasePath, clientId, clientSecret, accountId, scope);
     }
 
     /**
@@ -97,10 +94,29 @@ public class AssetApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call createAssetValidateBeforeCall(Asset body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = createAssetCall(body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { body };
+            Method method = this.getClass().getMethod("createAssetWithHttpInfo", Asset.class);
+            Set<ConstraintViolation<AssetApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = createAssetCall(body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -123,7 +139,7 @@ public class AssetApi {
      * @return ApiResponse&lt;Asset&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Asset> createAssetWithHttpInfo(Asset body) throws ApiException {
+    public ApiResponse<Asset> createAssetWithHttpInfo( Asset body) throws ApiException {
         com.squareup.okhttp.Call call = createAssetValidateBeforeCall(body, null, null);
         Type localVarReturnType = new TypeToken<Asset>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -215,15 +231,29 @@ public class AssetApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call deleteAssetByIdValidateBeforeCall(BigDecimal id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException("Missing the required parameter 'id' when calling deleteAssetById(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = deleteAssetByIdCall(id, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { id };
+            Method method = this.getClass().getMethod("deleteAssetByIdWithHttpInfo", BigDecimal.class);
+            Set<ConstraintViolation<AssetApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = deleteAssetByIdCall(id, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -244,7 +274,7 @@ public class AssetApi {
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Void> deleteAssetByIdWithHttpInfo(BigDecimal id) throws ApiException {
+    public ApiResponse<Void> deleteAssetByIdWithHttpInfo( @NotNull BigDecimal id) throws ApiException {
         com.squareup.okhttp.Call call = deleteAssetByIdValidateBeforeCall(id, null, null);
         return apiClient.execute(call);
     }
@@ -334,15 +364,29 @@ public class AssetApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call getAssetByIdValidateBeforeCall(BigDecimal id, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException("Missing the required parameter 'id' when calling getAssetById(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = getAssetByIdCall(id, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { id };
+            Method method = this.getClass().getMethod("getAssetByIdWithHttpInfo", BigDecimal.class);
+            Set<ConstraintViolation<AssetApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = getAssetByIdCall(id, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -365,7 +409,7 @@ public class AssetApi {
      * @return ApiResponse&lt;Asset&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Asset> getAssetByIdWithHttpInfo(BigDecimal id) throws ApiException {
+    public ApiResponse<Asset> getAssetByIdWithHttpInfo( @NotNull BigDecimal id) throws ApiException {
         com.squareup.okhttp.Call call = getAssetByIdValidateBeforeCall(id, null, null);
         Type localVarReturnType = new TypeToken<Asset>(){}.getType();
         return apiClient.execute(call, localVarReturnType);
@@ -458,15 +502,29 @@ public class AssetApi {
 
     @SuppressWarnings("rawtypes")
     private com.squareup.okhttp.Call partiallyUpdateAssetByIdValidateBeforeCall(BigDecimal id, Asset body, final ProgressResponseBody.ProgressListener progressListener, final ProgressRequestBody.ProgressRequestListener progressRequestListener) throws ApiException {
-        
-        // verify the required parameter 'id' is set
-        if (id == null) {
-            throw new ApiException("Missing the required parameter 'id' when calling partiallyUpdateAssetById(Async)");
-        }
-        
+        try {
+            ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+            ExecutableValidator executableValidator = factory.getValidator().forExecutables();
 
-        com.squareup.okhttp.Call call = partiallyUpdateAssetByIdCall(id, body, progressListener, progressRequestListener);
-        return call;
+            Object[] parameterValues = { id, body };
+            Method method = this.getClass().getMethod("partiallyUpdateAssetByIdWithHttpInfo", BigDecimal.class, Asset.class);
+            Set<ConstraintViolation<AssetApi>> violations = executableValidator.validateParameters(this, method,
+                    parameterValues);
+
+            if (violations.size() == 0) {
+                com.squareup.okhttp.Call call = partiallyUpdateAssetByIdCall(id, body, progressListener, progressRequestListener);
+                return call;
+
+            } else {
+                throw new BeanValidationException((Set) violations);
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        } catch (SecurityException e) {
+            e.printStackTrace();
+            throw new ApiException(e.getMessage());
+        }
 
     }
 
@@ -491,7 +549,7 @@ public class AssetApi {
      * @return ApiResponse&lt;Asset&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      */
-    public ApiResponse<Asset> partiallyUpdateAssetByIdWithHttpInfo(BigDecimal id, Asset body) throws ApiException {
+    public ApiResponse<Asset> partiallyUpdateAssetByIdWithHttpInfo( @NotNull BigDecimal id,  Asset body) throws ApiException {
         com.squareup.okhttp.Call call = partiallyUpdateAssetByIdValidateBeforeCall(id, body, null, null);
         Type localVarReturnType = new TypeToken<Asset>(){}.getType();
         return apiClient.execute(call, localVarReturnType);

@@ -26,6 +26,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * UpdateEmailDefinitionRequest
@@ -80,6 +82,7 @@ public class UpdateEmailDefinitionRequest {
    * Get content
    * @return content
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public CreateEmailDefinitionContent getContent() {
     return content;
@@ -152,6 +155,7 @@ public class UpdateEmailDefinitionRequest {
    * Get subscriptions
    * @return subscriptions
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public CreateEmailDefinitionSubscriptions getSubscriptions() {
     return subscriptions;
@@ -170,6 +174,7 @@ public class UpdateEmailDefinitionRequest {
    * Get options
    * @return options
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public CreateEmailDefinitionOptionsRequest getOptions() {
     return options;

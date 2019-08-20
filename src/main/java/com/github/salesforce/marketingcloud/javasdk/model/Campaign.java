@@ -24,6 +24,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import org.threeten.bp.OffsetDateTime;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * Campaign
@@ -63,7 +65,8 @@ public class Campaign {
    * Name of the campaign with a maximum length of 128 characters
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "Name of the campaign with a maximum length of 128 characters")
+  @NotNull
+ @Size(max=128)  @ApiModelProperty(required = true, value = "Name of the campaign with a maximum length of 128 characters")
   public String getName() {
     return name;
   }
@@ -81,7 +84,8 @@ public class Campaign {
    * Description of the campaign with a maximum length of 512 characters
    * @return description
   **/
-  @ApiModelProperty(required = true, value = "Description of the campaign with a maximum length of 512 characters")
+  @NotNull
+ @Size(max=512)  @ApiModelProperty(required = true, value = "Description of the campaign with a maximum length of 512 characters")
   public String getDescription() {
     return description;
   }
@@ -99,7 +103,8 @@ public class Campaign {
    * Unique identifier for the campaign with a maximum length of 36 characters
    * @return campaignCode
   **/
-  @ApiModelProperty(required = true, value = "Unique identifier for the campaign with a maximum length of 36 characters")
+  @NotNull
+ @Size(max=36)  @ApiModelProperty(required = true, value = "Unique identifier for the campaign with a maximum length of 36 characters")
   public String getCampaignCode() {
     return campaignCode;
   }
@@ -117,6 +122,7 @@ public class Campaign {
    * Hex color value
    * @return color
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Hex color value")
   public String getColor() {
     return color;
@@ -135,6 +141,7 @@ public class Campaign {
    * Determines if the campaign will be flagged as a favorite
    * @return favorite
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Determines if the campaign will be flagged as a favorite")
   public Boolean isFavorite() {
     return favorite;
@@ -157,6 +164,7 @@ public class Campaign {
    * The date the object was created.
    * @return createdDate
   **/
+  @Valid
   @ApiModelProperty(value = "The date the object was created.")
   public OffsetDateTime getCreatedDate() {
     return createdDate;
@@ -166,6 +174,7 @@ public class Campaign {
    * The date the object was modified.
    * @return modifiedDate
   **/
+  @Valid
   @ApiModelProperty(value = "The date the object was modified.")
   public OffsetDateTime getModifiedDate() {
     return modifiedDate;

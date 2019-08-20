@@ -26,6 +26,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * GetDefinitionsNotSentToRecipientsResponse
@@ -82,6 +84,7 @@ public class GetDefinitionsNotSentToRecipientsResponse {
    * 
    * @return messages
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public List<GetDefinitionsNotSentToRecipientsMessage> getMessages() {
     return messages;

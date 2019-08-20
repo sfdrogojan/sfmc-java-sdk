@@ -25,6 +25,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import org.threeten.bp.OffsetDateTime;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * GetDefinitionSendStatusForRecipientResponse
@@ -91,6 +93,7 @@ public class GetDefinitionSendStatusForRecipientResponse {
    * The date the ...
    * @return timestamp
   **/
+  @Valid
   @ApiModelProperty(value = "The date the ...")
   public OffsetDateTime getTimestamp() {
     return timestamp;
@@ -127,6 +130,7 @@ public class GetDefinitionSendStatusForRecipientResponse {
    * Get info
    * @return info
   **/
+  @Valid
   @ApiModelProperty(value = "")
   public GetDefinitionSendStatusForRecipientResponseInfo getInfo() {
     return info;

@@ -23,6 +23,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * CreateEmailDefinitionContent
@@ -41,6 +43,7 @@ public class CreateEmailDefinitionContent {
    * Unique identifier of the content asset.
    * @return customerKey
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "Unique identifier of the content asset.")
   public String getCustomerKey() {
     return customerKey;

@@ -24,6 +24,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * GetQueueMetricsForSendDefinitionResponse
@@ -66,6 +68,7 @@ public class GetQueueMetricsForSendDefinitionResponse {
    * Number of pages
    * @return count
   **/
+  @Valid
   @ApiModelProperty(value = "Number of pages")
   public BigDecimal getCount() {
     return count;
@@ -84,6 +87,7 @@ public class GetQueueMetricsForSendDefinitionResponse {
    * Number of seconds
    * @return ageSeconds
   **/
+  @Valid
   @ApiModelProperty(value = "Number of seconds")
   public BigDecimal getAgeSeconds() {
     return ageSeconds;

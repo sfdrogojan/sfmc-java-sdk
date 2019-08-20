@@ -23,6 +23,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import javax.validation.constraints.*;
+import javax.validation.Valid;
 
 /**
  * CreateSmsDefinitionSubscriptions
@@ -50,6 +52,7 @@ public class CreateSmsDefinitionSubscriptions {
    * The short code for the mobile transmissions for each message on this definition.
    * @return shortCode
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "The short code for the mobile transmissions for each message on this definition.")
   public String getShortCode() {
     return shortCode;
@@ -68,6 +71,7 @@ public class CreateSmsDefinitionSubscriptions {
    * The country code associated with the shortCode for the mobile transmissions for each message on this definition.
    * @return countryCode
   **/
+  @NotNull
   @ApiModelProperty(required = true, value = "The country code associated with the shortCode for the mobile transmissions for each message on this definition.")
   public String getCountryCode() {
     return countryCode;

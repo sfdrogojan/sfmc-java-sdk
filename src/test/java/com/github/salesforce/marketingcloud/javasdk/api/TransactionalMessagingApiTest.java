@@ -41,7 +41,6 @@ import static org.junit.Assert.*;
 /**
  * API tests for TransactionalMessagingApi
  */
-@Ignore
 public class TransactionalMessagingApiTest //extends ApiTest
 {
     public static final String JOHN_DOE_GMAIL_COM = "johnDoe@gmail.com";

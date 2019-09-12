@@ -38,24 +38,4 @@ public class RuntimeInformationProviderTest {
 
         assertTrue(result.contains("os.version="));
     }
-
-    @Test
-    public void shouldDefaultToNAWhenNotAccessibleDueToSecurity()
-    {
-        try {
-            System.setSecurityManager(new SecurityManager() {
-                @Override
-                public void checkPropertyAccess(String key) {
-                    throw new SecurityException("not allowed");
-                }
-            });
-
-            String result = runtimeInformationProvider.getForUserAgentString();
-
-            assertEquals("/NA", result);
-        }
-        finally {
-            System.setSecurityManager(null);
-        }
-    }
 }

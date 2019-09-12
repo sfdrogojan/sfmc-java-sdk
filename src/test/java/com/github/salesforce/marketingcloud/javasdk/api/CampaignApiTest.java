@@ -14,11 +14,13 @@
 package com.github.salesforce.marketingcloud.javasdk.api;
 
 import com.github.salesforce.marketingcloud.javasdk.ApiException;
+import com.github.salesforce.marketingcloud.javasdk.JSON;
 import com.github.salesforce.marketingcloud.javasdk.model.ApiError;
 
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import com.github.salesforce.marketingcloud.javasdk.model.Campaign;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.Ignore;
 
@@ -27,10 +29,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * API tests for CampaignApi
  */
-@Ignore
 public class CampaignApiTest //extends ApiTest
 {
     private final CampaignApi api;
@@ -49,10 +52,21 @@ public class CampaignApiTest //extends ApiTest
      */
     @Test
     public void createCampaignTest() throws ApiException {
-        Campaign body = null;
-        Campaign response = api.createCampaign(body);
+        Campaign campaign = createCampaign();
+        Campaign createCampaignResult = api.createCampaign(campaign);
 
-        // TODO: test validations
+        try
+        {
+            assertEquals(campaign.getName(), createCampaignResult.getName());
+            assertEquals(campaign.getDescription(), createCampaignResult.getDescription());
+            assertEquals(campaign.getCampaignCode(), createCampaignResult.getCampaignCode());
+            assertEquals(campaign.getColor(), createCampaignResult.getColor());
+            assertEquals(campaign.isFavorite(), createCampaignResult.isFavorite());
+        }
+        finally {
+            String createCampaignResultId = createCampaignResult.getId();
+            api.deleteCampaignById(createCampaignResultId);
+        }
     }
     
     /**
@@ -65,10 +79,22 @@ public class CampaignApiTest //extends ApiTest
      */
     @Test
     public void deleteCampaignByIdTest() throws ApiException {
-        String id = null;
-        api.deleteCampaignById(id);
+        Campaign campaign = createCampaign();
+        Campaign createCampaignResult = api.createCampaign(campaign);
 
-        // TODO: test validations
+        String campaignToDeleteId = createCampaignResult.getId();
+        api.deleteCampaignById(campaignToDeleteId);
+
+        try
+        {
+            api.getCampaignById(campaignToDeleteId);
+            Assert.fail("No exception thrown");
+        }
+        catch (ApiException e){
+            assertEquals(400, e.getCode());
+            ApiError apiError = new JSON().deserialize(e.getResponseBody(), ApiError.class);
+            assertEquals("Campaign does not exist", apiError.getMessage());
+        }
     }
     
     /**
@@ -81,10 +107,40 @@ public class CampaignApiTest //extends ApiTest
      */
     @Test
     public void getCampaignByIdTest() throws ApiException {
-        String id = null;
-        Campaign response = api.getCampaignById(id);
+        Campaign campaign = createCampaign();
+        Campaign createCampaignResult = api.createCampaign(campaign);
+        String campaignToRetrieveId = createCampaignResult.getId();
 
-        // TODO: test validations
+        Campaign getCampaignResult = api .getCampaignById(campaignToRetrieveId);
+
+        try
+        {
+            assertEquals(campaign.getName(), getCampaignResult.getName());
+            assertEquals(campaign.getDescription(), getCampaignResult.getDescription());
+            assertEquals(campaign.getCampaignCode(), getCampaignResult.getCampaignCode());
+            assertEquals(campaign.getColor(), getCampaignResult.getColor());
+            assertEquals(campaign.isFavorite(), getCampaignResult.isFavorite());
+        }
+        finally {
+            api.deleteCampaignById(campaignToRetrieveId);
+        }
     }
-    
+
+    private Campaign createCampaign()
+    {
+        String name = "CampaignName";
+        String description = "CampaignDescription";
+        String campaignCode = "CampaignCode";
+        String color = "0000ff";
+        Boolean favorite = false;
+
+        Campaign campaign = new Campaign();
+        campaign.setName(name);
+        campaign.setDescription(description);
+        campaign.setCampaignCode(campaignCode);
+        campaign.setColor(color);
+        campaign.setFavorite(favorite);
+
+        return campaign;
+    }
 }

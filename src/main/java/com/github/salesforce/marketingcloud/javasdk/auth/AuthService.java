@@ -63,10 +63,7 @@ public class AuthService {
         jsonObject.addProperty("client_id", this.clientConfig.getClientId());
         jsonObject.addProperty("client_secret", this.clientConfig.getClientSecret());
         jsonObject.addProperty("grant_type", "client_credentials");
-        String accountId = this.clientConfig.getAccountId();
-        if (accountId != null && accountId.length() > 0) {
-            jsonObject.addProperty("account_id", accountId);
-        }
+        jsonObject.addProperty("account_id", this.clientConfig.getAccountId());
         String scope = this.clientConfig.getScope();
         if (scope != null && scope.length() > 0) {
             jsonObject.addProperty("scope", scope);
